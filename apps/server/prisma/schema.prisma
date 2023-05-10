@@ -20,35 +20,37 @@ model User {
   updatedAt     DateTime    @updatedAt
   favouriteList Product[]
   Favourite     Favourite[]
+  Cart          Cart[]
+  Payment       Payment[]
 }
 
 model Product {
-  id            Int         @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   name          String
   price         Int
+  size          String
+  images        String[]
   description   String
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  subCategory   SubCategory @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
-  subCategoryId Int
-  User          User?       @relation(fields: [userId], references: [id])
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  User          User?         @relation(fields: [userId], references: [id])
   userId        Int?
-  Favourite     Favourite?  @relation(fields: [favouriteId], references: [id])
+  Favourite     Favourite?    @relation(fields: [favouriteId], references: [id])
   favouriteId   Int?
-}
-
-model SubCategory {
-  id         Int       @id @default(autoincrement())
-  name       String
-  products   Product[]
-  Category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId Int?
+  Cart          Cart?         @relation(fields: [cartId], references: [id])
+  cartId        Int?
+  stockQuantity Int
+  featured      Boolean?
+  newArrivals   Boolean?
+  CartProduct   CartProduct[]
+  Category      Category      @relation(fields: [categoryId], references: [id])
+  categoryId    Int
 }
 
 model Category {
-  id          Int           @id @default(autoincrement())
-  name        String
-  subCategory SubCategory[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
 }
 
 model Favourite {
@@ -59,3 +61,36 @@ model Favourite {
   products Product[]
 }
 
+model Cart {
+  id          Int           @id @default(autoincrement())
+  product     Product[]
+  user        User          @relation(fields: [userId], references: [id])
+  userId      Int
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  ammount     Float
+  payment     Payment       @relation(fields: [paymentId], references: [id])
+  paymentId   Int
+  CartProduct CartProduct[]
+}
+
+model CartProduct {
+  id        Int     @id @default(autoincrement())
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  cartId    Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  quantity  Int
+}
+
+model Payment {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  amount      Float
+  credentials Json
+  paymentDate DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Cart        Cart[]
+}
