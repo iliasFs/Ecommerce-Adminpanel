@@ -58,3 +58,4 @@ model Favourite {
   userId   Int
   products Product[]
 }
+
