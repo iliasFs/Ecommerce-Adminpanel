@@ -19,37 +19,37 @@ model User {
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
   favouriteList Product[]
-  Favourite     Favourite[]
-  Cart          Cart[]
-  Payment       Payment[]
+  favourite     Favourite[]
+  cart          Cart[]
+  payment       Payment[]
 }
 
 model Product {
   id            Int           @id @default(autoincrement())
-  name          String
+  name          String @unique
   price         Int
   size          String
   images        String[]
   description   String
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
-  User          User?         @relation(fields: [userId], references: [id])
+  user          User?         @relation(fields: [userId], references: [id])
   userId        Int?
-  Favourite     Favourite?    @relation(fields: [favouriteId], references: [id])
+  favourite     Favourite?    @relation(fields: [favouriteId], references: [id])
   favouriteId   Int?
-  Cart          Cart?         @relation(fields: [cartId], references: [id])
+  cart          Cart?         @relation(fields: [cartId], references: [id])
   cartId        Int?
   stockQuantity Int
-  featured      Boolean?
-  newArrivals   Boolean?
-  CartProduct   CartProduct[]
-  Category      Category      @relation(fields: [categoryId], references: [id])
+  featured      Boolean
+  newArrivals   Boolean
+  cartProduct   CartProduct[]
+  category      Category     @relation(fields: [categoryId], references: [id])
   categoryId    Int
 }
 
 model Category {
   id       Int       @id @default(autoincrement())
-  name     String
+  name     String @unique
   products Product[]
 }
 
@@ -71,7 +71,7 @@ model Cart {
   ammount     Float
   payment     Payment       @relation(fields: [paymentId], references: [id])
   paymentId   Int
-  CartProduct CartProduct[]
+  cartProduct CartProduct[]
 }
 
 model CartProduct {
@@ -92,5 +92,5 @@ model Payment {
   paymentDate DateTime @default(now())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  Cart        Cart[]
+  cart        Cart[]
 }
