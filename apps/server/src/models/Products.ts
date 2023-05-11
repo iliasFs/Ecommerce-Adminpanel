@@ -1,6 +1,6 @@
-import { Cart, CartProduct, Category, Favourite, User } from '@prisma/client'
+import { Cart, CartProduct, Category, Favourite, User } from "@prisma/client";
 
-import prisma from '../lib/prisma'
+import prisma from "../lib/prisma";
 
 class Product {
   constructor(
@@ -62,7 +62,7 @@ class Product {
       include: {
         category: true,
       },
-    })
+    });
 
     return new Product(
       id,
@@ -74,7 +74,23 @@ class Product {
       stockQuantity,
       featured,
       newArrivals
-    )
+    );
+  }
+
+  static async findFeatured(): Promise<Product[]> {
+    return await prisma.product.findMany({
+      where: {
+        featured: true,
+      },
+    });
+  }
+
+  static async findNewArrivals(): Promise<Product[]> {
+    return await prisma.product.findMany({
+      where: {
+        newArrivals: true,
+      },
+    });
   }
 }
-export default Product
+export default Product;
