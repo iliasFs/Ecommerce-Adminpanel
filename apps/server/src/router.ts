@@ -8,8 +8,8 @@ import UserController from "./controllers/users.controller";
 router.post("/product", ProductController.createProduct);
 router.get("/product", ProductController.getAllProducts);
 router.get("/product/:id", ProductController.getProductById);
-router.get("/product/featured-products", ProductController.getFeaturedProducts);
-router.get("/product/new-arrivals", ProductController.getNewArrivals);
+router.get("/featured-products", ProductController.getFeaturedProducts);
+router.get("/new-arrivals", ProductController.getNewArrivals);
 
 router.put("/product/:productId", ProductController.updateProduct);
 router.delete("/product/:productId", ProductController.deleteProduct);

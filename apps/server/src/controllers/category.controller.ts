@@ -16,8 +16,8 @@ const CategoryController = {
     try {
       console.log(req.params);
       const { categoryname } = req.params;
-      const newCategory = await Category.get(categoryname);
-      res.status(201).json(newCategory);
+      const category = await Category.get(categoryname);
+      res.status(201).json(category);
     } catch (error) {
       next(error);
     }

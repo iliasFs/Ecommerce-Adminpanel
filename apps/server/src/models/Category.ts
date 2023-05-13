@@ -21,11 +21,14 @@ class Category {
       where: {
         name: categoryName,
       },
+      include: {
+        products: true,
+      },
     });
     if (!category) {
       throw new Error("Category not found");
     }
-    return new Category(category.id, category.name);
+    return category;
   }
   static async delete(id: number): Promise<Category | null> {
     const category = await prisma.category.delete({
