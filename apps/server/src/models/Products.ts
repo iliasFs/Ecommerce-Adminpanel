@@ -1,4 +1,11 @@
-import { Cart, CartProduct, Category, Favourite, User } from "@prisma/client";
+import {
+  Cart,
+  CartProduct,
+  Category,
+  Favourite,
+  Prisma,
+  User,
+} from "@prisma/client";
 
 import prisma from "../lib/prisma";
 
@@ -76,7 +83,7 @@ class Product {
       featured,
       newArrivals,
       category
-    )
+    );
   }
   static async getAllProducts(): Promise<Product[]> {
     return await prisma.product.findMany({
@@ -84,22 +91,20 @@ class Product {
         category: true,
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
-    })
+    });
   }
   // get single product
-  static async getProductsById(id: number): Promise<Product[]> {
-    return await prisma.product.findMany({
-      where: { id },
-      include: {
-        category: true,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-    })
+  static async getProductsById(productId: number) {
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      include: { category: true },
+    });
+
+    return product;
   }
+
   static async updateProduct(
     id: number,
     newProductName: string,
@@ -141,7 +146,7 @@ class Product {
       include: {
         category: true,
       },
-    })
+    });
     return new Product(
       id,
       name,
@@ -160,6 +165,9 @@ class Product {
       where: {
         featured: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }
 
@@ -168,12 +176,15 @@ class Product {
       where: {
         newArrivals: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }
   static async deleteProduct(id: number) {
     return await prisma.product.delete({
       where: { id },
-    })
+    });
   }
 }
 export default Product;

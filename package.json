@@ -5,7 +5,8 @@
     "dev": "yarn dev:docker && yarn turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev:docker": "docker-compose up -d"
+    "dev:docker": "docker-compose up -d",
+    "seed": "yarn prisma db seed"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
@@ -13,7 +14,7 @@
     "prettier": "^2.5.1",
     "turbo": "^1.9.3"
   },
-  "name": "Ecommerce-Adminpanel",
+  "name": "ecommerce_adminpanel",
   "packageManager": "yarn@1.22.19",
   "workspaces": [
     "apps/*",
