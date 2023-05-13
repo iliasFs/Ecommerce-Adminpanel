@@ -13,11 +13,11 @@ class Product {
     public stockQuantity: number,
     public featured: boolean,
     public newArrivals: boolean,
+    public category?: Partial<Category>,
     public user?: Partial<User>,
     public favourite?: Partial<Favourite>,
     public cart?: Partial<Cart>,
-    public cartProduct?: Partial<CartProduct>,
-    public category?: Partial<Category>
+    public cartProduct?: Partial<CartProduct>
   ) {}
 
   static async create(
@@ -41,6 +41,7 @@ class Product {
       stockQuantity,
       featured,
       newArrivals,
+      category,
     } = await prisma.product.create({
       data: {
         name: newProductName,
@@ -73,6 +74,83 @@ class Product {
       description,
       stockQuantity,
       featured,
+      newArrivals,
+      category
+    )
+  }
+  static async getAllProducts(): Promise<Product[]> {
+    return await prisma.product.findMany({
+      include: {
+        category: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+  }
+  // get single product
+  static async getProductsById(id: number): Promise<Product[]> {
+    return await prisma.product.findMany({
+      where: { id },
+      include: {
+        category: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+  }
+  static async updateProduct(
+    id: number,
+    newProductName: string,
+    newPrice: number,
+    newSize: string,
+    newImages: string[],
+    newDescription: string,
+    newStockQuantity: number,
+    newFeatured: boolean,
+    isNewArrival: boolean,
+    newCategory: string
+  ) {
+    const {
+      name,
+      price,
+      size,
+      images,
+      description,
+      stockQuantity,
+      featured,
+      newArrivals,
+    } = await prisma.product.update({
+      where: { id },
+      data: {
+        name: newProductName,
+        price: newPrice,
+        size: newSize,
+        images: newImages,
+        description: newDescription,
+        stockQuantity: newStockQuantity,
+        featured: newFeatured,
+        newArrivals: isNewArrival,
+        category: {
+          connect: {
+            name: newCategory,
+          },
+        },
+      },
+      include: {
+        category: true,
+      },
+    })
+    return new Product(
+      id,
+      name,
+      price,
+      size,
+      images,
+      description,
+      stockQuantity,
+      featured,
       newArrivals
     );
   }
@@ -91,6 +169,11 @@ class Product {
         newArrivals: true,
       },
     });
+  }
+  static async deleteProduct(id: number) {
+    return await prisma.product.delete({
+      where: { id },
+    })
   }
 }
 export default Product;
