@@ -47,6 +47,12 @@ class User {
     const { name, email, password, isAdmin } = user;
     return new User(id, name, email, "", isAdmin);
   }
+
+  static async delete(id: number) {
+    return await prisma.user.delete({
+      where: { id },
+    });
+  }
 }
 
 export default User;
