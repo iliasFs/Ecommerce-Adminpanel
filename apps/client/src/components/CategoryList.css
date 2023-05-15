@@ -1,0 +1,23 @@
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centra los productos horizontalmente */
+}
+
+.product {
+  width: 35%; /* Ajusta el tamaño de las columnas */
+  box-sizing: border-box;
+  padding: 10px;
+  border: solid;
+  border-color: black;
+  border-radius: 5px;
+}
+
+.product-image {
+  max-height: 250px; /* Ajusta el tamaño máximo de las imágenes */
+}
+
+.product-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}

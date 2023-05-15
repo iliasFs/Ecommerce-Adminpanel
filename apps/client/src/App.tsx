@@ -1,9 +1,9 @@
-import NavBar from "./components/NavBar";
+import CategoryPage from "./components/CategoryPage";
 
 function App() {
   return (
     <>
-      <NavBar />
+      <CategoryPage />
     </>
   );
 }

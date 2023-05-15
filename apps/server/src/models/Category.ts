@@ -22,7 +22,15 @@ class Category {
         name: categoryName,
       },
       include: {
-        products: true,
+        products: {
+          select: {
+            category: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
       },
     });
     if (!category) {
