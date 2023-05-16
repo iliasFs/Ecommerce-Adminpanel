@@ -23,7 +23,7 @@ class Category {
       },
       include: {
         products: {
-          select: {
+          include: {
             category: {
               select: {
                 name: true,

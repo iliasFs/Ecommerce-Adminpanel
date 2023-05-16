@@ -9,7 +9,7 @@ export interface IProduct {
   id: number;
   images: string[];
   name: string;
-  newArrivals: string[];
+  newArrivals: boolean;
   price: number;
   size: string;
   stockQuantity: number;
