@@ -36,7 +36,7 @@ async function seedData() {
         description: "Loose-fit round neck T-shirt",
         stockQuantity: 50,
         featured: true,
-        newArrivals: false,
+        newArrivals: true,
         categoryId: 2,
       },
       {
@@ -66,7 +66,7 @@ async function seedData() {
         description: "Loose-fit round neck T-shirt",
         stockQuantity: 100,
         featured: true,
-        newArrivals: false,
+        newArrivals: true,
         categoryId: 1,
       },
       {
@@ -81,7 +81,7 @@ async function seedData() {
         description: "Loose-fit round neck T-shirt",
         stockQuantity: 80,
         featured: true,
-        newArrivals: false,
+        newArrivals: true,
         categoryId: 1,
       },
 
@@ -110,7 +110,7 @@ async function seedData() {
         ],
         description: "Ribbed round neck (does not deform with use)",
         stockQuantity: 90,
-        featured: false,
+        featured: true,
         newArrivals: true,
         categoryId: 3,
       },
@@ -125,7 +125,7 @@ async function seedData() {
         description: "Ribbed round neck (does not deform with use)",
         stockQuantity: 120,
         featured: true,
-        newArrivals: false,
+        newArrivals: true,
         categoryId: 3,
       },
       {
@@ -138,8 +138,8 @@ async function seedData() {
         ],
         description: "Ribbed round neck (does not deform with use)",
         stockQuantity: 110,
-        featured: false,
-        newArrivals: false,
+        featured: true,
+        newArrivals: true,
         categoryId: 3,
       },
       {
