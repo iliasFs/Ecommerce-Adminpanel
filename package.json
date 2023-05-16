@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "yarn dev:docker && yarn turbo run dev",
+    "dev": "yarn dev:docker && yarn turbo run dev && yarn prisma db seed",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev:docker": "docker-compose up -d",
