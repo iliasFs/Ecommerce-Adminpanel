@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 const CategorySection = () => {
   return (
     <div className="flex flex-col items-center justify-center">
@@ -7,14 +8,14 @@ const CategorySection = () => {
           <img src="man.jpg" alt="Image" className="w-full" />
 
           <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded">
-            Men
+            <Link to="/category/men"> Men</Link>
           </button>
         </div>
         <div className="relative mr-2 max-w-[25%]">
           <img src="woman.jpg" alt="Image" className="w-full h-full" />
 
           <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded">
-            Women
+            <Link to="/category/women"> Women</Link>
           </button>
         </div>
         <div className="w-[100%] h-[100%] relative mr-2 max-w-[25%]">
@@ -25,12 +26,12 @@ const CategorySection = () => {
           />
 
           <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded">
-            Kids
+            <Link to="/category/kid"> Kids</Link>
           </button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CategorySection;
+export default CategorySection
