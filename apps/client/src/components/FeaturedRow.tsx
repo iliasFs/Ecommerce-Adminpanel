@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useShoppingCart } from "../contexts/CartContext";
-import { IProduct } from "../types";
 
 interface data {
   id: number;
@@ -15,7 +14,7 @@ interface data {
   newArrivals: boolean;
 }
 
-const FeaturedRow = ({ id }: IProduct) => {
+const FeaturedRow = () => {
   const [data, setData] = useState<data[]>([]);
   useEffect(() => {
     axios
