@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import "../index.css";
 
 interface IFormState {
+  email?: string;
   country: string;
   name: string;
   lastName: string;
@@ -13,6 +14,7 @@ interface IFormState {
 }
 type IAction = { type: "UPDATE_INPUT"; id: string; value: string };
 const initialState: IFormState = {
+  email: "",
   country: "",
   name: "",
   lastName: "",
@@ -40,6 +42,11 @@ const Checkout = () => {
     const { id, value } = e.target;
     dispatch({ type: "UPDATE_INPUT", id, value });
   };
+
+  function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    const { id, value } = e.target;
+    dispatch({ type: "UPDATE_INPUT", id, value });
+  }
 
   function handleShippingSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
@@ -87,6 +94,8 @@ const Checkout = () => {
             <button>Log in</button>
           </div>
           <input
+            onChange={handleEmailChange}
+            id="email"
             className="border border-black"
             type="text"
             placeholder="email"
