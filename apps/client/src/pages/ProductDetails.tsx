@@ -4,7 +4,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { Product } from '../../types/customTypes'
+import { Product } from '../types/customTypes'
 const ProductDetails: React.FC = () => {
   const [product, setProduct] = useState([])
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)

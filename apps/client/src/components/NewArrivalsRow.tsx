@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -25,14 +24,12 @@ const NewArrivalsRow = () => {
       <h2 className="text-4xl font-bold pt-4">New Arrivals</h2>
       <div className="flex gap-5">
         {data.map((item, index) => (
-          <>
-            <div className="max-w-[120px] my-8">
-              <h1>{item?.name}</h1>
-              <div>
-                <img src={item.images[index]} alt="" />
-              </div>
+          <div key={`New-Arrivals-${item.id}`} className="max-w-[120px] my-8">
+            <h1>{item?.name}</h1>
+            <div>
+              <img src={item.images[index]} alt="" />
             </div>
-          </>
+          </div>
         ))}
       </div>
     </div>

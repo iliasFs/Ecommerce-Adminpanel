@@ -21,6 +21,10 @@ type CartItem = {
 };
 
 type CartContext = {
+  openCart: () => void;
+  closeCart: () => void;
+  cartQuantity: number;
+  cartItems: CartItem[];
   getItemQuantity: (id: number) => number;
   increaseCartQuantity: (id: number) => void; //adding to the cart also
   decreaseItemQuantity: (id: number) => void;
@@ -32,15 +36,24 @@ type CartContext = {
 
 //the value here is the most importand thing. This is what we want to extract form here and be avaialble to all of our routes.
 export function CartProvider({ children }: cartProviderProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
+  const cartQuantity = cartItems.reduce(
+    (quantity, item) => item.quantity + quantity,
+    0
+  );
+
+  const openCart = () => setIsOpen(true);
+  const closeCart = () => setIsOpen(false);
   function getItemQuantity(id: number) {
-    return cartItems.find((item) => item.id === id)?.quantity || 0; 
+    return cartItems.find((item) => item.id === id)?.quantity || 0;
   }
 
   function increaseCartQuantity(id: number) {
+    console.log(id);
     setCartItems((currItems) => {
-      if (currItems.find((item) => item.id === id) == null) {  
+      if (currItems.find((item) => item.id === id) == undefined) {
         return [...currItems, { id, quantity: 1 }];
       } else {
         return currItems.map((item) => {
@@ -82,6 +95,10 @@ export function CartProvider({ children }: cartProviderProps) {
         increaseCartQuantity,
         decreaseItemQuantity,
         removeFromCart,
+        openCart,
+        closeCart,
+        cartItems,
+        cartQuantity,
       }}
     >
       {children}
