@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import "../index.css";
+import { Link } from "react-router-dom";
 
 interface IFormState {
   email?: string;
@@ -474,9 +475,12 @@ const Checkout = () => {
             </span>
           </p>
         </div>
-        <button type="submit" className="bg-black text-white border-black">
-          CONTINUE TO SHIPPING
-        </button>
+
+        <Link state={state} to={"/payment"}>
+          <button type="submit" className="bg-black text-white border-black">
+            CONTINUE TO SHIPPING
+          </button>
+        </Link>
       </form>
     </div>
   );
