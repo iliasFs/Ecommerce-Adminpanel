@@ -404,18 +404,7 @@ const Checkout = () => {
             <option value="Zimbabwe">Zimbabwe</option>
           </select>
         </div>
-        <div className="flex">
-          <input type="text" placeholder="First Name" />
-          <input type="text" placeholder="Last Name" />
-        </div>
-        <input type="text" placeholder="Street and house number" />
-        <input type="text" placeholder="Additional address (optional)" />
-        <div className="flex">
-          <input type="text" placeholder="Postal code" />
-          <input type="text" placeholder="City" />
-        </div>
         <div className="flex gap-3">
-          <input type="text" placeholder="Phone" />
           <input
             value={state.name}
             id="name"
