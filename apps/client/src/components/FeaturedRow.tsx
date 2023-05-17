@@ -1,23 +1,21 @@
-
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useShoppingCart } from "../contexts/CartContext";
-import { Product } from "../types/customTypes";
+import { IProduct } from "../types";
 
 interface data {
-  id: number
-  name: string
-  price: number
-  size: string
-  images: string[]
-  description: string
-  stockQuantity: number
-  featured: boolean
-  newArrivals: boolean
+  id: number;
+  name: string;
+  price: number;
+  size: string;
+  images: string[];
+  description: string;
+  stockQuantity: number;
+  featured: boolean;
+  newArrivals: boolean;
 }
 
-
-const FeaturedRow = ({ id }: Product) => {
+const FeaturedRow = ({ id }: IProduct) => {
   const [data, setData] = useState<data[]>([]);
   useEffect(() => {
     axios
@@ -30,7 +28,6 @@ const FeaturedRow = ({ id }: Product) => {
     increaseCartQuantity,
     decreaseItemQuantity,
     removeFromCart,
-    
   } = useShoppingCart();
 
   return (
@@ -38,7 +35,6 @@ const FeaturedRow = ({ id }: Product) => {
       <h2 className="text-4xl font-bold pt-4">Featured</h2>
       <div className="flex gap-5">
         {data.map((item, index) => (
-
           <div className="max-w-[120px] my-8" key={`featured-row-${item.id}`}>
             <h1>{item?.name}</h1>
             <h3>{getItemQuantity(item.id)}</h3>
@@ -56,14 +52,12 @@ const FeaturedRow = ({ id }: Product) => {
               >
                 Remove From Cart
               </button>
-
-
             </div>
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FeaturedRow
+export default FeaturedRow;

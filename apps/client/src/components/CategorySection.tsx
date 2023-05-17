@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 const CategorySection = () => {
   return (
     <div className="flex flex-col items-center justify-center">
@@ -26,12 +26,12 @@ const CategorySection = () => {
           />
 
           <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded">
-            <Link to="/category/kid"> Kids</Link>
+            <Link to="/category/kids"> Kids</Link>
           </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CategorySection
+export default CategorySection;
