@@ -3,9 +3,17 @@ import { useEffect, useState } from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-
 import { IProduct } from '../types'
 import { useParams } from 'react-router-dom'
+
+import { Product } from '../types/customTypes'
+const ProductDetails: React.FC = () => {
+  const [product, setProduct] = useState([])
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const fetchProducts = async () => {
+    const res = await axios.get('http://localhost:8002/product/5')
+
+
 
 const ProductDetails: React.FC = () => {
   const [product, setProduct] = useState<IProduct | null>(null)
@@ -60,7 +68,11 @@ const ProductDetails: React.FC = () => {
 
   return (
     <main className="h-full w-full p-8 bg-blue-950 text-white">
+
+      {Object.keys(product).length !== 0 && (
+
       {product !== null && (
+
         <>
           <section className="w-full h-[60%] flex flex-col md:flex-row justify-between  mb-4">
             <div className="">
