@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+.border-text {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.439);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.section__padding {
+  padding: 1.5rem 2.5rem;
+}
+
+.section__margin {
+  margin: 2rem 3rem;
+}
 .slick-slider {
   position: relative;
   display: block;
@@ -73,7 +95,7 @@
 }
 
 .slick-dots li button:before {
-  content: '•';
+  content: "•";
   position: absolute;
   top: 0;
   left: 0;

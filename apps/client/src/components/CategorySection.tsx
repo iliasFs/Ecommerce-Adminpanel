@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 const CategorySection = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center mb-4">
       <h2 className="text-4xl font-bold pt-4">For the Family</h2>
       <div className="flex items-center justify-center p-4 m-2">
         <div className="relative mr-2 max-w-[25%]">
