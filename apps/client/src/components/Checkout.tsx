@@ -1,12 +1,66 @@
+import { useReducer } from "react";
 import "../index.css";
+
+interface IFormState {
+  country: string;
+  name: string;
+  lastName: string;
+  street: string;
+  additional: string;
+  postal: string;
+  city: string;
+  phone: string;
+}
+type IAction = { type: "UPDATE_INPUT"; id: string; value: string };
+const initialState: IFormState = {
+  country: "",
+  name: "",
+  lastName: "",
+  street: "",
+  additional: "",
+  postal: "",
+  city: "",
+  phone: "",
+};
+
+const reducer = (state: IFormState, action: IAction): IFormState => {
+  switch (action.type) {
+    case "UPDATE_INPUT":
+      return { ...state, [action.id]: action.value };
+    default:
+      return state;
+  }
+};
 const Checkout = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleShippingChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ): void => {
+    const { id, value } = e.target;
+    dispatch({ type: "UPDATE_INPUT", id, value });
+  };
+
+  function handleShippingSubmit(e: React.FormEvent<HTMLFormElement>): void {
+    e.preventDefault();
+    console.log("Valores del formulario:", state);
+    dispatch({ type: "UPDATE_INPUT", id: "country", value: "" });
+    dispatch({ type: "UPDATE_INPUT", id: "name", value: "" });
+    dispatch({ type: "UPDATE_INPUT", id: "lastName", value: "" });
+    dispatch({ type: "UPDATE_INPUT", id: "street", value: "" });
+    dispatch({ type: "UPDATE_INPUT", id: "additional", value: "" });
+    dispatch({ type: "UPDATE_INPUT", id: "postal", value: "" });
+    dispatch({ type: "UPDATE_INPUT", id: "city", value: "" });
+    dispatch({ type: "UPDATE_INPUT", id: "phone", value: "" });
+  }
+
   return (
     <div className="checkout-container ">
       <div>
         <h1>LOGO</h1>
       </div>
       <h2>express checkout</h2>
-      <div className="flex gap-3 checkout">
+      <div className="flex gap-3 express-payment checkout">
         <button>shop pay</button>
         <button>paypal</button>
       </div>
@@ -25,30 +79,35 @@ const Checkout = () => {
           alt=""
         />
       </div>
-      <form className="check-form" action="#">
-        <label>Contact Information</label>
-        <div className="flex items-center">
-          <p>Alredy have an account?</p>
-          <button>Log in</button>
+      <div>
+        <div className="check-form">
+          <label>Contact Information</label>
+          <div className="flex items-center">
+            <p>Alredy have an account?</p>
+            <button>Log in</button>
+          </div>
+          <input
+            className="border border-black"
+            type="text"
+            placeholder="email"
+          />
         </div>
-        <input
-          className="border border-black"
-          type="text"
-          placeholder="email"
-        />
-      </form>
-      <div className="flex gap-2 items-center">
-        <p className="">Email me with new offers</p>
-        <input type="checkbox" />
+        <div className="flex gap-2 items-center">
+          <p className="">Email me with new offers</p>
+          <input type="checkbox" />
+        </div>
       </div>
+
       <h2 className="pt-4">Shipping Adress</h2>
-      <form className="flex w-full flex-col ">
+      <form onSubmit={handleShippingSubmit} className="check-form  ">
         <div className="p-3  border-black">
           <label>Country/region</label>
-          <select id="country" name="country">
-            <option value="Select One" selected>
-              Select one
-            </option>
+          <select
+            value={state.country}
+            id="country"
+            onChange={handleShippingChange}
+          >
+            <option value="selected">Select one</option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Åland Islands">Åland Islands</option>
             <option value="Albania">Albania</option>
@@ -357,6 +416,59 @@ const Checkout = () => {
         </div>
         <div className="flex gap-3">
           <input type="text" placeholder="Phone" />
+          <input
+            value={state.name}
+            id="name"
+            onChange={handleShippingChange}
+            type="text"
+            placeholder="First Name"
+          />
+          <input
+            value={state.lastName}
+            id="lastName"
+            onChange={handleShippingChange}
+            type="text"
+            placeholder="Last Name"
+          />
+        </div>
+        <input
+          value={state.street}
+          id="street"
+          onChange={handleShippingChange}
+          type="text"
+          placeholder="Street and house number"
+        />
+        <input
+          value={state.additional}
+          onChange={handleShippingChange}
+          id="additional"
+          type="text"
+          placeholder="Additional address (optional)"
+        />
+        <div className="flex">
+          <input
+            value={state.postal}
+            onChange={handleShippingChange}
+            id="postal"
+            type="text"
+            placeholder="Postal code"
+          />
+          <input
+            value={state.city}
+            onChange={handleShippingChange}
+            id="city"
+            type="text"
+            placeholder="City"
+          />
+        </div>
+        <div className="flex gap-3">
+          <input
+            value={state.phone}
+            onChange={handleShippingChange}
+            id="phone"
+            type="text"
+            placeholder="Phone"
+          ></input>
           <p className="phone-input">
             {"?"}
             <span className="message">
@@ -364,7 +476,9 @@ const Checkout = () => {
             </span>
           </p>
         </div>
-        <button></button>
+        <button type="submit" className="bg-black text-white border-black">
+          CONTINUE TO SHIPPING
+        </button>
       </form>
     </div>
   );

@@ -1,24 +1,32 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-import { Product } from '../../types/customTypes'
+import { IProduct } from "../types";
+import { useParams } from "react-router-dom";
+
 const ProductDetails: React.FC = () => {
-  const [product, setProduct] = useState([])
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [product, setProduct] = useState<IProduct | null>(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  const params = useParams();
+  const BASE_URL = "http://localhost:8080/product";
   const fetchProducts = async () => {
-    const res = await axios.get('http://localhost:8002/product/5')
-    setProduct(res.data)
-  }
+    if (params.productId) {
+      const res = await axios.get(`${BASE_URL}/${params.productId}`);
+      setProduct(res.data);
+    } else {
+      return;
+    }
+  };
   useEffect(() => {
-    fetchProducts()
-  }, [])
-  console.log(product)
+    fetchProducts();
+  }, []);
   const handleSlideChange = (index: number) => {
-    setSelectedImageIndex(index)
-  }
+    setSelectedImageIndex(index);
+  };
 
   const settings = {
     dots: true,
@@ -50,11 +58,11 @@ const ProductDetails: React.FC = () => {
       },
     ],
     beforeChange: (current: number, next: number) => handleSlideChange(next),
-  }
+  };
 
   return (
     <main className="h-full w-full p-8 bg-blue-950 text-white">
-      {Object.keys(product).length !== 0 && (
+      {product !== null && (
         <>
           <section className="w-full h-[60%] flex flex-col md:flex-row justify-between  mb-4">
             <div className="">
@@ -127,7 +135,7 @@ const ProductDetails: React.FC = () => {
         </>
       )}
     </main>
-  )
-}
+  );
+};
 
-export default ProductDetails
+export default ProductDetails;

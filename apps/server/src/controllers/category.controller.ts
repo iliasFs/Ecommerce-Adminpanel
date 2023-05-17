@@ -14,7 +14,6 @@ const CategoryController = {
   },
   async findCategory(req: Request, res: Response, next: NextFunction) {
     try {
-      console.log(req.params);
       const { categoryname } = req.params;
       const category = await Category.get(categoryname);
       res.status(201).json(category);

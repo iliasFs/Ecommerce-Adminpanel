@@ -2,6 +2,7 @@ import HeroSection from "../components/HeroSection";
 import CategorySection from "../components/CategorySection";
 import FeaturedRow from "../components/FeaturedRow";
 import NewArrivalsRow from "../components/NewArrivalsRow";
+import ProductDetails from "./ProductDetails";
 
 const HomePage = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage = () => {
       <CategorySection />
       <FeaturedRow />
       <NewArrivalsRow />
+      <ProductDetails />
     </div>
   );
 };

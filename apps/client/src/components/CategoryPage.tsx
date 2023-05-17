@@ -3,10 +3,18 @@ import clientAPI from "../library/clientAPI";
 import { IProduct } from "../types";
 import "./CategoryList.css";
 import FilterModal from "./FilterModal";
-
-const endPoint = "kids";
+import { Link, useParams } from "react-router-dom";
 
 function CategoryPage() {
+  const params = useParams();
+  let currentParam = params.categoryName;
+  const endPoint =
+    currentParam === "men"
+      ? "men"
+      : currentParam === "women"
+      ? "women"
+      : "kids";
+
   const [categoryList, setCategoryList] = useState<IProduct[]>([]);
   const [minPrice, setMinPrice] = useState<number>(0);
 
@@ -65,9 +73,9 @@ function CategoryPage() {
       </div>
 
       <ul className="product-container ">
-        {categoryList.map((prod) => {
+        {categoryList.map((prod, index) => {
           return (
-            <li className="product" key={`product-${prod.id}`}>
+            <li className="product" key={index}>
               <img
                 className="product-image"
                 src={prod.images[0]}
@@ -78,24 +86,26 @@ function CategoryPage() {
                 <strong>{prod.name}</strong> - ${prod.price}
               </div>
               <div>
-                <button>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="feather feather-shopping-cart"
-                  >
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                  </svg>
-                </button>
+                <Link to={`/product/${prod.id}`}>
+                  <button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-shopping-cart"
+                    >
+                      <circle cx="9" cy="21" r="1"></circle>
+                      <circle cx="20" cy="21" r="1"></circle>
+                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                  </button>
+                </Link>
               </div>
             </li>
           );
