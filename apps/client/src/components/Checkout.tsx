@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import "../index.css";
 import { Link } from "react-router-dom";
 
@@ -25,7 +25,9 @@ const initialState: IFormState = {
   city: "",
   phone: "",
 };
+const summary = "show summary ∞ ";
 
+//REDUCER
 const reducer = (state: IFormState, action: IAction): IFormState => {
   switch (action.type) {
     case "UPDATE_INPUT":
@@ -34,21 +36,46 @@ const reducer = (state: IFormState, action: IAction): IFormState => {
       return state;
   }
 };
+
+//COMPONENT STARTS HERE
 const Checkout = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [showSummary, setShowSummary] = useState(false);
+  const [priceDiscount, setPriceDiscount] = useState<string>("");
+  const [discountInput, setDiscountInput] = useState("");
+  const [totalPrice, setTotalPrice] = useState("");
 
+  //CALCULATE TOTAL PRICE AND SET THE STATE USED IN USE EFFECT
+  function calculateTotalPRice() {
+    let totalPrice = 0;
+
+    for (const key in localStorage) {
+      if (localStorage.hasOwnProperty(key)) {
+        const item = JSON.parse(localStorage[key]);
+        const price = parseFloat(item.price);
+        totalPrice += price;
+      }
+    }
+    setTotalPrice(totalPrice.toString());
+  }
+  useEffect(() => {
+    calculateTotalPRice();
+  }, []);
+
+  //HANDLES CHANGE OF FORM INPUTS AND SET THE STATE
   const handleShippingChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ): void => {
     const { id, value } = e.target;
     dispatch({ type: "UPDATE_INPUT", id, value });
   };
+  //HANDLES CHANGE OF EMAIL INPUT AND SET THE STATE
 
   function handleEmailChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const { id, value } = e.target;
     dispatch({ type: "UPDATE_INPUT", id, value });
   }
-
+  //HANDLES PAGE SUBMIT AND RESET ALL INPUTS
   function handleShippingSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
     console.log("Valores del formulario:", state);
@@ -61,11 +88,111 @@ const Checkout = () => {
     dispatch({ type: "UPDATE_INPUT", id: "city", value: "" });
     dispatch({ type: "UPDATE_INPUT", id: "phone", value: "" });
   }
+  // THIS SHOULD BE DONE IN THE CART PAGE
+  // function storeFakeData() {
+  //   let i = 11;
+  //   while (i > 0) {
+  //     localStorage.setItem(
+  //       i.toString(),
+  //       JSON.stringify({
+  //         name: "Blue expensive T-shirt",
+  //         image: "http://www.w3.org/2000/svg",
+  //         description: "very expensive go out",
+  //         price: "65",
+  //         size: "M",
+  //         quantity: 3,
+  //       })
+  //     );
+  //     i--;
+  //   }
+  // }
+  // storeFakeData();
+  // console.log(localStorage);
+
+  function handleShowSummary(): void {
+    setShowSummary(!showSummary);
+  }
+  function handleDiscChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    setDiscountInput(e.target.value);
+  }
+
+  function handleDiscountSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (
+      discountInput === "max" ||
+      discountInput === "ilias" ||
+      discountInput === "agnes"
+    ) {
+      const newPrice = parseInt(totalPrice) - (15 / parseInt(totalPrice)) * 100;
+      setPriceDiscount(newPrice.toString());
+      setDiscountInput("");
+    }
+  }
 
   return (
     <div className="checkout-container ">
       <div>
         <h1>LOGO</h1>
+      </div>
+      <div className="flex cursor-pointer" onClick={handleShowSummary}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="feather feather-shopping-cart"
+        >
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <p>{showSummary ? "show summary" : "hide summary"}</p>
+        <p> * {totalPrice}</p>
+      </div>
+      <div>
+        {showSummary && (
+          <div>
+            {Object.keys(localStorage).map((key) => {
+              const prod = JSON.parse(localStorage[key]);
+              return (
+                <div key={key}>
+                  <div className="flex">
+                    <img src={prod.image} />
+                    <p>
+                      {prod.name} - {prod.description}
+                    </p>
+                    <p className="text-gray-200">{prod.size}</p>
+                  </div>
+                  <p>{prod.price}</p>
+                </div>
+              );
+            })}
+            <form onSubmit={handleDiscountSubmit}>
+              <input
+                value={discountInput}
+                onChange={handleDiscChange}
+                type="text"
+                placeholder="Gift card or discount code"
+              />
+              <button type="submit">APPLY</button>
+            </form>
+            <div>
+              <div className="flex gap-72">
+                <p>Subtotal</p>
+                <p>{totalPrice}</p>
+              </div>
+              <div className="flex gap-80">
+                <h1>Total</h1>
+                <p>{priceDiscount !== "" ? priceDiscount : totalPrice}</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <h2>express checkout</h2>
       <div className="flex gap-3 express-payment checkout">
@@ -98,7 +225,7 @@ const Checkout = () => {
             onChange={handleEmailChange}
             id="email"
             className="border border-black"
-            type="text"
+            type="email"
             placeholder="email"
           />
         </div>
