@@ -1,34 +1,54 @@
 import { Link } from "react-router-dom";
 const CategorySection = () => {
   return (
-    <div className="flex flex-col items-center justify-center mb-4">
-      <h2 className="text-4xl font-bold pt-4">For the Family</h2>
-      <div className="flex items-center justify-center p-4 m-2">
-        <div className="relative mr-2 max-w-[25%]">
-          <img src="man.jpg" alt="Image" className="w-full" />
-
-          <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded">
-            <Link to="/category/men"> Men</Link>
-          </button>
-        </div>
-        <div className="relative mr-2 max-w-[25%]">
-          <img src="woman.jpg" alt="Image" className="w-full h-full" />
-
-          <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded">
-            <Link to="/category/women"> Women</Link>
-          </button>
-        </div>
-        <div className="w-[100%] h-[100%] relative mr-2 max-w-[25%]">
-          <img
-            src="kid.jpg"
-            alt="Image"
-            className="w-[100%] h-[100%] object-cover "
-          />
-
-          <button className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-2 rounded">
-            <Link to="/category/kids"> Kids</Link>
-          </button>
-        </div>
+    <div className="w-full h-full section__padding section__margin flex flex-col gap-20 items-center justify-center">
+      <h1 className="font-bold text-5xl text-center">Picks For Everyone</h1>
+      <div className="w-full flex items-center justify-around flex-wrap gap-5">
+        <Link
+          to="/category/women"
+          className="shadow-xl hover:shadow-2xl rounded-xl cursor-pointer"
+        >
+          <div className="w-full h-full flex flex-col justify-center items-center gap-5">
+            <img
+              className="w-[360px] h-[292px] rounded-t-xl object-cover"
+              src="../../public/figma/women.png"
+              alt=""
+            />
+          </div>
+          <div className="w-[360px] h-[68px] rounded-b-xl border-b border-l border-r flex items-center justify-start">
+            <h2 className="pl-[20px] text-[20px] font-bold">Women</h2>
+          </div>
+        </Link>
+        <Link
+          to="/category/men"
+          className="shadow-xl hover:shadow-2xl rounded-xl cursor-pointer"
+        >
+          <div>
+            <img
+              className="w-[360px] h-[292px] rounded-t-xl object-cover"
+              src="../../public/figma/men.jpg"
+              alt=""
+            />
+          </div>
+          <div className="w-[360px] h-[68px] rounded-b-xl border-b border-l border-r flex items-center justify-start">
+            <h2 className="pl-[20px] text-[20px] font-bold">Men</h2>
+          </div>
+        </Link>
+        <Link
+          to="/category/kids"
+          className="shadow-xl hover:shadow-2xl rounded-xl cursor-pointer"
+        >
+          <div>
+            <img
+              className="w-[360px] h-[292px] rounded-t-xl object-cover"
+              src="../../public/figma/kid.jpg"
+              alt=""
+            />
+          </div>
+          <div className="w-[360px] h-[68px] rounded-b-xl border-b border-l border-r flex items-center justify-start">
+            <h2 className="pl-[20px] text-[20px] font-bold">Kids</h2>
+          </div>
+        </Link>
       </div>
     </div>
   );
