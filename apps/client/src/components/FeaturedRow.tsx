@@ -39,7 +39,7 @@ const FeaturedRow = ({ id }: IProduct) => {
             <h1>{item?.name}</h1>
             <h3>{getItemQuantity(item.id)}</h3>
             <div>
-              <img src={item.images[index]} alt="" />
+              <img src={item.images[0]} alt="" />
               <button
                 onClick={() => increaseCartQuantity(item.id)}
                 className="border border-black m-2 px-1 py-2 bg-black text-white font-bold "

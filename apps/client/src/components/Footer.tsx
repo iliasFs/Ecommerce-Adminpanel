@@ -5,8 +5,8 @@ import { AiOutlineGithub } from "react-icons/ai";
 
 const Footer = () => {
   return (
-    <div className=" section__padding section__margin flex flex-col items-start lg:flex-row  w-full gap-5">
-      <div className="flex flex-col flex-[1] gap-10 text-gray-500 items-start lg:pl-[130px]">
+    <div className="max-w-[1350px] m-auto my-[4rem] section__padding flex flex-col items-start lg:flex-row  w-full gap-5">
+      <div className="flex flex-col flex-[1] gap-10 text-gray-500 items-start lg:w-[80%]">
         <img
           className="w-[25px] h-[25px]"
           src="../../public/figma/Mark.svg"
@@ -98,7 +98,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="flex flex-col flex-1 max-w-[160px]">
+        <div className="flex flex-col flex-1 max-w-[100px]">
           <h3>Legal</h3>
           <ul className="text-gray-500 flex flex-col gap-4 mt-6">
             <li>

@@ -23,7 +23,7 @@ const HeroSection = () => {
           alt=""
         />
       </div>
-      <div className="absolute shrink-0 grow-0 w-[80%] h-[230px] bg-gray-600 left-[42px] top-[640px] rounded-lg sm:hidden ">
+      <div className="absolute shrink-0 grow-0 w-[80%] h-[230px] bg-gray-600 left-[42px] top-[590px] rounded-lg sm:hidden ">
         <img
           className="w-full h-full object-cover rounded-lg"
           src="../../public/figma/hero.png"

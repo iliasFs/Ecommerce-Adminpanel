@@ -18,7 +18,12 @@ export default {
       // => @media (min-width: 1536px) { ... }
     },
     fontFamily: { sans: ["Inter", "sans-serif"] },
-    extend: {},
+    extend: {
+      translate: {
+        0: "0",
+        full: "100%",
+      },
+    },
   },
   plugins: [],
 };
