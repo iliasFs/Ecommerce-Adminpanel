@@ -16,28 +16,36 @@ type cartProviderProps = {
 }
 
 type CartItem = {
-  id: number //we have the id so we have all the information
-  quantity: number
-}
+
+  id: number; //we have the id so we have all the information
+  quantity: number;
+  
+};
 
 type CartContext = {
-  openCart: () => void
-  closeCart: () => void
-  cartQuantity: number
-  cartItems: CartItem[]
-  getItemQuantity: (id: number) => number
-  increaseCartQuantity: (id: number) => void //adding to the cart also
-  decreaseItemQuantity: (id: number) => void
-  removeFromCart: (id: number) => void
-}
+  openCart: () => void;
+  closeCart: () => void;
+  cartQuantity: number;
+  cartItems: CartItem[];
+  getItemQuantity: (id: number) => number;
+  increaseCartQuantity: (id: number) => void; //adding to the cart also
+  decreaseItemQuantity: (id: number) => void;
+  removeFromCart: (id: number) => void;
+  blurApplied: boolean;
+  setBlurApplied: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 
 // Creating a cartProvider component that takes in 'children' as props and wraps them in the CartContext.Provider -->app.tsx
 // providing an empty object as the value for the CartContext.
 
 //the value here is the most importand thing. This is what we want to extract form here and be avaialble to all of our routes.
 export function CartProvider({ children }: cartProviderProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [blurApplied, setBlurApplied] = useState<boolean>(false);
+
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
@@ -99,6 +107,8 @@ export function CartProvider({ children }: cartProviderProps) {
         closeCart,
         cartItems,
         cartQuantity,
+        blurApplied,
+        setBlurApplied,
       }}
     >
       {children}

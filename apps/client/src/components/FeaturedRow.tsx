@@ -76,6 +76,7 @@ const FeaturedRow = ({ id }: IProduct) => {
           <div className="my-2 w-full" key={`featured-row-${item.id}`}>
             <h1>{`${item?.name.slice(0, 30)}...`}</h1>
             <h3>{getItemQuantity(item.id)}</h3>
+
             <div className="relative mb-40" style={{ height: '250px' }}>
               <Slider {...settings}>
                 {item.images.map((image, index) => (

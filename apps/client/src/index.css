@@ -2,10 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-.custom-arrow::before {
-  color: black !important; /* Change the arrow color here */
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  margin: 0 auto;
 }
+
+.border-text {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.439);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.section__padding {
+  padding: 1.5rem 4rem;
+}
+
+.section__margin {
+  margin: 4rem 0rem;
+}
+
 .image-overlay {
+
   position: absolute;
   top: 0;
   left: 0;
