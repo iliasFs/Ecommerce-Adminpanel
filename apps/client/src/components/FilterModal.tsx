@@ -1,26 +1,25 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 interface filterProps {
-  handleFilterClick: (filterBy: string, price?: number) => Promise<void>;
+  handleFilterClick: (filterBy: string, price?: number) => Promise<void>
 }
 
 const FilterModal: React.FC<filterProps> = ({ handleFilterClick }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true)
 
   function handleFilterModal() {
-    setShowModal(!showModal);
+    setShowModal(!showModal)
   }
 
   return (
-    <div>
-      <button onClick={handleFilterModal}>Open Modal</button>
+    <div className="mt-4 ">
       {showModal && (
-        <div className="absolute w-40 inset-0 bg-red-500">
-          <ul>
+        <div className="">
+          <ul className="flex flex-col gap-8">
             <li>
               <button
                 onClick={(e) => {
-                  e.preventDefault;
-                  handleFilterClick("All");
+                  e.preventDefault
+                  handleFilterClick('All')
                 }}
               >
                 All
@@ -29,8 +28,8 @@ const FilterModal: React.FC<filterProps> = ({ handleFilterClick }) => {
             <li>
               <button
                 onClick={(e) => {
-                  e.preventDefault;
-                  handleFilterClick("Featured");
+                  e.preventDefault
+                  handleFilterClick('Featured')
                 }}
               >
                 Featured
@@ -39,8 +38,8 @@ const FilterModal: React.FC<filterProps> = ({ handleFilterClick }) => {
             <li>
               <button
                 onClick={(e) => {
-                  e.preventDefault;
-                  handleFilterClick("New Arraivals");
+                  e.preventDefault
+                  handleFilterClick('New Arraivals')
                 }}
               >
                 New Arraivals
@@ -51,9 +50,9 @@ const FilterModal: React.FC<filterProps> = ({ handleFilterClick }) => {
                 name="select"
                 id="lang"
                 onChange={(e) => {
-                  e.preventDefault;
-                  e.target.value;
-                  handleFilterClick(e.target.value);
+                  e.preventDefault
+                  e.target.value
+                  handleFilterClick(e.target.value)
                 }}
               >
                 <option value="selected">Price</option>
@@ -63,10 +62,9 @@ const FilterModal: React.FC<filterProps> = ({ handleFilterClick }) => {
               </select>
             </li>
           </ul>
-          <button onClick={handleFilterModal}>Close</button>
         </div>
       )}
     </div>
-  );
-};
-export default FilterModal;
+  )
+}
+export default FilterModal
