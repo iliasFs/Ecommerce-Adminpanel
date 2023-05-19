@@ -1,32 +1,68 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
-import { IProduct } from "../types";
-import { useParams } from "react-router-dom";
+import { IProduct } from '../types'
+import { useShoppingCart } from '../contexts/CartContext'
 
 const ProductDetails: React.FC = () => {
-  const [product, setProduct] = useState<IProduct | null>(null);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [product, setProduct] = useState<IProduct | null>(null)
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
 
-  const params = useParams();
-  const BASE_URL = "http://localhost:8080/product";
+  const [selectedSize, setSelectedSize] = useState<string | null>(null)
+  const { increaseCartQuantity } = useShoppingCart()
+
+  const handleSizeClick = (size: string) => {
+    setSelectedSize((prevSize) => (prevSize === size ? null : size))
+  }
+
+  const params = useParams()
+  const BASE_URL = 'http://localhost:8080/product'
   const fetchProducts = async () => {
     if (params.productId) {
-      const res = await axios.get(`${BASE_URL}/${params.productId}`);
-      setProduct(res.data);
+      const res = await axios.get(`${BASE_URL}/${params.productId}`)
+      setProduct(res.data)
     } else {
-      return;
+      return
     }
-  };
+  }
+
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    fetchProducts()
+  }, [])
+
   const handleSlideChange = (index: number) => {
-    setSelectedImageIndex(index);
-  };
+    setSelectedImageIndex(index)
+  }
+
+  const CustomPrevArrow = (props: any) => (
+    <div
+      className="slick-prev custom-arrow"
+      style={{
+        ...props.style,
+        display: 'block',
+        left: '0',
+        zIndex: 1,
+      }}
+      onClick={props.onClick}
+    />
+  )
+
+  const CustomNextArrow = (props: any) => (
+    <div
+      className="slick-next custom-arrow"
+      style={{
+        ...props.style,
+        display: 'block',
+        right: '0',
+        zIndex: 1,
+      }}
+      onClick={props.onClick}
+    />
+  )
 
   const settings = {
     dots: true,
@@ -34,108 +70,96 @@ const ProductDetails: React.FC = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
     beforeChange: (current: number, next: number) => handleSlideChange(next),
-  };
+  }
 
   return (
-    <main className="h-full w-full p-8 bg-blue-950 text-white">
+    <main className="container mx-auto py-8">
       {product !== null && (
-        <>
-          <section className="w-full h-[60%] flex flex-col md:flex-row justify-between  mb-4">
-            <div className="">
-              <img
-                src={product.images[selectedImageIndex]}
-                alt={`Product Image ${selectedImageIndex + 1}`}
-                className="rounded"
-              />
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 md:col-span-6 lg:col-span-7">
+            <Slider {...settings} className="mb-4">
+              {product.images.map((image, index) => (
+                <div key={index} className="">
+                  <img
+                    src={image}
+                    alt={`Product Image ${index + 1}`}
+                    className="object-cover w-full h-full rounded"
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
+          <div className="col-span-12 md:col-span-6 lg:col-span-5 p-4">
+            <h1 className="text-3xl font-semibold mb-4">{product.name}</h1>
+            <p className="text-gray-700 mb-4">{product.description}</p>
+            <div className="flex items-center mb-4">
+              <span className="text-2xl text-red-600 font-bold mr-2">
+                €{product.price}
+              </span>
+              {product.discountedPrice && (
+                <span className="text-gray-500 text-sm line-through">
+                  €{product.discountedPrice}
+                </span>
+              )}
             </div>
-            <aside>
-              <div className="flex justify-between">
-                <h1 className="text-4xl uppercase">{product.name}</h1>
-                <p>€{product.price}</p>
-              </div>
-              <p className="text-2xl mb-4">{product.description}</p>
-              <div className="flex flex-col gap-4 border p-8 mb-4 border-gray-400 ">
-                <div className="flex w-full justify-around">
-                  <div className="w-16 h-16 border border-gray-500 rounded-full flex justify-center items-center">
-                    <p className=" text-lg">S</p>
+            <div className="flex items-center mb-4">
+              <div className="flex items-center mr-4">
+                <span className="text-sm text-gray-500">Size:</span>
+                <div className="flex ml-2">
+                  <div
+                    className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                      selectedSize === 'S' ? 'bg-blue-950 text-white' : ''
+                    }`}
+                    onClick={() => handleSizeClick('S')}
+                  >
+                    <p className="text-sm">S</p>
                   </div>
-                  <div className="w-16 h-16 border border-gray-500 rounded-full flex justify-center items-center">
-                    <p className=" text-lg">XS</p>
+                  <div
+                    className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                      selectedSize === 'M' ? 'bg-blue-950 text-white' : ''
+                    }`}
+                    onClick={() => handleSizeClick('M')}
+                  >
+                    <p className="text-sm">M</p>
                   </div>
-                  <div className="w-16 h-16 border border-gray-500 rounded-full flex justify-center items-center">
-                    <p className=" text-lg">M</p>
+                  <div
+                    className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                      selectedSize === 'L' ? 'bg-blue-950 text-white' : ''
+                    }`}
+                    onClick={() => handleSizeClick('L')}
+                  >
+                    <p className="text-sm">L</p>
                   </div>
                 </div>
-                <div className="flex w-full justify-around gap-4 mb-4">
-                  <div className="w-16 h-16 border border-gray-500 rounded-full flex justify-center items-center">
-                    <p className=" text-lg">L</p>
-                  </div>
-                  <div className="w-16 h-16 border border-gray-500 rounded-full flex justify-center items-center">
-                    <p className=" text-lg">XL</p>
-                  </div>
-                  <div className="w-16 h-16 border border-gray-500 rounded-full flex justify-center items-center">
-                    <p className=" text-lg">XXL</p>
-                  </div>
+              </div>
+              <div className="flex items-center">
+                <span className="text-sm text-gray-500">Color:</span>
+                <div className="flex ml-2">
+                  <div className="w-6 h-6 rounded-full bg-red-500 mr-2"></div>
+                  <div className="w-6 h-6 rounded-full bg-blue-500 mr-2"></div>
+                  <div className="w-6 h-6 rounded-full bg-green-500 mr-2"></div>
                 </div>
               </div>
-              <button className="btn">Add to Cart</button>
-            </aside>
-          </section>
-
-          <Slider {...settings}>
-            <div>
-              <img src={product.images[0]} alt="Product Image 1" />
             </div>
-            <div>
-              <img src={product.images[0]} alt="Product Image 2" />
+            <div className="flex gap-4 mb-4">
+              <button
+                onClick={() => increaseCartQuantity(product.id)}
+                className="bg-blue-950 text-white py-2 px-4 rounded hover:bg-transparent hover:text-blue-950 hover:border border-blue-950 transition-colors duration-200"
+              >
+                Add to Cart
+              </button>
+              <button className="bg-blue-950 text-white py-2 px-4 rounded hover:bg-transparent hover:text-blue-950 hover:border border-blue-950 transition-colors duration-200">
+                <Link to="/">Back Home</Link>
+              </button>
             </div>
-            <div>
-              <img src={product.images[0]} alt="Product Image 3" />
-            </div>
-            <div>
-              <img src={product.images[0]} />
-            </div>
-            <div>
-              <img src={product.images[0]} />
-            </div>
-            <div>
-              <img src={product.images[0]} />
-            </div>
-            <div>
-              <img src={product.images[0]} />
-            </div>
-            <div>
-              <img src={product.images[0]} />
-            </div>
-          </Slider>
-        </>
+          </div>
+        </div>
       )}
     </main>
-  );
-};
+  )
+}
 
-export default ProductDetails;
+export default ProductDetails
