@@ -603,7 +603,7 @@ const Checkout = () => {
           </p>
         </div>
 
-        <Link state={state} to={"/payment"}>
+        <Link state={{ ...state, amount: totalPrice }} to={"/payment"}>
           <button type="submit" className="bg-black text-white border-black">
             CONTINUE TO SHIPPING
           </button>
