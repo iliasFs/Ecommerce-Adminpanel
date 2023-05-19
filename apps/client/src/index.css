@@ -2,96 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-.slick-slider {
-  position: relative;
-  display: block;
+
+body {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  user-select: none;
-  touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
+  font-family: "Inter", sans-serif;
+  margin: 0 auto;
 }
 
-.slick-list {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
+.border-text {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.439);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
-.slick-track {
-  position: relative;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+.section__padding {
+  padding: 1.5rem 4rem;
 }
 
-.slick-slide {
-  flex: 0 0 auto;
-  height: 100%;
-  outline: none;
+.section__margin {
+  margin: 4rem 0rem;
 }
 
-.slick-dots {
-  position: absolute;
-  bottom: -30px;
-
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  text-align: center;
-}
-
-.slick-dots li {
-  position: relative;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin: 0 5px;
-  padding: 0;
-  cursor: pointer;
-}
-
-.slick-dots li button {
-  font-size: 0;
-  line-height: 0;
-  display: block;
-  width: 20px;
-  height: 20px;
-  padding: 5px;
-  cursor: pointer;
-
+.image-overlay {
   border: 0;
   outline: none;
   background: transparent;
 }
 
-.slick-dots li button:before {
-  content: "•";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  font-size: 12px;
-  text-align: center;
-  opacity: 0.25;
-  color: #000;
+.image-overlay:hover {
+  opacity: 1;
+  transform: translateY(2%);
 }
 
-.slick-dots li.slick-active button:before {
-  opacity: 0.75;
-  color: red;
-}
-
-/* Slider arrow styles */
 
 /* CHECKOUT */
 .express-payment {
@@ -186,4 +132,5 @@
 .phone-input:hover .message {
   display: block;
 }
-/* ------------------------------------------- */
+
+
