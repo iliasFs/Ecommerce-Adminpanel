@@ -20,3 +20,15 @@ type ICategory = {
   id: number;
   name: string;
 };
+export interface IFormState {
+  email?: string;
+  country: string;
+  name: string;
+  lastName: string;
+  street: string;
+  additional: string;
+  postal: string;
+  city: string;
+  phone: string;
+  amount: string;
+}

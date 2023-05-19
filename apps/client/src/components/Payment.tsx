@@ -8,6 +8,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useState } from "react";
+import { IFormState } from "../types";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -16,11 +17,12 @@ const stripePromise = loadStripe(
 );
 
 const CheckoutForm = () => {
+  const location = useLocation();
+  const state = location.state as IFormState;
+
   const [error, setError] = useState<string | null>("");
   const stripe = useStripe();
   const elements = useElements();
-  let { state } = useLocation();
-  console.log("STATE", state);
 
   async function handlePayFormSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -47,7 +49,7 @@ const CheckoutForm = () => {
         const { id } = paymentMethod;
         await axios.post("http://localhost:8080/payment", {
           id,
-          amount: state.amount * 100,
+          amount: parseInt(state.amount) * 100,
         });
       }
     } catch (error: any) {
@@ -64,17 +66,24 @@ const CheckoutForm = () => {
   );
 };
 const Payment = () => {
+  const location = useLocation();
+  const state = location.state as IFormState;
+  console.log(state);
   return (
-    <div className="h-screen bg-red-100">
+    <div className="grid items-center justify-center  h-screen bg-red-100">
       <div className="flex flex-col">
         <div className="flex gap-52">
           <p>Contact</p>
-          <p>gmail</p>
+          <p>
+            {state.email}, {state.phone}
+          </p>
           <button className="font-bold">change</button>
         </div>
         <div className="flex gap-52">
           <p>Ship to</p>
-          <p>adress</p>
+          <p>
+            {state.street}, {state.postal}, {state.city}, {state.country}
+          </p>
           <button className="font-bold">change</button>
         </div>
       </div>
