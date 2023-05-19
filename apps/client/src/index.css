@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
   margin: 0;
   padding: 0;
@@ -25,93 +26,20 @@ body {
 .section__margin {
   margin: 4rem 0rem;
 }
-.slick-slider {
-  position: relative;
-  display: block;
-  box-sizing: border-box;
-  user-select: none;
-  touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
-}
 
-.slick-list {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
+.image-overlay {
 
-.slick-track {
-  position: relative;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.slick-slide {
-  flex: 0 0 auto;
-  height: 100%;
-  outline: none;
-}
-
-.slick-dots {
-  position: absolute;
-  bottom: -30px;
-
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  text-align: center;
-}
-
-.slick-dots li {
-  position: relative;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin: 0 5px;
-  padding: 0;
-  cursor: pointer;
-}
-
-.slick-dots li button {
-  font-size: 0;
-  line-height: 0;
-  display: block;
-  width: 20px;
-  height: 20px;
-  padding: 5px;
-  cursor: pointer;
-
-  border: 0;
-  outline: none;
-  background: transparent;
-}
-
-.slick-dots li button:before {
-  content: "•";
   position: absolute;
   top: 0;
   left: 0;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  font-size: 12px;
-  text-align: center;
-  opacity: 0.25;
-  color: #000;
+  width: 40%;
+  height: 40%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.slick-dots li.slick-active button:before {
-  opacity: 0.75;
-  color: red;
+.image-overlay:hover {
+  opacity: 1;
+  transform: translateY(2%);
 }
-
-/* Slider arrow styles */
