@@ -1,8 +1,10 @@
+
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import Slider from 'react-slick'
 import { useShoppingCart } from '../contexts/CartContext'
 import { IProduct } from '../types'
+
 
 interface data {
   id: number
@@ -15,6 +17,7 @@ interface data {
   featured: boolean
   newArrivals: boolean
 }
+
 
 const FeaturedRow = ({ id }: IProduct) => {
   const [data, setData] = useState<data[]>([])
