@@ -197,8 +197,6 @@ const Checkout = () => {
           </div>
         )}
       </div>
-
-      <h3 className="text-gray-400">OR CONTINUE TO PAY WITH CREDIT CARD</h3>
       <div className="flex p-3 gap-2">
         <img
           src="//cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/visa-319d545c6fd255c9aad5eeaad21fd6f7f7b4fdbdb1a35ce83b89cca12a187f00.svg"
@@ -213,14 +211,17 @@ const Checkout = () => {
           alt=""
         />
       </div>
+      <div className="check-form">
+        <label>Contact Information</label>
+        <div className="flex items-center">
+          <p>Alredy have an account?</p>
+          <button>Log in</button>
+        </div>
+      </div>
+
       <form onSubmit={handleShippingSubmit}>
         <div>
           <div className="check-form">
-            <label>Contact Information</label>
-            <div className="flex items-center">
-              <p>Alredy have an account?</p>
-              <button>Log in</button>
-            </div>
             <input
               onChange={handleEmailChange}
               id="email"
