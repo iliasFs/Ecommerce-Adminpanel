@@ -1,60 +1,64 @@
-import { useEffect, useState } from 'react'
-import clientAPI from '../library/clientAPI'
-import { IProduct } from '../types'
-import './CategoryList.css'
-import FilterModal from './FilterModal'
-import { Link, useParams } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import clientAPI from "../library/clientAPI";
+import { IProduct } from "../types";
+import "./CategoryList.css";
+import FilterModal from "./FilterModal";
+import { Link, useParams } from "react-router-dom";
 
 function CategoryPage() {
-  const params = useParams()
-  let currentParam = params.categoryName
+  const params = useParams();
+  let currentParam = params.categoryName;
   const endPoint =
-    currentParam === 'men' ? 'men' : currentParam === 'women' ? 'women' : 'kids'
+    currentParam === "men"
+      ? "men"
+      : currentParam === "women"
+      ? "women"
+      : "kids";
 
-  const [categoryList, setCategoryList] = useState<IProduct[]>([])
-  const [minPrice, setMinPrice] = useState<number>(0)
+  const [categoryList, setCategoryList] = useState<IProduct[]>([]);
+  const [minPrice, setMinPrice] = useState<number>(0);
 
   async function handlePriceChange(e: React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault()
-    setMinPrice(parseInt(e.target.value))
-    const res = await clientAPI.fetchCategory(endPoint)
+    e.preventDefault();
+    setMinPrice(parseInt(e.target.value));
+    const res = await clientAPI.fetchCategory(endPoint);
     const filtered = res.products.filter((prod) => {
-      return prod.price >= minPrice
-    })
-    setCategoryList(filtered)
+      return prod.price >= minPrice;
+    });
+    setCategoryList(filtered);
   }
 
   async function reloadRecipes() {
-    const res = await clientAPI.fetchCategory(endPoint)
+    const res = await clientAPI.fetchCategory(endPoint);
 
-    setCategoryList(res.products)
+    setCategoryList(res.products);
   }
   useEffect(() => {
-    reloadRecipes()
-  }, [])
+    reloadRecipes();
+  }, []);
 
   async function handleFilterClick(filterBy: string) {
-    const res = await clientAPI.fetchCategory(endPoint)
-    let filtered
-    if (filterBy === 'Desc') {
-      filtered = res.products.sort((a, b) => b.price - a.price)
-    } else if (filterBy === 'Asc') {
-      filtered = res.products.sort((a, b) => a.price - b.price)
+    const res = await clientAPI.fetchCategory(endPoint);
+    let filtered;
+    if (filterBy === "Desc") {
+      filtered = res.products.sort((a, b) => b.price - a.price);
+    } else if (filterBy === "Asc") {
+      filtered = res.products.sort((a, b) => a.price - b.price);
     } else {
       filtered = res.products.filter((prod) => {
-        if (filterBy === 'All') {
-          return true
+        if (filterBy === "All") {
+          return true;
         }
-        if (filterBy === 'Featured') {
-          return prod.featured === true
+        if (filterBy === "Featured") {
+          return prod.featured === true;
         }
-        if (filterBy === 'New Arraivals') {
-          return prod.newArrivals === true
+        if (filterBy === "New Arraivals") {
+          return prod.newArrivals === true;
         }
-      })
+      });
     }
     if (filtered) {
-      setCategoryList(filtered)
+      setCategoryList(filtered);
     }
   }
   return (
@@ -72,7 +76,7 @@ function CategoryPage() {
       <ul className=" pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ">
         {categoryList.map((prod, index) => {
           return (
-            <Link to={`/product/${prod.id}`} className="product">
+            <Link key={prod.id} to={`/product/${prod.id}`} className="product">
               <li key={index}>
                 <div className="max-w-[80%]">
                   <img className="" src={prod.images[0]} alt={prod.name} />
@@ -104,11 +108,11 @@ function CategoryPage() {
                 </div>
               </li>
             </Link>
-          )
+          );
         })}
       </ul>
     </main>
-  )
+  );
 }
 
-export default CategoryPage
+export default CategoryPage;
