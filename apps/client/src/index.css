@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   margin: 0;
   padding: 0;
@@ -37,7 +36,9 @@ body {
   opacity: 1;
   transform: translateY(2%);
 }
-
+.custom-arrow::before {
+  color: black !important;
+}
 
 /* CHECKOUT */
 .express-payment {
@@ -132,5 +133,3 @@ body {
 .phone-input:hover .message {
   display: block;
 }
-
-

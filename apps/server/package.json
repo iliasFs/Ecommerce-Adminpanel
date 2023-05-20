@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@prisma/client": "4.14.0",
+    "@stripe/ui-extension-sdk": "^8.6.0",
     "aws-sdk": "^2.1377.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
