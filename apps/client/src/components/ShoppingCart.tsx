@@ -1,6 +1,8 @@
 import { RiCloseLine } from "react-icons/ri";
 import { useShoppingCart } from "../contexts/CartContext";
 import CartItem from "./CartItem";
+import priceFormat from "../utilities/priceFormat";
+import { Link } from "react-router-dom";
 
 interface ShoppingCartProps {
   setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,17 +10,14 @@ interface ShoppingCartProps {
 }
 
 const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
-  const {
-    setBlurApplied,
-    cartItems,
-    decreaseItemQuantity,
-    increaseCartQuantity,
-  } = useShoppingCart();
+  const { setBlurApplied, cartItems } = useShoppingCart();
   const handleCloseCart = () => {
     setCartOpen((prev) => !prev);
     setBurgerHidden("");
     setBlurApplied(false);
   };
+  console.log(localStorage);
+
   return (
     <div className=" relative w-full h-full flex flex-col px-4 py-2 z-50">
       <div className="absolute w-[90%]">
@@ -36,24 +35,35 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
       </div>
       <div className="pt-4 flex flex-col gap-5">
         {cartItems.map((cartItem) => (
-          <CartItem />
+          <CartItem key={cartItem.id} {...cartItem} />
         ))}
       </div>
 
-      <div className="w-full h-full flex flex-col justify-end">
+      <div className="w-full h-full flex flex-col justify-end mb-4">
         <div className="flex justify-between items-center">
           <h2 className="font-bold">Subtotal</h2>
-          <h3>Price</h3>
+          <h3 className="font-bold">
+            {priceFormat(
+              cartItems.reduce((init, cartItem) => {
+                const total = init + cartItem.price * cartItem.quantity;
+                console.log(total);
+                return total;
+              }, 0)
+            )}
+          </h3>
         </div>
         <div className="flex justify-between items-center">
           <h2 className="font-bold">Shipping</h2>
-          <h3>Free</h3>
+          <h3 className="font-bold">Free</h3>
         </div>
       </div>
-      <div className="text-center">
-        <button className="mt-4 px-4 py-4 text-white font-bold rounded-md bg-[#1D3557]">
+      <div className="text-center mb-4">
+        <Link
+          to="/checkout"
+          className="mt-4 px-4 py-4 text-white font-bold rounded-md bg-[#1D3557]"
+        >
           PROCEED TO CHECKOUT
-        </button>
+        </Link>
       </div>
     </div>
   );

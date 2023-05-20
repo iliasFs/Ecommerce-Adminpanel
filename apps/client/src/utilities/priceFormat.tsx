@@ -6,11 +6,5 @@ const CURRENCY_FORMATTER = new Intl.NumberFormat(undefined, {
 });
 
 export default function priceFormat(price: number) {
-  return CURRENCY_FORMATTER.format(price);
+  return CURRENCY_FORMATTER.format(price).replace(/^(\D+)/, "$1 ");
 }
-
-
-1100 --> 1,100$
-
-
-
