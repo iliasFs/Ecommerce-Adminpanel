@@ -7,10 +7,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
-import { useState } from "react";
-import { IFormState } from "../types";
-import { Spinner } from "@stripe/ui-extension-sdk/ui";
-import { FaSpinner } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -19,15 +16,14 @@ const stripePromise = loadStripe(
 );
 
 const CheckoutForm = () => {
-  const location = useLocation();
-  const state = location.state as IFormState;
-
   const [error, setError] = useState<string | null>("");
   const [success, setSuccess] = useState<boolean>(false);
   const [spinner, setSpinner] = useState<boolean>(false);
 
   const stripe = useStripe();
   const elements = useElements();
+  const location = useLocation();
+  const itemsList = location.state;
 
   async function handlePayFormSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -54,7 +50,7 @@ const CheckoutForm = () => {
         const { id } = paymentMethod;
         const payment = await axios.post("http://localhost:8080/payment", {
           id,
-          amount: parseInt(state.amount) * 100,
+          amount: parseInt(itemsList.price) * 100,
         });
 
         if (payment) {
@@ -68,12 +64,12 @@ const CheckoutForm = () => {
     }
   }
   return (
-    <div className=" m-44">
+    <div className=" m-4">
       <div className=" section__margin w-full  flex flex-col gap-6 items-center py-4 border-b-[5px] border-[#1D3557] rounded-sm">
         <div className="flex border-gray-400 gap-52">
           <p className=" text-gray-400">Contact</p>
           <p className="text-black">
-            {state.email}, {state.phone}
+            {itemsList.email}, {itemsList.phone}
           </p>
           <Link
             className="font-bold text-black transition-colors duration-300 hover:text-blue-600"
@@ -85,7 +81,8 @@ const CheckoutForm = () => {
         <div className="flex gap-52">
           <p className="text-gray-400">Ship to</p>
           <p className="text-black">
-            {state.street}, {state.postal}, {state.city}, {state.country}
+            {itemsList.street}, {itemsList.postal}, {itemsList.city},{" "}
+            {itemsList.country}
           </p>
           <Link
             className="font-bold text-black transition-colors duration-300 hover:text-blue-600"
@@ -95,8 +92,21 @@ const CheckoutForm = () => {
           </Link>
         </div>
       </div>
-
       <form onSubmit={handlePayFormSubmit} className="m-5">
+        <div className="flex p-3 gap-2">
+          <img
+            src="//cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/visa-319d545c6fd255c9aad5eeaad21fd6f7f7b4fdbdb1a35ce83b89cca12a187f00.svg"
+            alt=""
+          />
+          <img
+            src="//cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/master-173035bc8124581983d4efa50cf8626e8553c2b311353fbf67485f9c1a2b88d1.svg"
+            alt=""
+          />
+          <img
+            src="//cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/american_express-2264c9b8b57b23b0b0831827e90cd7bcda2836adc42a912ebedf545dead35b20.svg"
+            alt=""
+          />
+        </div>
         <CardElement className="border p-4" />
         {spinner && !error && !success ? (
           <BeatLoader size={5} color="#000000" />
@@ -137,7 +147,7 @@ const CheckoutForm = () => {
         <div className="flex gap-52">
           <p>Contact</p>
           <p>
-            {state.email}, {state.phone}
+            {itemsList.email}, {itemsList.phone}
           </p>
           <Link className="font-bold" to={"/checkout"}>
             change
@@ -146,7 +156,7 @@ const CheckoutForm = () => {
         <div className="flex gap-52">
           <p>Ship to</p>
           <p>
-            {state.street}, {state.postal}, {state.city}, {state.country}
+            {itemsList.street}, {itemsList.postal}, {itemsList.city}, {itemsList.country}
           </p>
           <Link className="font-bold" to={"/checkout"}>
             change
@@ -186,9 +196,6 @@ const CheckoutForm = () => {
   );
 };
 const Payment = () => {
-  const location = useLocation();
-  const state = location.state as IFormState;
-  console.log(state);
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm />
@@ -196,5 +203,4 @@ const Payment = () => {
   );
 };
 
-const PayStatus = () => {};
 export default Payment;

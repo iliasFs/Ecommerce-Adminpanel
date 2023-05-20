@@ -41,22 +41,7 @@ body {
 }
 
 /* CHECKOUT */
-.express-payment {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
 
-.express-payment button {
-  background-color: #4c8bf5;
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-}
 .checkout-container {
   max-width: 600px;
   margin: 0 auto;
@@ -70,52 +55,11 @@ body {
   text-align: center;
   margin-bottom: 20px;
 }
-.checkout button {
-  background-color: #4c8bf5;
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  margin-right: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.check-form {
-  margin-bottom: 20px;
-}
-.check-form label {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333333;
-}
-
-.check-form p {
-  font-size: 14px;
-  color: #777777;
-}
 
 .check-form button {
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 4px;
-  cursor: pointer;
-}
-
-.check-form input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-}
-
-.check-form input {
-  margin-right: 5px;
-  vertical-align: middle;
-}
-.phone-input {
-  width: 50%;
-  position: relative;
   cursor: pointer;
 }
 
@@ -132,4 +76,17 @@ body {
 
 .phone-input:hover .message {
   display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
 }
