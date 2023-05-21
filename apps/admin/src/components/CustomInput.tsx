@@ -1,4 +1,9 @@
-import { SetStateAction } from "react";
+import { ChangeEvent, SetStateAction } from "react";
+
+type PriceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
+type NameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
+type isNewArrival = (e: ChangeEvent<HTMLInputElement>) => void;
+type isFeatured = (e: ChangeEvent<HTMLInputElement>) => void;
 
 interface CustomInputProps {
   type?: string;
@@ -7,11 +12,11 @@ interface CustomInputProps {
   i_class?: string;
   name: string;
   val?: string;
-  onChange?: (e: { target: { value: SetStateAction<string> } }) => void;
+  onChng?: PriceChangeHandler | NameChangeHandler | isNewArrival | isFeatured;
 }
 
 const CustomInput = (props: CustomInputProps) => {
-  const { type, label, i_id, i_class, name, val, onChange } = props;
+  const { type, label, i_id, i_class, name, val, onChng } = props;
   return (
     <div className="form-floating my-3">
       <input
@@ -21,7 +26,7 @@ const CustomInput = (props: CustomInputProps) => {
         placeholder={label}
         name={name}
         value={val}
-        onChange={onChange}
+        onChange={onChng} // Corrected the prop name to 'onChange'
       />
       <label htmlFor={label}>{label}</label>
     </div>

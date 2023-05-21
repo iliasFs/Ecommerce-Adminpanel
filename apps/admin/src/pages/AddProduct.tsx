@@ -1,62 +1,118 @@
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useState } from "react";
-import type { UploadProps } from "antd";
-import { message } from "antd";
+import { ChangeEvent, SetStateAction, useState } from "react";
 import { Checkbox } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import PhotoUploadForm from "../components/PhotoUploadForm";
+import axios from "axios";
 
-const props: UploadProps = {
-  name: "file",
-  multiple: true,
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
 const AddProduct = () => {
+  const [productName, setProductName] = useState<string>("");
+  const [size, setSize] = useState<string>("");
+  const [price, setPrice] = useState<number>(0);
+  const [productImages, setProductImages] = useState<string[]>([]);
   const [desc, setDesc] = useState<string>("");
+  const [stock, setStock] = useState<number>(0);
+  const [isFeatured, setIsFeatured] = useState<boolean>(false);
+  const [newArrival, setNewArrival] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+
+  type PriceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 
   const handleDescChange = (value: string) => {
     setDesc(value);
   };
 
-  const onChangeFeatured = (e: CheckboxChangeEvent) => {
-    console.log(`checked = ${e.target.checked}`);
-  };
   const onChangeNewArrival = (e: CheckboxChangeEvent) => {
-    console.log(`checked = ${e.target.checked}`);
+    setNewArrival(e.target.checked);
   };
+  const onChangeFeatured = (e: CheckboxChangeEvent) => {
+    setIsFeatured(e.target.checked);
+  };
+  const handleNameChange = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setProductName(e.target.value);
+    console.log(productName);
+  };
+  const handleProductPrice: PriceChangeHandler = (e) => {
+    setPrice(parseInt(e.target.value));
+  };
+
+  const handleStock: PriceChangeHandler = (e) => {
+    setStock(parseInt(e.target.value));
+  };
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+    setSelectedCategory(selectedValue);
+    console.log(selectedValue);
+  };
+  const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value;
+    setSize(selectedValue);
+    console.log(selectedValue);
+  };
+  const data = {
+    name: productName,
+    price: price,
+    size: size,
+    images: productImages, // Replace with the actual image URLs or file names
+    description: desc,
+    stockQuantity: stock,
+    featured: isFeatured,
+    newArrivals: newArrival,
+    category: selectedCategory,
+  };
+  const handleFormSubmit = async () => {
+    try {
+      console.log;
+      const response = await axios.post("http://localhost:8080/product", data);
+      alert("Product has been added");
+    } catch (error) {
+      console.log("failed to proceed", error);
+    }
+  };
+
   return (
     <div>
       <h3 className="mb-4 text-xl font-bold pl-1">Add Product</h3>
       <div>
-        <form action="">
-          <CustomInput name="" type="text" label="Enter Product Name" />
-
-          <CustomInput name="" type="number" label="Enter Product Price" />
-          <CustomInput name="" type="text" label="Enter Product Size" />
+        <form action="" onSubmit={handleFormSubmit}>
+          <CustomInput
+            name=""
+            type="text"
+            label="Enter Product Name"
+            onChng={handleNameChange}
+          />
+          <CustomInput
+            name=""
+            type="number"
+            label="Enter Product Price"
+            onChng={handleProductPrice}
+          />
+          <select
+            className="form-control py-3 mb-3 text-[15px]"
+            onChange={handleSizeChange}
+          >
+            <option value="">Select Size</option>
+            <option value="sm">Small</option>
+            <option value="md">Medium</option>
+            <option value="lg">Large</option>
+          </select>
           <div className=" text-xl font-bold pl-1">
             <h3>Upload Photos</h3>
           </div>
-          <PhotoUploadForm />
+          <PhotoUploadForm setProductImages={setProductImages} />
           <div className="my-4">
             <ReactQuill theme="snow" value={desc} onChange={handleDescChange} />
           </div>
-          <CustomInput name="" type="number" label="Enter Stock Quantity" />
+          <CustomInput
+            name=""
+            type="number"
+            label="Enter Stock Quantity"
+            onChng={handleStock}
+          />
           <div>
             <Checkbox
               className="pb-4 flex items-center text-2xl font-bold my-2"
@@ -73,13 +129,19 @@ const AddProduct = () => {
               New Arrival
             </Checkbox>
           </div>
-          <select className="form-control py-3 mb-3" name="" id="">
+          <select
+            className="form-control py-3 mb-3"
+            onChange={handleCategoryChange}
+          >
             <option value="">Select Category</option>
-            <option value="Men">Men</option>
-            <option value="Women">Women</option>
-            <option value="Kids">Kids</option>
+            <option value="men">Men</option>
+            <option value="women">Women</option>
+            <option value="kids">Kids</option>
           </select>
-          <button className="btn btn-success border-0 rounded-3 my-5">
+          <button
+            type="submit"
+            className="btn btn-success border-0 rounded-3 my-5"
+          >
             Add Product
           </button>
         </form>

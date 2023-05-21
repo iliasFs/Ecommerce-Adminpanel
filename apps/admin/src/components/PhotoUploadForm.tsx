@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const PhotoUploadForm: React.FC = () => {
+type PhotoUploaderProps = {
+  setProductImages: React.Dispatch<React.SetStateAction<string[]>>;
+};
+const PhotoUploadForm = ({ setProductImages }: PhotoUploaderProps) => {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
@@ -9,6 +12,7 @@ const PhotoUploadForm: React.FC = () => {
     const files = event.target.files;
     setSelectedFiles(files);
 
+    //we could do the preview with fileReader(mdn search)--FileReader.readAsURL but for now we use URL.create... to convert the file to a url and place it in the src attribute of the preview photos.Faster and easier.
     const previews = files
       ? Array.from(files).map((file) => URL.createObjectURL(file))
       : [];
@@ -26,12 +30,23 @@ const PhotoUploadForm: React.FC = () => {
           formData.append("files", selectedFiles[i]);
         }
 
-        const response = await axios.post("/upload-url", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        alert("files uploaded succesfully");
+        const response = await axios.post(
+          "http://localhost:8080/upload",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (response) {
+          const imageArray = response.data.map((item: { data: any }) => {
+            return item.data;
+          });
+          console.log(imageArray);
+          setProductImages(imageArray);
+        }
+
         console.log("Files uploaded successfully:", response.data);
       } catch (error) {
         console.error("Error uploading files:", error);
@@ -80,3 +95,5 @@ const PhotoUploadForm: React.FC = () => {
 };
 
 export default PhotoUploadForm;
+
+//ofbmy8vl
