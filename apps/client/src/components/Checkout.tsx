@@ -78,6 +78,15 @@ const Checkout = () => {
       setCartItems(cartList.data);
     }
   }
+  function getQuantity(id: number) {
+    const itemsList = localStorage.getItem("shopping-cart");
+    let item: CartItem;
+    if (itemsList) {
+      item = JSON.parse(itemsList).find((item: CartItem) => item.id === id);
+      return item.quantity;
+    }
+  }
+  getQuantity(1);
   //HANDLES CHANGE OF FORM INPUTS AND SET THE STATE
   const handleShippingChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -132,7 +141,7 @@ const Checkout = () => {
       }
     }
   }
-
+  console.log(localStorage);
   return (
     <div className=" checkout-container ">
       <div
@@ -176,24 +185,26 @@ const Checkout = () => {
           <div className="animate-fadeIn">
             {cartItems.map((item: IProduct) => {
               return (
-                <div className="flex items-center space-x-4 p-4 bg-white rounded-lg ">
+                <div className="flex items-center space-x-4 p-4 bg-white rounded-lg">
                   <img
-                    className=" h-20 object-contain rounded-sm"
+                    className="h-20 object-contain rounded-sm"
                     src={item.images[0]}
                     alt={item.name}
-                  />
-                  <div className="flex flex-col flex-grow">
+                  ></img>
+                  <div className="flex flex-col flex-grow relative">
                     <span className="font-bold">{item.name}</span>
                     <span className="text-gray-600">
                       {priceFormat(item.price)}
                     </span>
                     <span className="text-black-100">{item.size}</span>
+                    <span className="absolute opacity-75 top-0 right-0 bg-[#1D3557] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">
+                      {getQuantity(item.id)}
+                    </span>
                   </div>
                 </div>
               );
             })}
             <form className="flex" onSubmit={handleDiscountSubmit}>
-              <div></div>
               <input
                 className="border border-solid w-full m-2 p-[10px] border-#e0e0e0;"
                 ref={inputRef}
@@ -210,22 +221,52 @@ const Checkout = () => {
                 APPLY
               </button>
             </form>
-            <div className="m-4">
+            <div className="grid m-4 grid-cols-2">
+              <div>
+                <div className="flex items-center justify-start text-[#1D3557]">
+                  <p>Subtotal</p>
+                </div>
+                {discount && (
+                  <div className="flex items-center animate-fadeIn justify-start  text-gray-300">
+                    <p>Discount</p>
+                  </div>
+                )}
+                <div className="flex items-center justify-start font-bold text-[#1D3557]">
+                  <h1>Total</h1>{" "}
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-end  text-[#1D3557]">
+                  <p>{totalPrice}</p>
+                </div>
+                {discount && (
+                  <div className="flex items-center justify-end animate-fadeIn text-gray-300">
+                    <p>-{discount}</p>
+                  </div>
+                )}
+                <div className="flex items-center justify-end font-bold text-[#1D3557]">
+                  <p>{priceDiscount !== "" ? priceDiscount : totalPrice}</p>
+                </div>
+              </div>
+            </div>
+            {/* <div className="m-4">
               <div className="flex items-center text-[#1D3557] gap-72">
                 <p>Subtotal</p>
                 <p>{totalPrice}</p>
               </div>
+
               {discount && (
-                <div className="flex items-center text-gray-300 gap-72">
-                  <p>Discount</p>
-                  <p>-{discount}</p>
+                <div className="animate-fadeIn">
+                  <div className="flex items-center text-gray-300 gap-72">
+                    <p>-{discount}</p>
+                  </div>
                 </div>
               )}
               <div className="flex items-center font-bold text-[#1D3557] gap-80">
                 <h1>Total</h1>
                 <p>{priceDiscount !== "" ? priceDiscount : totalPrice}</p>
               </div>
-            </div>
+            </div> */}
             <div className="mt-4 mb-4 border-b-2"></div>
           </div>
         )}
@@ -611,9 +652,9 @@ const Checkout = () => {
             required
           />
         </div>
-        <div className="flex gap-3">
+        <div className="flex">
           <input
-            className="border border-solid w-full m-2 p-[10px] border-#e0e0e0;"
+            className="border  border-solid w-full m-2 p-[10px] border-#e0e0e0;"
             value={state.phone}
             onChange={handleShippingChange}
             id="phone"
@@ -622,9 +663,9 @@ const Checkout = () => {
             placeholder="Phone"
             required
           ></input>
-          <p className="phone-input">
+          <p className="w-[225px] h-2 phone-input">
             {"?"}
-            <span className="message">
+            <span className=" message">
               In case we need to contact you about your order
             </span>
           </p>
