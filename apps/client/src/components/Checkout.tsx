@@ -143,7 +143,7 @@ const Checkout = () => {
   }
   console.log(localStorage);
   return (
-    <div className=" checkout-container ">
+    <div className="flex-wrap w-[600px] checkout-container ">
       <div
         onClick={handleShowSummary}
         className="flex mb-4 cursor-pointer p-2 hover:shadow-md  gap-4 mt-[-6px] items-center py-4 border-b-[5px] border-[#1D3557]  "
@@ -155,10 +155,8 @@ const Checkout = () => {
             alt=""
           />
         </div>
-
-        <p className="">
-          {showSummary ? "Show summary" : "Hide summary"} - {totalPrice}
-        </p>
+        {showSummary && <p className="animate-fadeIn">Hide summary</p>}
+        {!showSummary && <p className="animate-fadeIn">Show summary</p>}
         {!showSummary ? (
           <svg
             width="11"

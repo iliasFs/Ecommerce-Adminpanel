@@ -64,32 +64,46 @@ const CheckoutForm = () => {
     }
   }
   return (
-    <div className=" m-4">
-      <div className=" section__margin w-full  flex flex-col gap-6 items-center py-4 border-b-[5px] border-[#1D3557] rounded-sm">
-        <div className="flex border-gray-400 gap-52">
-          <p className=" text-gray-400">Contact</p>
-          <p className="text-black">
-            {itemsList.email}, {itemsList.phone}
-          </p>
-          <Link
-            className="font-bold text-black transition-colors duration-300 hover:text-blue-600"
-            to={"/checkout"}
-          >
-            change
-          </Link>
+    <div className="flex-wrap w-[800px] checkout-container ">
+      <div className="grid grid-cols-3 border-b-[5px] p-3 border-[#1D3557] rounded-sm">
+        <div>
+          <div className="flex items-center justify-start ">
+            <p className=" text-gray-400">Contact</p>
+          </div>
+          <div className="flex items-center justify-start ">
+            <p className="text-gray-400">Ship to</p>
+          </div>
         </div>
-        <div className="flex gap-52">
-          <p className="text-gray-400">Ship to</p>
-          <p className="text-black">
-            {itemsList.street}, {itemsList.postal}, {itemsList.city},{" "}
-            {itemsList.country}
-          </p>
-          <Link
-            className="font-bold text-black transition-colors duration-300 hover:text-blue-600"
-            to={"/checkout"}
-          >
-            change
-          </Link>
+        <div>
+          <div className="flex items-center justify-center ">
+            <p className="text-black">
+              {itemsList.email}, {itemsList.phone}
+            </p>
+          </div>
+          <div className="flex items-center justify-center ">
+            <p className="text-black">
+              {itemsList.street}, {itemsList.postal}, {itemsList.city},{" "}
+              {itemsList.country}
+            </p>
+          </div>
+        </div>
+        <div>
+          <div className="flex items-center justify-end ">
+            <Link
+              className="font-bold text-black transition-colors duration-300 hover:text-[#1D3557]"
+              to={"/checkout"}
+            >
+              change
+            </Link>
+          </div>
+          <div className="flex items-center justify-end ">
+            <Link
+              className="font-bold text-black transition-colors duration-300 hover:text-[#1D3557]"
+              to={"/checkout"}
+            >
+              change
+            </Link>
+          </div>
         </div>
       </div>
       <form onSubmit={handlePayFormSubmit} className="m-5">
@@ -138,7 +152,7 @@ const CheckoutForm = () => {
               been charged to your account.
             </h1>
             <Link to={"/"} className="text-blue-600 hover:underline">
-              Back Home
+              image.png Back Home
             </Link>
           </>
         )}
