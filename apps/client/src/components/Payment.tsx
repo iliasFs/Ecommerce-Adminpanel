@@ -135,13 +135,6 @@ const CheckoutForm = () => {
               Buy
             </button>
           )}
-          <Link to={"/"}>
-            <img
-              className="w-[40px] m-2 p-1 border-2 border-[#1D3557]  rounded-full"
-              src="../../public/backHome.png"
-              alt=""
-            />
-          </Link>
         </form>
       </div>
       {error && !success && (
