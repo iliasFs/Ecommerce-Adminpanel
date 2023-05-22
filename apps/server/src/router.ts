@@ -4,6 +4,15 @@ import ProductController from "./controllers/products.controller";
 import CategoryController from "./controllers/category.controller";
 import UserController from "./controllers/users.controller";
 import Stripe from "stripe";
+import multer from "multer";
+import axios from "axios";
+import FormData from "form-data";
+import fs from "fs";
+import cloudinary from "../cloud/cloudinary";
+import dotenv from "dotenv";
+dotenv.config();
+const upload = multer({ dest: "uploads/" });
+const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
 
 // product routes
 router.post("/product", ProductController.createProduct);
@@ -48,6 +57,49 @@ router.post("/payment", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
+  }
+});
+
+router.post("/upload", upload.array("files"), async (req, res) => {
+  const files: Express.Multer.File[] = req.files as Express.Multer.File[];
+
+  if (!files || files.length === 0) {
+    return res.status(400).json({ error: "No files were uploaded" });
+  }
+
+  try {
+    const uploadedPromises = files.map((file) => {
+      const formData = new FormData();
+      formData.append("file", fs.createReadStream(file.path), {
+        filename: file.originalname,
+      });
+      // Replace 'your_cloud_name' and 'your_upload_preset' with your actual Cloudinary details
+      return axios.post(
+        `https://api.cloudinary.com/v1_1/${CLOUDINARY_NAME}/upload?upload_preset=ofbmy8vl`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+    });
+
+    const uploadedResults = await Promise.all(uploadedPromises);
+    const proccessedResults = uploadedResults.map((result) => {
+      return {
+        data: result.data.secure_url,
+      };
+    });
+
+    // Process the uploaded results or save the necessary information to a database
+
+    return res.status(200).json(proccessedResults);
+  } catch (error) {
+    console.error("Error uploading files to Cloudinary:", error);
+    return res
+      .status(500)
+      .json({ error: "Failed to upload files to Cloudinary" });
   }
 });
 
