@@ -30,7 +30,7 @@ const ProductController = {
       //     return (await result).Location
       //   })
       // )
-     
+
       const newProduct = await Product.create(
         name,
         price,
@@ -128,5 +128,15 @@ const ProductController = {
       next(error);
     }
   },
+  async getAllProductById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { idArr } = req.body;
+      const productList = await Product.findAllById(idArr);
+      res.status(200).json(productList);
+    } catch (error) {
+      next(error);
+    }
+  },
 };
+
 export default ProductController;

@@ -32,3 +32,9 @@ export interface IFormState {
   phone: string;
   amount: string;
 }
+
+export type CartItem = {
+  id: number; //we have the id so we have all the information
+  quantity: number;
+  price: number;
+};

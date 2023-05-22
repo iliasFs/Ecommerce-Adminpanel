@@ -23,6 +23,7 @@ router.get("/new-arrivals", ProductController.getNewArrivals);
 
 router.put("/product/:productId", ProductController.updateProduct);
 router.delete("/product/:productId", ProductController.deleteProduct);
+router.post("/allProductsId", ProductController.getAllProductById);
 
 //User Routes
 router.post("/users", UserController.createUser);

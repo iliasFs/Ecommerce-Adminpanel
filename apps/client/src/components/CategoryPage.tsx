@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import clientAPI from "../library/clientAPI";
 import { IProduct } from "../types";
-import "./CategoryList.css";
 import FilterModal from "./FilterModal";
 import { Link, useParams } from "react-router-dom";
 

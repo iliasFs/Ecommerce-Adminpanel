@@ -186,5 +186,16 @@ class Product {
       where: { id },
     });
   }
+
+  static async findAllById(idArr: number[]): Promise<Product[]> {
+    return await prisma.product.findMany({
+      where: {
+        id: {
+          in: idArr,
+        },
+      },
+    });
+  }
 }
+
 export default Product;

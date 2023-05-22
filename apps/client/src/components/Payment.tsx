@@ -8,10 +8,9 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useState } from "react";
-import { IFormState } from "../types";
-import { Spinner } from "@stripe/ui-extension-sdk/ui";
-import { FaSpinner } from "react-icons/fa";
 import { BeatLoader } from "react-spinners";
+import "./Checkout.css";
+
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe(
@@ -19,15 +18,14 @@ const stripePromise = loadStripe(
 );
 
 const CheckoutForm = () => {
-  const location = useLocation();
-  const state = location.state as IFormState;
-
   const [error, setError] = useState<string | null>("");
   const [success, setSuccess] = useState<boolean>(false);
   const [spinner, setSpinner] = useState<boolean>(false);
 
   const stripe = useStripe();
   const elements = useElements();
+  const location = useLocation();
+  const itemsList = location.state;
 
   async function handlePayFormSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -54,7 +52,7 @@ const CheckoutForm = () => {
         const { id } = paymentMethod;
         const payment = await axios.post("http://localhost:8080/payment", {
           id,
-          amount: parseInt(state.amount) * 100,
+          amount: parseInt(itemsList.price) * 100,
         });
 
         if (payment) {
@@ -68,127 +66,104 @@ const CheckoutForm = () => {
     }
   }
   return (
-    <div className=" m-44">
-      <div className=" section__margin w-full  flex flex-col gap-6 items-center py-4 border-b-[5px] border-[#1D3557] rounded-sm">
-        <div className="flex border-gray-400 gap-52">
-          <p className=" text-gray-400">Contact</p>
-          <p className="text-black">
-            {state.email}, {state.phone}
-          </p>
-          <Link
-            className="font-bold text-black transition-colors duration-300 hover:text-blue-600"
-            to={"/checkout"}
-          >
-            change
-          </Link>
+    <div className="flex h-[350px] flex-col justify-center items-center">
+      <div className="flex-wrap h-[350px] w-[800px] checkout-container ">
+        <div className="grid grid-cols-3 border-b-[5px] p-3 border-[#1D3557] rounded-sm">
+          <div>
+            <div className="flex mb-2 items-center justify-start ">
+              <p className=" text-gray-400">Contact</p>
+            </div>
+            <div className="flex items-center justify-start ">
+              <p className="text-gray-400">Ship to</p>
+            </div>
+          </div>
+          <div>
+            <div className="flex mb-2 items-center justify-start ">
+              <p className="text-black">
+                {itemsList.email}, {itemsList.phone}
+              </p>
+            </div>
+            <div className="flex items-center justify-start ">
+              <p className="text-black">
+                {itemsList.street}, {itemsList.postal}, {itemsList.city},{" "}
+                {itemsList.country}
+              </p>
+            </div>
+          </div>
+          <div>
+            <div className="flex mb-2 items-center justify-end ">
+              <Link
+                className="font-bold text-black transition-colors duration-300 hover:text-[#1D3557]"
+                to={"/checkout"}
+              >
+                change
+              </Link>
+            </div>
+            <div className="flex items-center justify-end ">
+              <Link
+                className="font-bold text-black transition-colors duration-300 hover:text-[#1D3557]"
+                to={"/checkout"}
+              >
+                change
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className="flex gap-52">
-          <p className="text-gray-400">Ship to</p>
-          <p className="text-black">
-            {state.street}, {state.postal}, {state.city}, {state.country}
-          </p>
-          <Link
-            className="font-bold text-black transition-colors duration-300 hover:text-blue-600"
-            to={"/checkout"}
-          >
-            change
-          </Link>
-        </div>
+        <form onSubmit={handlePayFormSubmit} className="m-5">
+          <div className="flex p-3 gap-2">
+            <img
+              src="//cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/visa-319d545c6fd255c9aad5eeaad21fd6f7f7b4fdbdb1a35ce83b89cca12a187f00.svg"
+              alt=""
+            />
+            <img
+              src="//cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/master-173035bc8124581983d4efa50cf8626e8553c2b311353fbf67485f9c1a2b88d1.svg"
+              alt=""
+            />
+            <img
+              src="//cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/american_express-2264c9b8b57b23b0b0831827e90cd7bcda2836adc42a912ebedf545dead35b20.svg"
+              alt=""
+            />
+          </div>
+          <CardElement className="border p-4" />
+          {spinner && !error && !success ? (
+            <BeatLoader size={5} color="#000000" />
+          ) : (
+            <button
+              disabled={success}
+              className="mt-3 px-2 py-1 text-white text-sm font-bold rounded-md bg-[#1D3557]"
+            >
+              Buy
+            </button>
+          )}
+        </form>
       </div>
-
-      <form onSubmit={handlePayFormSubmit} className="m-5">
-        <CardElement className="border p-4" />
-        {spinner && !error && !success ? (
-          <BeatLoader size={5} color="#000000" />
-        ) : (
+      {error && !success && (
+        <div className="bg-red-800 m-2 border border-red-800 bg-opacity-10 p-3 rounded-md animate-fadeIn">
+          <h1 className="text-red-900">{error}</h1>
           <button
-            disabled={success}
             className="mt-3 px-2 py-1 text-white text-sm font-bold rounded-md bg-[#1D3557]"
+            onClick={() => {
+              window.location.reload();
+            }}
           >
-            Buy
+            Try Again
           </button>
-        )}
-        {error && !success && (
-          <>
-            <h1 className="text-pink-900">{error}</h1>
-            <button
-              onClick={(e) => {
-                window.location.reload();
-              }}
-              className="bg-red-500 text-white rounded-md py-2 px-4 mt-4 transition-colors duration-300 hover:bg-red-600"
-            >
-              Try Again
-            </button>
-          </>
-        )}
-        {success && !error && (
-          <>
-            <h1 className="text-green-900">
+        </div>
+      )}
+      {success && !error && (
+        <div className="flex animate-fadeIn m-2">
+          <div className="border m-2 border-green-500 bg-opacity-10 bg-green-500 p-3 rounded-md">
+            <h1>
               Your payment has been successfully processed, and the amount has
               been charged to your account.
             </h1>
-            <Link to={"/"} className="text-blue-600 hover:underline">
-              Back Home
-            </Link>
-          </>
-        )}
-      </form>
-      {/* <div className="flex flex-col">
-        <div className="flex gap-52">
-          <p>Contact</p>
-          <p>
-            {state.email}, {state.phone}
-          </p>
-          <Link className="font-bold" to={"/checkout"}>
-            change
-          </Link>
+          </div>
         </div>
-        <div className="flex gap-52">
-          <p>Ship to</p>
-          <p>
-            {state.street}, {state.postal}, {state.city}, {state.country}
-          </p>
-          <Link className="font-bold" to={"/checkout"}>
-            change
-          </Link>
-        </div>
-      </div>
-      <form onSubmit={handlePayFormSubmit} className="m-44">
-        <CardElement></CardElement>
-        {spinner && !error && !succes ? (
-          <BeatLoader size={5} color="#000000" />
-        ) : (
-          <button disabled={succes}>buy</button>
-        )}
-        {error && !succes && (
-          <>
-            <h1 className="text-pink-900">{error}</h1>
-            <button
-              onClick={(e) => {
-                window.location.reload();
-              }}
-            >
-              Try Again
-            </button>
-          </>
-        )}
-        {succes && !error && (
-          <>
-            <h1 className="text-green-900">
-              Your payment has been successfully processed, and the amount has
-              been charged to your account.
-            </h1>
-            <Link to={"/"}>Back Home</Link>
-          </>
-        )}
-      </form> */}
+      )}
     </div>
   );
 };
 const Payment = () => {
-  const location = useLocation();
-  const state = location.state as IFormState;
-  console.log(state);
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm />
@@ -196,5 +171,4 @@ const Payment = () => {
   );
 };
 
-const PayStatus = () => {};
 export default Payment;
