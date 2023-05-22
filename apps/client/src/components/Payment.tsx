@@ -66,7 +66,7 @@ const CheckoutForm = () => {
     }
   }
   return (
-    <div className="flex flex-wrap h-[350px] flex-col justify-center items-center">
+    <div className="flex h-[350px] flex-col justify-center items-center">
       <div className="flex-wrap h-[350px] w-[800px] checkout-container ">
         <div className="grid grid-cols-3 border-b-[5px] p-3 border-[#1D3557] rounded-sm">
           <div>
