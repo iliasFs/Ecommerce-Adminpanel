@@ -10,6 +10,7 @@ import axios from "axios";
 import { useState } from "react";
 import { BeatLoader } from "react-spinners";
 import "./Checkout.css";
+import { CartItem } from "../types";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -25,7 +26,8 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const location = useLocation();
-  const itemsList = location.state;
+  const state = location.state;
+  console.log(state);
 
   async function handlePayFormSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -52,18 +54,43 @@ const CheckoutForm = () => {
         const { id } = paymentMethod;
         const payment = await axios.post("http://localhost:8080/payment", {
           id,
-          amount: parseInt(itemsList.price) * 100,
+          amount: parseInt(state.price) * 100,
         });
 
         if (payment) {
+          const productsIds = getItemsIds();
           setSuccess(true);
           setSpinner(false);
+          const order = {
+            quantity: Number(state.price),
+            email: state.email,
+            fullName: `${state.name} ${state.lastName} `,
+            adress: ` ${state.street}, ${state.postal}, ${state.city}, ${state.country}`,
+            phone: state.phone,
+            products: JSON.stringify(productsIds),
+          };
+          const res = await axios.post("http://localhost:8080/orders", order);
+          if (res) {
+            localStorage.removeItem("shopping-cart");
+          }
         }
       }
+      console.log("----------------------------------", localStorage);
     } catch (error: any) {
-      setError(error.response.data.raw.message);
-      console.log(error.response.data.raw.message);
+      if (error.response.data.raw?.message) {
+        setError(error.response.data.raw.message);
+      } else return;
     }
+  }
+  function getItemsIds() {
+    const itemsList = localStorage.getItem("shopping-cart");
+    const idArr: number[] = [];
+    if (itemsList) {
+      JSON.parse(itemsList).map((item: CartItem) => {
+        return idArr.push(item.id);
+      });
+    }
+    return idArr;
   }
   return (
     <div className="flex h-[350px] flex-col justify-center items-center">
@@ -80,13 +107,12 @@ const CheckoutForm = () => {
           <div>
             <div className="flex mb-2 items-center justify-start ">
               <p className="text-black">
-                {itemsList.email}, {itemsList.phone}
+                {state.email}, {state.phone}
               </p>
             </div>
             <div className="flex items-center justify-start ">
               <p className="text-black">
-                {itemsList.street}, {itemsList.postal}, {itemsList.city},{" "}
-                {itemsList.country}
+                {state.street}, {state.postal}, {state.city}, {state.country}
               </p>
             </div>
           </div>

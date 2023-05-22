@@ -10,6 +10,7 @@ import FormData from "form-data";
 import fs from "fs";
 import cloudinary from "../cloud/cloudinary";
 import dotenv from "dotenv";
+import OrderController from "./controllers/orders.controller";
 dotenv.config();
 const upload = multer({ dest: "uploads/" });
 const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
@@ -36,7 +37,13 @@ router.post("/category", CategoryController.createCategory);
 router.get("/category/:categoryname", CategoryController.findCategory);
 router.delete("/category/:id", CategoryController.deleteCategory);
 const secretKey = process.env.STRIPE_SECRET_KEY;
+//Order routes
+router.get("/orders", OrderController.getAllOrders);
+router.post("/orders", OrderController.createOrder);
+router.delete("/orders/:id", OrderController.deleteOrder);
+router.put("/orders/:id", OrderController.updateOrder);
 
+//payment route for stripe
 router.post("/payment", async (req, res) => {
   try {
     const { amount, id } = req.body;
