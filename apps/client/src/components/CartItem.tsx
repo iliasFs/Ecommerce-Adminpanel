@@ -22,7 +22,11 @@ const CartItem = ({ id, quantity }: CartItemProps) => {
   if (item == null) return null;
   return (
     <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-md">
-      <img src={item.images[0]} alt="item-name" className="w-16 h-16 rounded" />
+      <img
+        src={item.images[0]}
+        alt="item-name"
+        className="w-16 h-16 rounded object-cover object-top"
+      />
       <div className="flex flex-col flex-grow">
         <span className="font-bold">{item.name}</span>
         <span className="text-gray-500">{priceFormat(item.price)}</span>

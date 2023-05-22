@@ -18,6 +18,11 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
   };
   console.log(localStorage);
 
+  const handleProceed = () => {
+    setBlurApplied(false);
+    setCartOpen((prev) => !prev);
+  };
+
   return (
     <div className=" relative w-full h-full flex flex-col px-4 py-2 z-50">
       <div className="absolute w-[90%]">
@@ -60,6 +65,7 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
       <div className="text-center mb-4">
         <Link
           to="/checkout"
+          onClick={handleProceed}
           className="mt-4 px-4 py-4 text-white font-bold rounded-md bg-[#1D3557]"
         >
           PROCEED TO CHECKOUT
