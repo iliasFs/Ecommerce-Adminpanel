@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useRef, useState } from "react";
-import "../index.css";
+import "./Checkout.css";
 import { useNavigate } from "react-router-dom";
 import { CartItem, IProduct } from "../types";
 import axios from "axios";
@@ -51,13 +51,14 @@ const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState("");
   const [cartItems, setCartItems] = useState([]);
 
+  console.log(localStorage);
+
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     getCartItems();
   }, []);
-
   //GET cART ITEMS
   async function getCartItems() {
     const itemsList = localStorage.getItem("shopping-cart");
@@ -86,7 +87,6 @@ const Checkout = () => {
       return item.quantity;
     }
   }
-  getQuantity(1);
   //HANDLES CHANGE OF FORM INPUTS AND SET THE STATE
   const handleShippingChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
