@@ -6,8 +6,10 @@ import { Checkbox } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import PhotoUploadForm from "../components/PhotoUploadForm";
 import axios from "axios";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-const AddProduct = () => {
+const HandleProduct = () => {
   const [productName, setProductName] = useState<string>("");
   const [size, setSize] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
@@ -19,6 +21,24 @@ const AddProduct = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   type PriceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
+  type StockChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
+
+  const { id } = useParams();
+  useEffect(() => {
+    if (!id) return;
+    axios.get(`http://localhost:8080/product/${id}`).then((response) => {
+      const { data } = response;
+      setProductName(data.name);
+      setPrice(data.price);
+      setStock(data.stockQuantity);
+      setSize(data.size);
+      setProductImages(data.images);
+      setDesc(data.description);
+      setIsFeatured(data.featured);
+      setNewArrival(data.newArrivals);
+      setSelectedCategory(data.category);
+    });
+  }, []);
 
   const handleDescChange = (value: string) => {
     setDesc(value);
@@ -34,13 +54,12 @@ const AddProduct = () => {
     target: { value: SetStateAction<string> };
   }) => {
     setProductName(e.target.value);
-    console.log(productName);
   };
   const handleProductPrice: PriceChangeHandler = (e) => {
     setPrice(parseInt(e.target.value));
   };
 
-  const handleStock: PriceChangeHandler = (e) => {
+  const handleStock: StockChangeHandler = (e) => {
     setStock(parseInt(e.target.value));
   };
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -51,7 +70,6 @@ const AddProduct = () => {
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
     setSize(selectedValue);
-    console.log(selectedValue);
   };
   const data = {
     name: productName,
@@ -66,33 +84,34 @@ const AddProduct = () => {
   };
   const handleFormSubmit = async () => {
     try {
-      console.log;
-      const response = await axios.post("http://localhost:8080/product", data);
-      alert("Product has been added");
+      await axios.put(`http://localhost:8080/product/${id}`, data);
+      alert("Product has been updated");
     } catch (error) {
       console.log("failed to proceed", error);
     }
   };
-
   return (
     <div>
-      <h3 className="mb-4 text-xl font-bold pl-1">Add Product</h3>
+      <h3 className="mb-4 text-xl font-bold pl-1">Edit or Delete Product</h3>
       <div>
         <form action="" onSubmit={handleFormSubmit}>
           <CustomInput
             name=""
+            val={productName}
             type="text"
             label="Enter Product Name"
             onChng={handleNameChange}
           />
           <CustomInput
             name=""
+            val={price}
             type="number"
             label="Enter Product Price"
             onChng={handleProductPrice}
           />
           <select
             className="form-control py-3 mb-3 text-[15px]"
+            value={size}
             onChange={handleSizeChange}
           >
             <option value="">Select Size</option>
@@ -103,12 +122,16 @@ const AddProduct = () => {
           <div className=" text-xl font-bold pl-1">
             <h3>Upload Photos</h3>
           </div>
-          <PhotoUploadForm setProductImages={setProductImages} />
+          <PhotoUploadForm
+            setProductImages={setProductImages}
+            productImages={productImages}
+          />
           <div className="my-4">
             <ReactQuill theme="snow" value={desc} onChange={handleDescChange} />
           </div>
           <CustomInput
             name=""
+            val={stock}
             type="number"
             label="Enter Stock Quantity"
             onChng={handleStock}
@@ -117,6 +140,7 @@ const AddProduct = () => {
             <Checkbox
               className="pb-4 flex items-center text-2xl font-bold my-2"
               onChange={onChangeFeatured}
+              checked={isFeatured}
             >
               Featured
             </Checkbox>
@@ -125,6 +149,7 @@ const AddProduct = () => {
             <Checkbox
               className="pb-4 flex items-center text-2xl font-bold my-2"
               onChange={onChangeNewArrival}
+              checked={newArrival}
             >
               New Arrival
             </Checkbox>
@@ -132,22 +157,22 @@ const AddProduct = () => {
           <select
             className="form-control py-3 mb-3"
             onChange={handleCategoryChange}
+            value={selectedCategory}
           >
             <option value="">Select Category</option>
             <option value="men">Men</option>
             <option value="women">Women</option>
             <option value="kids">Kids</option>
           </select>
-          <button
-            type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-md shadow-md transition duration-300 ease-in-out mt-10"
-          >
-            Add Product
-          </button>
+          <div className="flex gap-5 mt-10">
+            <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-md shadow-md transition duration-300 ease-in-out">
+              Save Changes
+            </button>
+          </div>
         </form>
       </div>
     </div>
   );
 };
 
-export default AddProduct;
+export default HandleProduct;

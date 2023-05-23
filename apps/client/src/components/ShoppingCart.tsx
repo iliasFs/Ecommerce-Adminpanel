@@ -24,7 +24,7 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
   };
 
   return (
-    <div className=" relative w-full h-full flex flex-col px-4 py-2 z-50">
+    <div className=" relative w-full h-full flex flex-col mx-4 p-8 z-50">
       <div className="absolute w-[90%]">
         <RiCloseLine size={46} onClick={handleCloseCart} />
       </div>
