@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 type PhotoUploaderProps = {
   setProductImages: React.Dispatch<React.SetStateAction<string[]>>;
+  productImages?: string[] | undefined;
 };
-const PhotoUploadForm = ({ setProductImages }: PhotoUploaderProps) => {
+const PhotoUploadForm = ({
+  setProductImages,
+  productImages,
+}: PhotoUploaderProps) => {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[] | undefined>();
+
+  useEffect(() => {
+    setImagePreviews(productImages);
+  }, [productImages]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -54,6 +63,13 @@ const PhotoUploadForm = ({ setProductImages }: PhotoUploaderProps) => {
     }
   };
 
+  const removePhoto = (ind: number) => {
+    setImagePreviews([
+      ...(imagePreviews?.filter((item, index) => item[index] !== item[ind]) ??
+        []),
+    ]);
+  };
+
   return (
     <div className="max-w-md mx-auto">
       <div className="flex flex-col space-y-4">
@@ -71,13 +87,26 @@ const PhotoUploadForm = ({ setProductImages }: PhotoUploaderProps) => {
         <div className="mt-4">
           <p className="font-bold">Selected photos:</p>
           <div className="mt-2 flex flex-wrap gap-2">
-            {imagePreviews.map((preview, index) => (
-              <img
+            {imagePreviews?.map((preview, index) => (
+              <div
                 key={index}
-                src={preview}
-                alt={`Preview ${index}`}
-                className="w-20 h-20 object-cover rounded"
-              />
+                className="relative flex flex-col gap-1 items-center"
+              >
+                <img
+                  src={preview}
+                  alt={`Preview ${index}`}
+                  className="w-[120px] h-[100px] object-cover object-top rounded-2xl hover:bg-opacity-40"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    removePhoto(index);
+                  }}
+                  className="absolute inset-0 flex items-center justify-center top-1/2 left-1/2 color-white rounded-xl max-w-[100px] px-2 py-1 font-bold  text-white transition duration-300 ease-in-out hover:bg-red-700 hover:text-white hover:scale-105"
+                >
+                  <RiDeleteBin5Line size={30} />
+                </button>
+              </div>
             ))}
           </div>
         </div>

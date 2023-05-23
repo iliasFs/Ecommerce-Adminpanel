@@ -1,6 +1,7 @@
-import { ChangeEvent, SetStateAction } from "react";
+import { ChangeEvent } from "react";
 
 type PriceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
+type StockChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 type NameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 type isNewArrival = (e: ChangeEvent<HTMLInputElement>) => void;
 type isFeatured = (e: ChangeEvent<HTMLInputElement>) => void;
@@ -11,8 +12,13 @@ interface CustomInputProps {
   i_id?: string;
   i_class?: string;
   name: string;
-  val?: string;
-  onChng?: PriceChangeHandler | NameChangeHandler | isNewArrival | isFeatured;
+  val?: string | number;
+  onChng?:
+    | PriceChangeHandler
+    | StockChangeHandler
+    | NameChangeHandler
+    | isNewArrival
+    | isFeatured;
 }
 
 const CustomInput = (props: CustomInputProps) => {
