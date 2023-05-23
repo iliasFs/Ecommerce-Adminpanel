@@ -9,7 +9,7 @@ interface DataType {
 
 const columns: ColumnsType<DataType> = [
   {
-    title: "id",
+    title: "Customer name",
     dataIndex: "key",
     width: 150,
   },

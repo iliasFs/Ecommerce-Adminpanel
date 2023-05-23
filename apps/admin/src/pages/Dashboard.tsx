@@ -6,7 +6,7 @@ const Dashboard = () => {
   return (
     <div>
       <h3 className="text-3xl mb-4">Dashboard</h3>
-      <div className="flex justify-between items-center gap-3">
+      <div className="flex flex-col p-4 sm:flex-row justify-between items-center gap-3 ">
         <div className="flex flex-grow-1 justify-between items-center bg-white p-3 rounded-lg">
           <div className="flex flex-col gap-4">
             <p className="mb-0">Total</p>

@@ -67,16 +67,7 @@ const MainLayout = () => {
                   icon: <AiOutlineShoppingCart className="fs-5" />,
                   label: "Product List",
                 },
-                {
-                  key: "brand",
-                  icon: <TbBrandFramerMotion className="fs-5" />,
-                  label: "Brand",
-                },
-                {
-                  key: "list-brand",
-                  icon: <TbBrandFramerMotion className="fs-5" />,
-                  label: "Brand List",
-                },
+
                 {
                   key: "category",
                   icon: <BiCategoryAlt className="fs-5" />,
@@ -175,13 +166,10 @@ const MainLayout = () => {
             background: colorBgContainer,
           }}
         >
-            <Outlet />
+          <Outlet />
         </Content>
-      
       </Layout>
-      
     </Layout>
-    
   );
 };
 
