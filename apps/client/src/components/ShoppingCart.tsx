@@ -16,23 +16,23 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
     setBurgerHidden("");
     setBlurApplied(false);
   };
-  console.log(localStorage);
 
   const handleProceed = () => {
     setBlurApplied(false);
     setCartOpen((prev) => !prev);
   };
-
+  // localStorage.removeItem("shopping-cart");
+  console.log(localStorage);
   return (
-    <div className=" relative w-full h-full flex flex-col px-4 py-2 z-50">
+    <div className="relative w-full h-full flex flex-col px-4 py-2 z-50">
       <div className="absolute w-[90%]">
-        <RiCloseLine size={46} onClick={handleCloseCart} />
+        <RiCloseLine size={26} onClick={handleCloseCart} />
       </div>
       <div className="flex flex-col gap-4 mt-[-6px] items-center py-4 border-b-[5px] border-[#1D3557]  ">
         <div>
           <img
             className="h-[30px] w-[30px]"
-            src="../../public/figma/Icon.svg"
+            src="../../figma/Icon.svg"
             alt=""
           />
         </div>

@@ -11,6 +11,7 @@ type CartContext = {
   removeFromCart: (id: number) => void;
   blurApplied: boolean;
   setBlurApplied: React.Dispatch<React.SetStateAction<boolean>>;
+  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
 };
 
 // Creating a new context called CartContext and assigning it an initial value of an empty object
@@ -108,6 +109,7 @@ export function CartProvider({ children }: cartProviderProps) {
         cartQuantity,
         blurApplied,
         setBlurApplied,
+        setCartItems,
       }}
     >
       {children}

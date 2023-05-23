@@ -65,7 +65,7 @@ const Checkout = () => {
       let totalPrice = 0;
       JSON.parse(itemsList).map((item: CartItem) => {
         if (item.price) {
-          totalPrice += item.price;
+          totalPrice += item.price * item.quantity;
         }
         return idArr.push(item.id);
       });
@@ -181,7 +181,10 @@ const Checkout = () => {
           <div className="animate-fadeIn">
             {cartItems.map((item: IProduct) => {
               return (
-                <div className="flex items-center space-x-4 p-4 bg-white rounded-lg">
+                <div
+                  key={item.id}
+                  className="flex items-center space-x-4 p-4 bg-white rounded-lg"
+                >
                   <img
                     className="h-20 object-contain rounded-sm"
                     src={item.images[0]}

@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Elements,
   CardElement,
@@ -11,6 +11,7 @@ import { useState } from "react";
 import { BeatLoader } from "react-spinners";
 import "./Checkout.css";
 import { CartItem } from "../types";
+import { useShoppingCart } from "../contexts/CartContext";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -23,11 +24,12 @@ const CheckoutForm = () => {
   const [success, setSuccess] = useState<boolean>(false);
   const [spinner, setSpinner] = useState<boolean>(false);
 
+  const { setCartItems } = useShoppingCart();
   const stripe = useStripe();
   const elements = useElements();
   const location = useLocation();
   const state = location.state;
-  console.log(state);
+  const navigate = useNavigate();
 
   async function handlePayFormSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -59,8 +61,6 @@ const CheckoutForm = () => {
 
         if (payment) {
           const productsIds = getItemsIds();
-          setSuccess(true);
-          setSpinner(false);
           const order = {
             quantity: Number(state.price),
             email: state.email,
@@ -70,8 +70,14 @@ const CheckoutForm = () => {
             products: JSON.stringify(productsIds),
           };
           const res = await axios.post("http://localhost:8080/orders", order);
+          setSuccess(true);
+          setSpinner(false);
           if (res) {
+            setCartItems([]);
             localStorage.removeItem("shopping-cart");
+            setTimeout(() => {
+              navigate("/");
+            }, 3000);
           }
         }
       }
@@ -146,21 +152,27 @@ const CheckoutForm = () => {
               alt=""
             />
             <img
-              src="//cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/american_express-2264c9b8b57b23b0b0831827e90cd7bcda2836adc42a912ebedf545dead35b20.svg"
+              src="//cdn.shopify.com/tshopifycloud/shopify/assets/payment_icons/american_express-2264c9b8b57b23b0b0831827e90cd7bcda2836adc42a912ebedf545dead35b20.svg"
               alt=""
             />
           </div>
           <CardElement className="border p-4" />
-          {spinner && !error && !success ? (
-            <BeatLoader size={5} color="#000000" />
-          ) : (
-            <button
-              disabled={success}
-              className="mt-3 px-2 py-1 text-white text-sm font-bold rounded-md bg-[#1D3557]"
-            >
-              Buy
-            </button>
-          )}
+          <div className="flex flex-col">
+            {spinner && !error && !success ? (
+              <BeatLoader
+                className="justify-center items-center mt-4"
+                size={5}
+                color="#000000"
+              />
+            ) : (
+              <button
+                disabled={success}
+                className="justify-end items-end mt-3 px-2 py-1 text-white text-sm font-bold rounded-md bg-[#1D3557]"
+              >
+                Buy
+              </button>
+            )}
+          </div>
         </form>
       </div>
       {error && !success && (
