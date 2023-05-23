@@ -35,9 +35,15 @@ function NavBar() {
           <img src="../../public/figma/Mark.svg" alt="logo" />
         </div>
         <div className="hidden lg:flex pl-14 gap-10 text-base text-[#6B7280]">
-          <h3>Women</h3>
-          <h3>Men</h3>
-          <h3>Kids</h3>
+          <Link className="cursor-pointer" to={"/category/women"}>
+            Women
+          </Link>
+          <Link className="cursor-pointer" to={"/category/women"}>
+            Men
+          </Link>
+          <Link className="cursor-pointer" to={"/category/women"}>
+            Kids
+          </Link>
         </div>
         <div className="hidden lg:flex items-center  justify-center gap-4 ">
           <h3 className="mr-4 ">Blog</h3>

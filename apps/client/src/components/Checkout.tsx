@@ -15,7 +15,6 @@ interface IFormState {
   postal: string;
   city: string;
   phone: string;
-  amount: string;
 }
 type IAction = { type: "UPDATE_INPUT"; id: string; value: string };
 const initialState: IFormState = {
@@ -28,7 +27,6 @@ const initialState: IFormState = {
   postal: "",
   city: "",
   phone: "",
-  amount: "",
 };
 
 //REDUCER
@@ -67,7 +65,7 @@ const Checkout = () => {
       let totalPrice = 0;
       JSON.parse(itemsList).map((item: CartItem) => {
         if (item.price) {
-          totalPrice += item.price;
+          totalPrice += item.price * item.quantity;
         }
         return idArr.push(item.id);
       });
@@ -106,7 +104,7 @@ const Checkout = () => {
     navigate("/payment", {
       state: { ...state, itemsList: cartItems, price: totalPrice },
     });
-    console.log("Valores del formulario:", state);
+    console.log("Form values:", state);
     dispatch({ type: "UPDATE_INPUT", id: "country", value: "" });
     dispatch({ type: "UPDATE_INPUT", id: "name", value: "" });
     dispatch({ type: "UPDATE_INPUT", id: "lastName", value: "" });
@@ -183,7 +181,10 @@ const Checkout = () => {
           <div className="animate-fadeIn">
             {cartItems.map((item: IProduct) => {
               return (
-                <div className="flex items-center space-x-4 p-4 bg-white rounded-lg">
+                <div
+                  key={item.id}
+                  className="flex items-center space-x-4 p-4 bg-white rounded-lg"
+                >
                   <img
                     className="h-20 object-contain rounded-sm"
                     src={item.images[0]}
@@ -247,24 +248,6 @@ const Checkout = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="m-4">
-              <div className="flex items-center text-[#1D3557] gap-72">
-                <p>Subtotal</p>
-                <p>{totalPrice}</p>
-              </div>
-
-              {discount && (
-                <div className="animate-fadeIn">
-                  <div className="flex items-center text-gray-300 gap-72">
-                    <p>-{discount}</p>
-                  </div>
-                </div>
-              )}
-              <div className="flex items-center font-bold text-[#1D3557] gap-80">
-                <h1>Total</h1>
-                <p>{priceDiscount !== "" ? priceDiscount : totalPrice}</p>
-              </div>
-            </div> */}
             <div className="mt-4 mb-4 border-b-2"></div>
           </div>
         )}

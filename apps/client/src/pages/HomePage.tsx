@@ -1,7 +1,6 @@
 import HeroSection from "../components/HeroSection";
 import CategorySection from "../components/CategorySection";
-import FeaturedRow from "../components/FeaturedRow";
-import NewArrivalsRow from "../components/NewArrivalsRow";
+import ProductRow from "../components/ProductRow";
 import ProductDetails from "./ProductDetails";
 
 const HomePage = () => {
@@ -9,8 +8,8 @@ const HomePage = () => {
     <div>
       <HeroSection />
       <CategorySection />
-      <FeaturedRow />
-      <NewArrivalsRow />
+      <ProductRow type={"featured-products"} />
+      <ProductRow type={"new-arrivals"} />
       <ProductDetails />
     </div>
   );

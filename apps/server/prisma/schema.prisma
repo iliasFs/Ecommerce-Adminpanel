@@ -47,6 +47,18 @@ model Product {
   categoryId    Int
 }
 
+model Order {
+  id          Int      @id @default(autoincrement())
+  quantity    Float
+  email       String
+  fullName    String
+  adress      String
+  phone       String
+  paymentDate DateTime @default(now())
+  createdAt   DateTime @default(now())
+  products    String
+}
+
 model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
