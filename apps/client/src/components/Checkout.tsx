@@ -141,10 +141,10 @@ const Checkout = () => {
   }
   console.log(localStorage);
   return (
-    <div className="flex-wrap w-[600px] checkout-container ">
+    <div className="flex-wrap w-[350px] sm:w-[600px]  checkout-container">
       <div
         onClick={handleShowSummary}
-        className="flex mb-4 cursor-pointer p-2 hover:shadow-md  gap-4 mt-[-6px] items-center py-4 border-b-[5px] border-[#1D3557]  "
+        className="flex flex-col  md:flex-row mb-4 cursor-pointer p-2 hover:shadow-md  gap-4 mt-[-6px] items-center py-4 border-b-[5px] border-[#1D3557]"
       >
         <div>
           <img
@@ -253,16 +253,16 @@ const Checkout = () => {
         )}
       </div>
 
-      <div className="check-form">
+      <div className=" check-form">
         <label className="font-bold">Contact Information</label>
-        <div className="flex space-x-72 items-center">
+        <div className="flex space-x-5 sm:space-x-72 items-center">
           <p className=" text-[#bebebe]">Alredy have an account?</p>
-          <button className=" hover:underline">Log in</button>
+          <button className="hover:underline">Log in</button>
         </div>
       </div>
 
       <form
-        className="flex flex-col items-center justify-center"
+        className="flex flex-col w-[300px] sm:w-full items-center justify-center"
         onSubmit={handleShippingSubmit}
       >
         <input
