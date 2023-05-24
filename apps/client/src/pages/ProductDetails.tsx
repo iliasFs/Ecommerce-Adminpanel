@@ -78,21 +78,25 @@ const ProductDetails: React.FC = () => {
   return (
     <main className="container mx-auto py-8">
       {product !== null && (
-        <div className="grid grid-cols-12 gap-8">
-          <div className="col-span-12 md:col-span-6 lg:col-span-7">
+        <div className="grid grid-cols-12">
+          <div className="w-full md:w-8/12 col-span-12 md:col-span-6  lg:col-span-7">
             <Slider {...settings} className="mb-4">
               {product.images.map((image, index) => (
-                <div key={index} className="">
+                <div
+                  key={index}
+                  className="relative cursor-pointer overflow-hidden"
+                  style={{ aspectRatio: '16/9' }}
+                >
                   <img
                     src={image}
                     alt={`Product Image ${index + 1}`}
-                    className="object-cover w-full h-full rounded"
+                    className="object-cover w-full rounded-xl h-96 transition-transform transform hover:scale-105"
                   />
                 </div>
               ))}
             </Slider>
           </div>
-          <div className="col-span-12 md:col-span-6 lg:col-span-5 p-4">
+          <div className="col-span-12 md:col-span-6 lg:col-span-5  p-4 pl-0">
             <h1 className="text-3xl font-semibold mb-4">{product.name}</h1>
             <p className="text-gray-700 mb-4">{product.description}</p>
             <div className="flex items-center mb-4">

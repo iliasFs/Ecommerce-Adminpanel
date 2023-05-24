@@ -4,6 +4,7 @@ import { IProduct } from "../types";
 import FilterModal from "./FilterModal";
 import { Link, useParams } from "react-router-dom";
 
+
 function CategoryPage() {
   const params = useParams();
   let currentParam = params.categoryName;
@@ -35,6 +36,7 @@ function CategoryPage() {
   useEffect(() => {
     reloadRecipes();
   }, []);
+ 
 
   async function handleFilterClick(filterBy: string) {
     const res = await clientAPI.fetchCategory(endPoint);
@@ -71,45 +73,39 @@ function CategoryPage() {
           <label>{minPrice}</label>
         </div>
       </div>
+      <div className="mt-9 min-h-[480px]">
 
-      <ul className=" pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ">
-        {categoryList.map((prod, index) => {
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {categoryList.map((product) => {
+         const {id,images,name,price} = product
+          
           return (
-            <Link key={prod.id} to={`/product/${prod.id}`} className="product">
-              <li key={index}>
-                <div className="max-w-[80%]">
-                  <img className="" src={prod.images[0]} alt={prod.name} />
+            <Link key={id} to={`/product/${id}`} className="product">
+          <div
+          key={`featured_${id}`}
+          className="flex mb-10 flex-row min-w-[80vw] md:min-w-0 media-element shadow-xl hover:shadow-2xl cursor-pointer"
+        >
+          <img
+            src={images[0]}
+            alt={`Product Image ${id + 1}`}
+            className="flex-1 rounded-xl w-[150px] h-[270px]"
+          />
 
-                  <div className="flex w-full justify-between">
-                    <p>{`${prod.name.slice(0, 12)}...`}</p>
-                    <span>${prod.price}</span>
-                  </div>
-                  <div>
-                    <button>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-shopping-cart"
-                      >
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </li>
+          <div className="flex flex-col justify-center items-center gap-8 p-4 bg-gray-200 rounded-md box-border cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-110">
+            <h1 className="font-bold text-center w-[200px] max-w-[50%]">{`${name.slice(0, 25)}...`}</h1>
+            <h2 className="text-center text-gray-500">€{price}</h2>
+            <div className="flex justify-center gap-20 items-center">
+              <span className="opacity-75 top-0 right-0 bg-blue-700 text-white py-2 px-6 rounded-md flex items-center justify-center text-sm">
+                More...
+              </span>
+            </div>
+          </div>
+        </div> 
             </Link>
           );
         })}
-      </ul>
+      </div>
+    </div>
     </main>
   );
 }
