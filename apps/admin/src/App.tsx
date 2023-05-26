@@ -18,6 +18,10 @@ import AddBlogCategory from "./pages/AddBlogCategory";
 import AddCategory from "./pages/AddCategory";
 import AddProduct from "./pages/AddProduct";
 import HandleProduct from "./pages/HandleProduct";
+import AddAdmin from "./pages/AddAmin";
+import AdminList from "./pages/AdminList";
+import EditAdmin from "./pages/EditAdmin";
+
 
 function App() {
   return (
@@ -36,10 +40,12 @@ function App() {
           <Route path="customers" element={<Customers />} />
           <Route path="category" element={<AddCategory />} />
           <Route path="list-category" element={<CategoryList />} />
+          <Route path="add-admin" element={<AddAdmin />} />
+          <Route path="all-admins" element={< AdminList/>} />
+          <Route path="edit-admin/:id" element={<EditAdmin />} />
           <Route path="product" element={<AddProduct />} />
           <Route path="product-list" element={<ProductList />} />
           <Route path="product-list/:id" element={<HandleProduct />} />
-
           <Route path="blog-category-list" element={<BlogCategoryList />} />
           <Route path="blog-category" element={<AddBlogCategory />} />
         </Route>

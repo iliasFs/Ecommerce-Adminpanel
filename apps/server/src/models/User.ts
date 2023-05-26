@@ -52,7 +52,11 @@ class User {
   }
 
   static async findAll(): Promise<User[]> {
-    return await prisma.user.findMany();
+    return await prisma.user.findMany({
+      orderBy:{
+        id:'asc'
+      }
+    });
   }
 
   static async finById(id: number): Promise<User> {

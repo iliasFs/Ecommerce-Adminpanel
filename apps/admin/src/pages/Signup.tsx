@@ -53,6 +53,7 @@ const Signup = () => {
             localStorage.setItem('users', JSON.stringify(usersArray))
           }
           // then redirect user to the login page
+          
           window.location.href = '/login'
         }else{
           if(!usersArray.some((storedUser:IUser)=>storedUser.email===user.email)){

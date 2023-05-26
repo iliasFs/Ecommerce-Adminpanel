@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
@@ -10,17 +10,29 @@ import { BiCategoryAlt } from "react-icons/bi";
 import { SiBloglovin } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import { ImBlog, ImList } from "react-icons/im";
-import { MdOutlineQuestionAnswer, MdNotifications } from "react-icons/md";
+import { MdOutlineQuestionAnswer, MdNotifications,MdAccountCircle } from "react-icons/md";
 import { RxExit } from "react-icons/rx";
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
+  const loggedInUserEmail = localStorage.getItem('userEmail')
+  const navigate = useNavigate();
+  // Note team: The useEffect hook is very important here
+  // the hook will be trigered when the admin page is rendered
+  // and it will redirect user to login if the token is missing
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const navigate = useNavigate();
+  
+  
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -36,7 +48,7 @@ const MainLayout = () => {
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
             if (key === "signout") {
-              navigate("/");
+              navigate("/login");
             } else {
               navigate(key);
             }
@@ -46,6 +58,23 @@ const MainLayout = () => {
               key: "",
               icon: <RiDashboard2Fill className="fs-5" />,
               label: "Dashboard",
+            },
+            {
+              key: "catalogue",
+              icon: <MdAccountCircle className="fs-5" />,
+              label: "Accounts",
+              children: [
+                {
+                  key: "add-admin",
+                  icon: <MdAccountCircle className="fs-5" />,
+                  label: "Add an Admin",
+                },
+                {
+                  key: "all-admins",
+                  icon: <MdAccountCircle className="fs-5" />,
+                  label: "All Admins",
+                },
+              ],
             },
             {
               key: "customers",
@@ -154,7 +183,7 @@ const MainLayout = () => {
             </div>
             <div>
               {" "}
-              <h3>ilias@gmail.com</h3>
+              <h3>{loggedInUserEmail}</h3>
             </div>{" "}
           </div>
         </Header>

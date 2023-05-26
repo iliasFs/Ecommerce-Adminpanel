@@ -15,6 +15,7 @@ function userAuthorizationMiddleware(req: Request, _: Response, next: NextFuncti
     const token = authParts[1]
     // now, check if this token is correct
     const payload = jwt.verify(token,JWT_SECRET)
+    console.log(payload)
     if (typeof payload === 'string' || !('user' in payload)) {
         throw new Error('Invalid token')
     }

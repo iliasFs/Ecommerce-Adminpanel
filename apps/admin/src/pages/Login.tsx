@@ -1,14 +1,19 @@
 import { useState } from "react";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
+
+
 const Login = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState('')
   const BASE_URL = 'http://localhost:8080'
   const handleLoginForm = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      // Send a request to the login endpoint using Axios
+    // authentication
       const response = await axios.get(`${BASE_URL}/users/login`, {
         headers: {
           Authorization: `Basic ${btoa(`${email}:${password}`)}`
@@ -16,32 +21,43 @@ const Login = () => {
       });
 
       if (response.status === 200) {
-        // Retrieve the JWT token from the response
+        
         const { token } = response.data;
         console.log(token)
-
-        // Store the token securely (e.g., in localStorage)
         localStorage.setItem("token", token);
+        //window.location.href = '/admin'
+        // authorization
+        const authUserResponse = await axios.get(`${BASE_URL}/users/me`,{
+          headers:{
+            Authorization: `Bearer ${token}`
+          }
+        })
+        if(authUserResponse.status===200){
+          const{email} = authUserResponse.data
+          localStorage.setItem("userEmail", email)
+          navigate('/admin')
+        }else{
+          console.log('Something went wrong')
+        }
 
-        // Redirect to the protected admin route
-        window.location.href = '/admin'
       } else {
-        // Handle login error
-        console.error("Login failed");
+       
+       setErrorMessage("Invalid Credentials");
       }
     } catch (error) {
-      // Handle login error
-      console.error("Login failed", error);
+      setErrorMessage("Invalid Credentials");
     }
   };
+ 
   return (
     <div className="bg-gray-800 flex justify-center items-center h-screen">
       <div className="bg-black p-20 m-2 shadow-md rounded-md">
         <h2 className="text-2xl text-white font-bold mb-4">Login</h2>
+        {errorMessage&& <p className="mb-4 text-red-500">{errorMessage}</p>}
         <form onSubmit={handleLoginForm}>
           <div className="mb-4">
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="block font-semibold mb-2 text-white"
             >
               Email
@@ -76,6 +92,12 @@ const Login = () => {
           >
             Login
           </button>
+          <Link to='/reset-password'
+            className="text-gray-400 mt-2 underline"
+            
+          >
+            Forgot Password?
+          </Link>
         </form>
       </div>
     </div>

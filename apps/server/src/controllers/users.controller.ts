@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import atob from 'atob'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from "../lib/constant";
-import authRequest from '../types/express/index'
+
 
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -90,7 +90,7 @@ const UserController = {
       // fetch user based on the provided email
       console.log(email,password)
       const user = await User.finByEmail(email)
-      console.log('here')
+    
       if(!user.password)  throw new Error('No user password in the databsae')
       // compare the user provided password with the one stored in the database
       const correctPassword = bcrypt.compareSync(password,user.password )
@@ -106,7 +106,7 @@ const UserController = {
     
   },
 
-  // // next to get the authenticated user (authorization)
+  // next to get the authenticated user (authorization)
   async getAuthenticatedUser(req: Request, res: Response, next: NextFunction) {
     try {
       res.json(req.user)
