@@ -21,7 +21,7 @@ function NavBar() {
     setBlurApplied(true);
   };
   return (
-    <div className="z-50 top-0 w-full bg-white">
+    <div className={`z-50 top-0 ${isCartOpen ? "" : "sticky"} bg-white`}>
       <div className="section__padding flex items-center justify-between">
         {isCartOpen && (
           <div className={`${cartDivStyles}`}>
