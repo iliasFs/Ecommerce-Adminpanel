@@ -6,7 +6,6 @@ import { Link, useParams } from "react-router-dom";
 import { useShoppingCart } from "../contexts/CartContext";
 import "../index.css";
 
-
 function CategoryPage() {
   const [categoryList, setCategoryList] = useState<IProduct[]>([]);
   const [minPrice, setMinPrice] = useState<number>(0);
@@ -47,7 +46,6 @@ function CategoryPage() {
   useEffect(() => {
     reloadRecipes();
   }, []);
- 
 
   async function handleFilterClick(filterBy: string) {
     const res = await clientAPI.fetchCategory(endPoint);
@@ -70,39 +68,45 @@ function CategoryPage() {
       });
     }
     if (filtered) {
+      console.log(filtered);
       setCategoryList(filtered);
     }
   }
-return (
+  return (
     <main className=" overflow-x-0 min-w-[360px] flex flex-col my-3 items-center xl:flex-row xl:items-start">
       <FilterModal
         handleFilterClick={handleFilterClick}
         handlePriceChange={handlePriceChange}
         minPrice={minPrice}
+        type={endPoint}
       />
       <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 w-full gap-10 xl:m-5 min-h-screen">
         {categoryList.map((item) => {
           return (
-            <div className="min-w-[300px] max-h-[300px] mx-auto  bg-white rounded-lg shadow-md">
+            <div
+              key={`catItem_${item.id}`}
+              className="hover:scale-110 transform transition-transform duration-300 min-w-[300px] max-h-[300px] mx-auto  bg-white rounded-lg shadow-md "
+            >
               <Link className="bg-red-400" to={`/product/${item.id}`}>
                 <img
                   className="w-full h-48 object-cover object-top rounded-t-lg"
                   src={item.images[0]}
                   alt={`Product Image ${item.id + 1}`}
                 />
-              </Link><div className="p-4">
+              </Link>
+              <div className="p-1 pl-5 ">
                 <h1 className="text-xl font-semibold text-gray-800">
                   {item.name.length > 20
                     ? `${item?.name.slice(0, 20)}...`
                     : item.name}
                 </h1>
-                <div className="mt-1 flex items-center justify-between">
-                  <p className="text-gray-700 ml-3">${item.price}</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-gray-700">${item.price}</p>
                   <button
                     onClick={() => {
                       handleAddToCart(item);
                     }}
-                    className="hover:bg-gray-100 p-2 mr-3 rounded-xl"
+                    className="hover:bg-gray-100 p-2 rounded-xl"
                   >
                     {!cartItems.some((el) => el.id === item.id) ? (
                       <img

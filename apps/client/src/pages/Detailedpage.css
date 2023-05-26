@@ -1,0 +1,237 @@
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap");
+
+body {
+  font-family: "Kumbh Sans", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.default-container {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.user-container {
+  min-width: 38px;
+}
+.user-container img {
+  width: 30px;
+  border-radius: 50%;
+}
+
+.product {
+  padding-bottom: 3em;
+}
+
+.product__thumbs {
+  display: none;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 2em;
+  list-style: none;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+.product__thumbs .thumb-item {
+  display: inline-block;
+  width: 20%;
+}
+
+.product__content .choose-size {
+  margin-bottom: 1em;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.product__title {
+  font-size: 1.72rem;
+}
+.product__description {
+  margin: 1.2em 0 2em;
+  color: var(--dark-grayish-blue-clr);
+  line-height: 1.5em;
+  font-size: 0.95rem;
+}
+.product__price,
+.product__price .discount-price {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.discount-price__value {
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+.discount-price__discount {
+  margin-left: 1em;
+  padding: 0.25em 0.45em;
+  background-color: hsl(255, 80%, 92%);
+  color: hsl(254, 52%, 38%);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+#product__quantity {
+  position: relative;
+  padding: 1em 0.8em;
+  max-width: 35%;
+  text-align: center;
+  font-weight: 700;
+  border: none;
+  background-color: inherit;
+  appearance: textfield;
+}
+
+.thumb-item__btn:focus img {
+  opacity: 0.5;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .user-container:hover img {
+    outline: solid 2px var(--orange-clr);
+  }
+
+  .thumb-item__btn:hover img {
+    opacity: 0.5;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .top-header {
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+
+  .product__thumbs {
+    display: flex;
+  }
+  .product__content {
+    margin-top: 1em;
+  }
+}
+@media screen and (min-width: 768px) {
+  .default-container {
+    max-width: 580px;
+  }
+
+  .top-header {
+    padding-top: 1em;
+  }
+
+  .user-container img {
+    width: 40px;
+  }
+
+  .list-item__abstract {
+    align-self: start;
+    font-size: 1.05rem;
+    padding: 0.2em 0;
+  }
+  .list-item__abstract .title {
+    margin-bottom: 0.1em;
+  }
+
+  .product {
+    --max-width-box: 455px;
+  }
+
+  .product__title {
+    margin-top: 0.55em;
+    font-size: 2rem;
+  }
+  .product__content .coose-size {
+    font-size: 0.85rem;
+  }
+  .product__description {
+    font-size: 1.15rem;
+  }
+  .product__price {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .product__price .full-price {
+    margin-top: 0.5em;
+    font-size: 1.05rem;
+  }
+}
+#product__quantity {
+  padding: 1em 0;
+  max-width: 10%;
+}
+
+@media screen and (min-width: 992px) {
+  .default-container {
+    margin: 0;
+  }
+  .product {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2em;
+    justify-items: center;
+    margin: 0 auto;
+    max-width: var(--max-width);
+    box-sizing: border-box;
+  }
+  .product__content {
+    align-self: center;
+  }
+  .product__thumbs {
+    margin-top: 2em;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .product {
+    column-gap: 5em;
+    --max-width-box: 457px;
+    margin-bottom: 1em;
+  }
+  .product__content .coose-size {
+    font-size: 0.9rem;
+  }
+  .product__title {
+    font-size: 2.75rem;
+  }
+  .discount-price__value {
+    font-size: 1.8rem;
+  }
+}
+@media screen and (min-width: 1400px) {
+  body {
+    --max-width: 80%;
+  }
+
+  .user-container img {
+    width: 50px;
+  }
+
+  .product {
+    --max-width: 78%;
+  }
+
+  .product__content {
+    justify-self: start;
+    margin-top: -5%;
+  }
+  .product__content {
+    margin-top: 2.85em;
+  }
+}

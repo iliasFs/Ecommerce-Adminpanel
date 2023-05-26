@@ -4,10 +4,9 @@ import { Link, useParams } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import { IProduct } from "../types";
 import { useShoppingCart } from "../contexts/CartContext";
-
+import "./Detailedpage.css";
 const ProductDetails: React.FC = () => {
   const [product, setProduct] = useState<IProduct>();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -76,65 +75,48 @@ const ProductDetails: React.FC = () => {
   };
 
   return (
+    <>
+      <body>
+        <main>
+          <article className="product">
+            <section className="default-container" aria-label="Product preview">
+              <img src={product?.images[0]} alt="Prodct Detail" />
+            </section>
+            <section
+              className="product__content default-container"
+              aria-label="Product content"
+            >
+              <div>
+                <h2 className="choose-size">choose one size</h2>
+                <h3 className="product__title">{product?.name}</h3>
+              </div>
+              <p className="product__description">{product?.description}</p>
+              <div className="product__price">
+                <div className="discount-price">
+                  <p className="discount-price__value">125.00</p>
+                  <p className="discount-price__discount">50%</p>
+                </div>
+              </div>
 
-    <main className="container flex flex-col items-center gap-7">
-      <div>
-        <Link
-          to={"/"}
-          className="text-sm text-bold flex hover:pointer hover:underline"
-        >
-          <h1>FOTO</h1>
-          <p>Back Home</p>
-        </Link>
-        <h1 className="text-3xl font-semibold">{product?.name}</h1>
-        <div className="flex justify-between">
-          <p>${product?.price}</p>
-          <span className="flex flex-col items-end">
-            <div className="flex">
-              <img
-                className="h-[20px] w-[20px]"
-                src="../../startRating.png"
-                alt=""
-              />
-              <img
-                className="h-[20px] w-[20px]"
-                src="../../startRating.png"
-                alt=""
-              />
-              <img
-                className="h-[20px] w-[20px]"
-                src="../../startRating.png"
-                alt=""
-              />
-              <img
-                className="h-[20px] w-[20px]"
-                src="../../startRating.png"
-                alt=""
-              />
-              <img
-                className="h-[20px] w-[20px]"
-                src="../../startRating.png"
-                alt=""
-              />
-            </div>
-            FREEEE
-          </span>
-        </div>
-      </div>
-      <Slider {...settings} className="w-[300px]">
-        {product?.images.map((image, index) => (
-          <div key={index} className="border rounded">
-            <img
-              src={image}
-              alt={`Product Image ${index + 1}`}
-              className=" object-cover w-full h-full rounded"
-            />
-          </div>
-        ))}
-      </Slider>
+              <form action="#" className="flex">
+                <input type="number" min="0" value="0" />
 
-      {/* {product !== null && (
-        <div className="grid grid-cols-12 gap-8">
+                <button type="button" className="">
+                  Add to cart
+                </button>
+              </form>
+            </section>
+          </article>
+        </main>
+      </body>
+    </>
+  );
+};
+
+export default ProductDetails;
+
+{
+  /* <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-6 lg:col-span-7">
 
     <main className="container mx-auto py-8">
@@ -218,9 +200,5 @@ const ProductDetails: React.FC = () => {
             </div>
           </div>
         </div>
-      )} */}
-    </main>
-  );
-};
-
-export default ProductDetails;
+      */
+}

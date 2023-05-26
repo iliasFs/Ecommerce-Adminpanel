@@ -153,7 +153,9 @@ const AddProduct = () => {
           >
             Add Product
           </button>
-          {showModal && <SuccessModal onClose={handleCloseModal} />}
+          {showModal && (
+            <SuccessModal onClose={handleCloseModal} name={"added"} />
+          )}
         </form>
       </div>
     </div>
