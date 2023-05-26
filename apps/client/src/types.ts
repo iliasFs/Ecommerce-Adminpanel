@@ -38,3 +38,15 @@ export type CartItem = {
   quantity: number;
   price: number;
 };
+export interface IData {
+  id: number;
+  name: string;
+  price: number;
+  size: string;
+  images: string[];
+  description: string;
+  stockQuantity: number;
+  featured: boolean;
+  newArrivals: boolean;
+  disabled?: boolean;
+}

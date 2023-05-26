@@ -21,12 +21,14 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
     setBlurApplied(false);
     setCartOpen((prev) => !prev);
   };
+
   // localStorage.removeItem("shopping-cart");
   console.log(localStorage);
   
   return (
 
     <div className="relative overflow-y-auto max-w-[450px] h-full flex flex-col px-4 py-2 z-50">
+
 
       <div className="absolute w-[90%]">
         <RiCloseLine size={26} onClick={handleCloseCart} />

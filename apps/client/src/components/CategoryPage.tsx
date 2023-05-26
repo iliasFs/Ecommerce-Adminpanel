@@ -1,11 +1,26 @@
 import { useEffect, useState } from "react";
 import clientAPI from "../library/clientAPI";
-import { IProduct } from "../types";
+import { IData, IProduct } from "../types";
 import FilterModal from "./FilterModal";
 import { Link, useParams } from "react-router-dom";
+import { useShoppingCart } from "../contexts/CartContext";
+import "../index.css";
+
 
 function CategoryPage() {
+  const [categoryList, setCategoryList] = useState<IProduct[]>([]);
+  const [minPrice, setMinPrice] = useState<number>(0);
+
   const params = useParams();
+  const { decreaseItemQuantity, increaseCartQuantity, cartItems } =
+    useShoppingCart();
+  function handleAddToCart(item: IData) {
+    if (!cartItems.some((el) => el.id === item.id)) {
+      increaseCartQuantity(item.id, item.price);
+    } else {
+      decreaseItemQuantity(item.id, item.price);
+    }
+  }
   let currentParam = params.categoryName;
   const endPoint =
     currentParam === "men"
@@ -13,9 +28,6 @@ function CategoryPage() {
       : currentParam === "women"
       ? "women"
       : "kids";
-
-  const [categoryList, setCategoryList] = useState<IProduct[]>([]);
-  const [minPrice, setMinPrice] = useState<number>(0);
 
   async function handlePriceChange(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -35,6 +47,7 @@ function CategoryPage() {
   useEffect(() => {
     reloadRecipes();
   }, []);
+ 
 
   async function handleFilterClick(filterBy: string) {
     const res = await clientAPI.fetchCategory(endPoint);
@@ -60,53 +73,54 @@ function CategoryPage() {
       setCategoryList(filtered);
     }
   }
-  return (
-    <main className="w-[80%] m-auto gap-12 flex">
-      <div>
-        <div>
-          <FilterModal handleFilterClick={handleFilterClick} />
-        </div>
-        <div>
-          <input type="range" min={0} max={50} onChange={handlePriceChange} />
-          <label>{minPrice}</label>
-        </div>
-      </div>
-
-      <ul className=" pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ">
-        {categoryList.map((prod, index) => {
+return (
+    <main className=" overflow-x-0 min-w-[360px] flex flex-col my-3 items-center xl:flex-row xl:items-start">
+      <FilterModal
+        handleFilterClick={handleFilterClick}
+        handlePriceChange={handlePriceChange}
+        minPrice={minPrice}
+      />
+      <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 w-full gap-10 xl:m-5 min-h-screen">
+        {categoryList.map((item) => {
           return (
-            <Link key={prod.id} to={`/product/${prod.id}`} className="product">
-              <li key={index}>
-                <div className="max-w-[80%]">
-                  <img className="" src={prod.images[0]} alt={prod.name} />
-
-                  <div className="flex w-full justify-between">
-                    <p>{`${prod.name.slice(0, 12)}...`}</p>
-                    <span>${prod.price}</span>
-                  </div>
-                  <div>
-                    <button>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-shopping-cart"
-                      >
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                      </svg>
-                    </button>
-                  </div>
+            <div className="min-w-[300px] max-h-[300px] mx-auto  bg-white rounded-lg shadow-md">
+              <Link className="bg-red-400" to={`/product/${item.id}`}>
+                <img
+                  className="w-full h-48 object-cover object-top rounded-t-lg"
+                  src={item.images[0]}
+                  alt={`Product Image ${item.id + 1}`}
+                />
+              </Link><div className="p-4">
+                <h1 className="text-xl font-semibold text-gray-800">
+                  {item.name.length > 20
+                    ? `${item?.name.slice(0, 20)}...`
+                    : item.name}
+                </h1>
+                <div className="mt-1 flex items-center justify-between">
+                  <p className="text-gray-700 ml-3">${item.price}</p>
+                  <button
+                    onClick={() => {
+                      handleAddToCart(item);
+                    }}
+                    className="hover:bg-gray-100 p-2 mr-3 rounded-xl"
+                  >
+                    {!cartItems.some((el) => el.id === item.id) ? (
+                      <img
+                        className="h-[20px] w-[20px]"
+                        src="../../plusSign.png"
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        className="animate-fadeIn  h-[20px] w-[20px]"
+                        src="../../tick.png"
+                        alt=""
+                      />
+                    )}
+                  </button>
                 </div>
-              </li>
-            </Link>
+              </div>
+            </div>
           );
         })}
       </ul>

@@ -9,7 +9,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { useState } from "react";
 import { BeatLoader } from "react-spinners";
-import "./Checkout.css";
 import { CartItem } from "../types";
 import { useShoppingCart } from "../contexts/CartContext";
 
@@ -99,48 +98,35 @@ const CheckoutForm = () => {
     return idArr;
   }
   return (
-    <div className="flex h-[350px] flex-col justify-center items-center">
-      <div className="flex-wrap h-[350px] w-[800px] checkout-container ">
-        <div className="grid grid-cols-3 border-b-[5px] p-3 border-[#1D3557] rounded-sm">
-          <div>
-            <div className="flex mb-2 items-center justify-start ">
-              <p className=" text-gray-400">Contact</p>
-            </div>
-            <div className="flex items-center justify-start ">
-              <p className="text-gray-400">Ship to</p>
-            </div>
+    <div>
+      <div className="w-[400px] md:w-[800px] checkout-container ">
+        <div className="border-b-[5px] p-3 border-[#1D3557] rounded-sm">
+          <div className="border-[#1D3557] gap-1 border-opacity-10 md:border-none flex flex-col md:flex-row p-2 border-b-[3px] md:justify-between">
+            <p className=" text-gray-400">Contact</p>
+            <p className="text-black">
+              {state.email}, {state.phone}
+            </p>
+            <Link
+              className="font-bold text-black transition-colors duration-300 hover:text-[#1D3557]"
+              to={"/checkout"}
+            >
+              change
+            </Link>
           </div>
-          <div>
-            <div className="flex mb-2 items-center justify-start ">
-              <p className="text-black">
-                {state.email}, {state.phone}
-              </p>
-            </div>
-            <div className="flex items-center justify-start ">
-              <p className="text-black">
-                {state.street}, {state.postal}, {state.city}, {state.country}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div className="flex mb-2 items-center justify-end ">
-              <Link
-                className="font-bold text-black transition-colors duration-300 hover:text-[#1D3557]"
-                to={"/checkout"}
-              >
-                change
-              </Link>
-            </div>
-            <div className="flex items-center justify-end ">
-              <Link
-                className="font-bold text-black transition-colors duration-300 hover:text-[#1D3557]"
-                to={"/checkout"}
-              >
-                change
-              </Link>
-            </div>
+          <div className=" flex flex-col gap-1 md:flex-row p-2  md:justify-between">
+            <p className="text-gray-400">Ship to</p>
+            <p className="text-black">
+              {state.street}, {state.postal}, {state.city}, {state.country}
+            </p>
+            <Link
+              className="font-bold text-black transition-colors duration-300 hover:text-[#1D3557]"
+              to={"/checkout"}
+            >
+              change
+            </Link>
           </div>
         </div>
+
         <form onSubmit={handlePayFormSubmit} className="m-5">
           <div className="flex p-3 gap-2">
             <img
