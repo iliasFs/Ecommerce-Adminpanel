@@ -17,49 +17,6 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
 }
-.section__padding {
-  padding: 1.5rem 4rem;
-}
-
-.section__margin {
-  margin: 4rem 0rem;
-}
-
-.image-overlay {
-  border: 0;
-  outline: none;
-  background: transparent;
-}
-
-.image-overlay:hover {
-  opacity: 1;
-  transform: translateY(2%);
-}
-.custom-arrow::before {
-  color: black !important;
-}
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Inter", sans-serif;
-  margin: 0 auto;
-}
-
-.border-text {
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.439);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 body {
   margin: 0;
@@ -80,14 +37,11 @@ body {
 /* PROD LISTS HOME PAGE  */
 .media-scroller {
   display: flex;
-  gap: 15px;
+  gap: 1.9rem;
   padding: 2rem;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
 }
-/* .media-scroller::-webkit-scrollbar {
-  width: 0;
-} */
 
 .media-element {
   display: flex;
@@ -95,10 +49,9 @@ body {
   align-items: center;
   flex: 0 0 20%;
   flex-direction: column;
-  gap: 2rem;
-  padding: 1rem;
+  margin-bottom: 2.5rem;
   background: var(--surface-2);
-  border-radius: var(--radius-2);
+  border-radius: 10px;
   box-sizing: border-box;
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.65, 0, 0.076, 1),
@@ -114,11 +67,11 @@ body {
 .media-element:hover {
   transform: scale(1.1);
 }
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
-} */
+}
 .snaps-inline {
   scroll-snap-type: inline mandatory;
   scroll-padding-inline: 25px;
@@ -198,3 +151,15 @@ body {
 .custom-arrow::before {
   color: black !important;
 }
+.arrowButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s ease;
+}
+
+.arrowButton:active {
+  transform: scale(0.8);
+}
+/* ------------------ */

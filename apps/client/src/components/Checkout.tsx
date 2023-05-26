@@ -1,5 +1,4 @@
 import { useEffect, useReducer, useRef, useState } from "react";
-import "./Checkout.css";
 import { useNavigate } from "react-router-dom";
 import { CartItem, IProduct } from "../types";
 import axios from "axios";
