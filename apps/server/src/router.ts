@@ -1,5 +1,5 @@
 import express from "express";
-const router = express.Router();
+
 import ProductController from "./controllers/products.controller";
 import CategoryController from "./controllers/category.controller";
 import UserController from "./controllers/users.controller";
@@ -11,6 +11,9 @@ import fs from "fs";
 import cloudinary from "../cloud/cloudinary";
 import dotenv from "dotenv";
 import OrderController from "./controllers/orders.controller";
+import userAuthorizationMiddleware from "./middleware/userAuthorization";
+
+const router = express.Router();
 dotenv.config();
 const upload = multer({ dest: "uploads/" });
 const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
@@ -27,10 +30,19 @@ router.delete("/product/:productId", ProductController.deleteProduct);
 router.post("/allProductsId", ProductController.getAllProductById);
 
 //User Routes
+//login in and authorization routes
+router.get('/users/me', userAuthorizationMiddleware, UserController.getAuthenticatedUser)
+router.get('/users/login',UserController.loginUser)
+
 router.post("/users", UserController.createUser);
+router.put('/users/:id', UserController.updateUser)
 router.get("/users", UserController.findAllUsers);
 router.get("/users/:id", UserController.findById);
 router.delete("/users/:userId", UserController.deleteUser);
+
+
+
+
 
 //Category Routes
 router.post("/category", CategoryController.createCategory);

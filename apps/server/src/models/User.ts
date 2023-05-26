@@ -31,8 +31,32 @@ class User {
     return new User(id, name, email, password, isAdmin);
   }
 
+  // To update a user
+  static async updateUser(
+    id: number,
+    updatedName: string,
+    updatedEmail: string,
+    updatedPassword: string,
+    updatedAdminStatus:boolean,
+  ) {
+    const { name, email, password,isAdmin } = await prisma.user.update({
+      where: { id },
+      data: {
+        name: updatedName,
+        email: updatedEmail,
+        password: updatedPassword,
+        isAdmin: updatedAdminStatus
+      },
+    })
+    return new User(id, name, email, password, isAdmin)
+  }
+
   static async findAll(): Promise<User[]> {
-    return await prisma.user.findMany();
+    return await prisma.user.findMany({
+      orderBy:{
+        id:'asc'
+      }
+    });
   }
 
   static async finById(id: number): Promise<User> {
@@ -45,7 +69,19 @@ class User {
       throw new Error("User does not exist.");
     }
     const { name, email, password, isAdmin } = user;
-    return new User(id, name, email, "", isAdmin);
+    return new User(id, name, email, password, isAdmin);
+  }
+  static async finByEmail(email: string): Promise<User> {
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (user === null) {
+      throw new Error("User does not exist.");
+    }
+    const {id, name, password, isAdmin } = user;
+    return new User(id, name, email, password, isAdmin);
   }
 
   static async delete(id: number) {
