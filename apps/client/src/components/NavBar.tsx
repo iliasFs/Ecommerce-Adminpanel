@@ -31,17 +31,17 @@ function NavBar() {
             />
           </div>
         )}
-        <div>
+        <Link to="/">
           <img src="../../public/figma/Mark.svg" alt="logo" />
-        </div>
+        </Link>
         <div className="hidden lg:flex pl-14 gap-10 text-base text-[#6B7280]">
           <Link className="cursor-pointer" to={"/category/women"}>
             Women
           </Link>
-          <Link className="cursor-pointer" to={"/category/women"}>
+          <Link className="cursor-pointer" to={"/category/men"}>
             Men
           </Link>
-          <Link className="cursor-pointer" to={"/category/women"}>
+          <Link className="cursor-pointer" to={"/category/kids"}>
             Kids
           </Link>
         </div>

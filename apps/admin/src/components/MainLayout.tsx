@@ -7,6 +7,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsFillPersonFill, BsCardList } from "react-icons/bs";
 import { TbBrandFramerMotion } from "react-icons/tb";
 import { BiCategoryAlt } from "react-icons/bi";
+import {MdAccountBox} from "react-icons/md"
 import { SiBloglovin } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import { ImBlog, ImList } from "react-icons/im";
@@ -51,6 +52,11 @@ const MainLayout = () => {
               key: "customers",
               icon: <BsFillPersonFill className="fs-5" />,
               label: "Customers",
+            },
+            {
+              key: "accounts",
+              icon: <MdAccountBox className="fs-5" />,
+              label: "Accounts",
             },
             {
               key: "catalogue",

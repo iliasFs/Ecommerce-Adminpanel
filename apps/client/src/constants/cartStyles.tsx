@@ -8,5 +8,5 @@ transition-all
 duration-300
 ease-in-out
 z-30
-w-[450px]
+max-w-full
 `;

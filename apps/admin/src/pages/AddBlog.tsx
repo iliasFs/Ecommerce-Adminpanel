@@ -39,8 +39,6 @@ const AddBlog = () => {
     console.log(desc);
   }, [headInput, desc]);
 
-  
-
   return (
     <div>
       <h3 className="mb-4 text-xl font-bold pl-1">Add Blog</h3>
@@ -54,7 +52,7 @@ const AddBlog = () => {
             i_class=""
             name=""
             val={headInput}
-            onChange={(e) => setHeadInput(e.target.value)}
+            onChng={(e) => setHeadInput(e.target.value)}
           />
           <select className="form-control py-3 mb-3" name="" id="">
             <option value="">Select Blog Category</option>

@@ -1,5 +1,4 @@
 import express from "express";
-const router = express.Router();
 import ProductController from "./controllers/products.controller";
 import CategoryController from "./controllers/category.controller";
 import UserController from "./controllers/users.controller";
@@ -12,8 +11,10 @@ import cloudinary from "../cloud/cloudinary";
 import dotenv from "dotenv";
 import OrderController from "./controllers/orders.controller";
 dotenv.config();
+const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
+const secretKey = process.env.STRIPE_SECRET_KEY;
 
 // product routes
 router.post("/product", ProductController.createProduct);
@@ -21,7 +22,6 @@ router.get("/product", ProductController.getAllProducts);
 router.get("/product/:id", ProductController.getProductById);
 router.get("/featured-products", ProductController.getFeaturedProducts);
 router.get("/new-arrivals", ProductController.getNewArrivals);
-
 router.put("/product/:productId", ProductController.updateProduct);
 router.delete("/product/:productId", ProductController.deleteProduct);
 router.post("/allProductsId", ProductController.getAllProductById);
@@ -36,7 +36,7 @@ router.delete("/users/:userId", UserController.deleteUser);
 router.post("/category", CategoryController.createCategory);
 router.get("/category/:categoryname", CategoryController.findCategory);
 router.delete("/category/:id", CategoryController.deleteCategory);
-const secretKey = process.env.STRIPE_SECRET_KEY;
+
 //Order routes
 router.get("/orders", OrderController.getAllOrders);
 router.post("/orders", OrderController.createOrder);
@@ -81,7 +81,6 @@ router.post("/upload", upload.array("files"), async (req, res) => {
       formData.append("file", fs.createReadStream(file.path), {
         filename: file.originalname,
       });
-      // Replace 'your_cloud_name' and 'your_upload_preset' with your actual Cloudinary details
       return axios.post(
         `https://api.cloudinary.com/v1_1/${CLOUDINARY_NAME}/upload?upload_preset=ofbmy8vl`,
         formData,
@@ -92,15 +91,12 @@ router.post("/upload", upload.array("files"), async (req, res) => {
         }
       );
     });
-
     const uploadedResults = await Promise.all(uploadedPromises);
     const proccessedResults = uploadedResults.map((result) => {
       return {
-        data: result.data.secure_url,
+        data: result.data.secure_url,   
       };
     });
-
-    // Process the uploaded results or save the necessary information to a database
 
     return res.status(200).json(proccessedResults);
   } catch (error) {

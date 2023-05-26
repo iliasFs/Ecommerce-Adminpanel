@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 const CategorySection = () => {
   return (
     <div className="w-full h-full section__padding section__margin flex flex-col gap-20 items-center justify-center">
-      <h1 className="font-bold text-5xl text-center">Picks For Everyone</h1>
+      <h1 className="font-bold text-4xl text-center">Picks For Everyone</h1>
       <div className="w-full flex items-center justify-around flex-wrap gap-5">
         <Link
           to="/category/women"

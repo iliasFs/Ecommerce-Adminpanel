@@ -19,10 +19,11 @@ interface CustomInputProps {
     | NameChangeHandler
     | isNewArrival
     | isFeatured;
+  onBlr?: any;
 }
 
 const CustomInput = (props: CustomInputProps) => {
-  const { type, label, i_id, i_class, name, val, onChng } = props;
+  const { type, label, i_id, i_class, name, val, onChng, onBlr } = props;
   return (
     <div className="form-floating my-3">
       <input
@@ -33,6 +34,7 @@ const CustomInput = (props: CustomInputProps) => {
         name={name}
         value={val}
         onChange={onChng} // Corrected the prop name to 'onChange'
+        onBlur={onBlr}
       />
       <label htmlFor={label}>{label}</label>
     </div>
