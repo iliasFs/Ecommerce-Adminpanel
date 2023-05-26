@@ -46,7 +46,6 @@ const OrderController = {
         quantity,
         email,
         fullName,
-
         adress,
         phone
       );

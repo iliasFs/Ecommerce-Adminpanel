@@ -6,8 +6,11 @@ import { Checkbox } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import PhotoUploadForm from "../components/PhotoUploadForm";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import SuccessModal from "../components/SuccessModal";
 
 const AddProduct = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [productName, setProductName] = useState<string>("");
   const [size, setSize] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
@@ -20,6 +23,7 @@ const AddProduct = () => {
 
   type PriceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 
+  const navigate = useNavigate();
   const handleDescChange = (value: string) => {
     setDesc(value);
   };
@@ -64,14 +68,19 @@ const AddProduct = () => {
     newArrivals: newArrival,
     category: selectedCategory,
   };
-  const handleFormSubmit = async () => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      console.log;
-      const response = await axios.post("http://localhost:8080/product", data);
-      alert("Product has been added");
+      await axios.post("http://localhost:8080/product", data);
+      setShowModal(true);
     } catch (error) {
       console.log("failed to proceed", error);
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate("/admin");
   };
 
   return (
@@ -144,6 +153,7 @@ const AddProduct = () => {
           >
             Add Product
           </button>
+          {showModal && <SuccessModal onClose={handleCloseModal} />}
         </form>
       </div>
     </div>

@@ -7,9 +7,11 @@ import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import PhotoUploadForm from "../components/PhotoUploadForm";
 import axios from "axios";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import SuccessModal from "../components/SuccessModal";
 
 const HandleProduct = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [productName, setProductName] = useState<string>("");
   const [size, setSize] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
@@ -22,7 +24,7 @@ const HandleProduct = () => {
 
   type PriceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
   type StockChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
-
+  const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     if (!id) return;
@@ -82,14 +84,20 @@ const HandleProduct = () => {
     newArrivals: newArrival,
     category: selectedCategory,
   };
-  const handleFormSubmit = async () => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
       await axios.put(`http://localhost:8080/product/${id}`, data);
-      alert("Product has been updated");
+      setShowModal(true);
     } catch (error) {
       console.log("failed to proceed", error);
     }
   };
+  function handleCloseModal() {
+    setShowModal(false);
+    navigate("/admin");
+  }
+
   return (
     <div>
       <h3 className="mb-4 text-xl font-bold pl-1">Edit or Delete Product</h3>
@@ -168,6 +176,7 @@ const HandleProduct = () => {
             <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-md shadow-md transition duration-300 ease-in-out">
               Save Changes
             </button>
+            {showModal && <SuccessModal onClose={handleCloseModal} name={'updated'}/>}
           </div>
         </form>
       </div>

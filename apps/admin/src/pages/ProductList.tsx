@@ -50,7 +50,7 @@ const ProductList: React.FC = () => {
                 />
                 <button
                   onClick={() => handleDelete(product.id)}
-                  className="absolute max-w-[50px] top-[10px] right-[5px] color-white rounded-xl px-2 py-1 font-bold  text-red-600 transition duration-300 ease-in-out hover:bg-red-700 hover:text-white hover:scale-105 z-50"
+                  className="absolute max-w-[50px] top-0 right-0 color-white rounded-xl px-2 py-1 font-bold  text-red-600 transition duration-300 ease-in-out hover:bg-red-700 hover:text-white hover:scale-105 z-50"
                 >
                   <RiDeleteBin5Line size={30} />
                 </button>
@@ -58,7 +58,7 @@ const ProductList: React.FC = () => {
             }
           >
             <Link
-              className="absolute max-w-[50px] top-[10px] left-[5px] color-white rounded-xl px-2 py-1 font-bold  text-red-600 transition duration-300 ease-in-out hover:bg-red-700 hover:text-white hover:scale-105 z-50"
+              className="absolute max-w-[50px] top-0 left-0 color-white rounded-xl px-2 py-1 font-bold  text-red-600 transition duration-300 ease-in-out hover:bg-red-700 hover:text-white hover:scale-105 z-50"
               to={`/admin/product-list/${product.id}`}
             >
               <BiEdit size={30} />
