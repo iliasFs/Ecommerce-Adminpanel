@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { useShoppingCart } from "../contexts/CartContext";
 import "../index.css";
 
+
 function CategoryPage() {
   const [categoryList, setCategoryList] = useState<IProduct[]>([]);
   const [minPrice, setMinPrice] = useState<number>(0);
@@ -46,6 +47,7 @@ function CategoryPage() {
   useEffect(() => {
     reloadRecipes();
   }, []);
+ 
 
   async function handleFilterClick(filterBy: string) {
     const res = await clientAPI.fetchCategory(endPoint);
@@ -71,8 +73,7 @@ function CategoryPage() {
       setCategoryList(filtered);
     }
   }
-
-  return (
+return (
     <main className=" overflow-x-0 min-w-[360px] flex flex-col my-3 items-center xl:flex-row xl:items-start">
       <FilterModal
         handleFilterClick={handleFilterClick}
@@ -89,8 +90,7 @@ function CategoryPage() {
                   src={item.images[0]}
                   alt={`Product Image ${item.id + 1}`}
                 />
-              </Link>
-              <div className="p-4">
+              </Link><div className="p-4">
                 <h1 className="text-xl font-semibold text-gray-800">
                   {item.name.length > 20
                     ? `${item?.name.slice(0, 20)}...`
