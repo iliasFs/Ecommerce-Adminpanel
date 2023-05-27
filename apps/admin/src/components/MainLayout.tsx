@@ -82,11 +82,7 @@ const MainLayout = () => {
               icon: <BsFillPersonFill className="fs-5" />,
               label: "Customers",
             },
-            {
-              key: "accounts",
-              icon: <MdAccountBox className="fs-5" />,
-              label: "Accounts",
-            },
+          
             {
               key: "catalogue",
               icon: <AiOutlineShoppingCart className="fs-5" />,

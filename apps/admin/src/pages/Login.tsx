@@ -25,7 +25,7 @@ const Login = () => {
         const { token } = response.data;
         console.log(token)
         localStorage.setItem("token", token);
-        //window.location.href = '/admin'
+        
         // authorization
         const authUserResponse = await axios.get(`${BASE_URL}/users/me`,{
           headers:{
@@ -33,7 +33,7 @@ const Login = () => {
           }
         })
         if(authUserResponse.status===200){
-          const{email} = authUserResponse.data
+          const {email} = authUserResponse.data
           localStorage.setItem("userEmail", email)
           navigate('/admin')
         }else{
