@@ -7,13 +7,25 @@ import "slick-carousel/slick/slick-theme.css";
 import { IProduct } from "../types";
 import { useShoppingCart } from "../contexts/CartContext";
 import "./Detailedpage.css";
+import "../index.css";
+import clientAPI from "../library/clientAPI";
 const ProductDetails: React.FC = () => {
   const [product, setProduct] = useState<IProduct>();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [similar, setSimilar] = useState<IProduct[]>();
 
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const { increaseCartQuantity } = useShoppingCart();
 
+  async function reloadRecipes() {
+    if (product) {
+      const res = await clientAPI.fetchCategory(product?.category.toString());
+      setSimilar(res.products);
+    }
+  }
+  useEffect(() => {
+    reloadRecipes();
+  }, []);
   const handleSizeClick = (size: string) => {
     setSelectedSize((prevSize) => (prevSize === size ? null : size));
   };
@@ -76,39 +88,160 @@ const ProductDetails: React.FC = () => {
 
   return (
     <>
-      <body>
-        <main>
-          <article className="product">
-            <section className="default-container" aria-label="Product preview">
-              <img src={product?.images[0]} alt="Prodct Detail" />
-            </section>
-            <section
-              className="product__content default-container"
-              aria-label="Product content"
-            >
-              <div>
-                <h2 className="choose-size">choose one size</h2>
-                <h3 className="product__title">{product?.name}</h3>
-              </div>
+      <main className="w-full h-full">
+        <article className="flex flex-col md:flex-row gap-[100px] ">
+          <section className=" snaps-inline">
+            {/* <img src={product?.images[0]} alt="Prodct Detail" /> */}
+            <Slider {...settings} className="m-4 max-w-[480px] h-full">
+              {product?.images.map((image, index) => (
+                <div
+                  key={index}
+                  className="relative cursor-pointer overflow-hidden"
+                  style={{ aspectRatio: "16/9" }}
+                >
+                  <img
+                    src={image}
+                    alt={`Product Image ${index + 1}`}
+                    className="w-full rounded-xl h-full transition-transform transform hover:scale-105"
+                  />
+                </div>
+              ))}
+            </Slider>
+          </section>
+          <section className="p-1">
+            <div>
+              <h1 className="text-[2.8rem]">{product?.name}</h1>
               <p className="product__description">{product?.description}</p>
-              <div className="product__price">
-                <div className="discount-price">
-                  <p className="discount-price__value">125.00</p>
-                  <p className="discount-price__discount">50%</p>
+              <div className="flex flex-col gap-2 my-4">
+                <h2 className="choose-size">choose one size</h2>
+                <div className="flex flex-row gap-2 ">
+                  <div
+                    className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                      selectedSize === "XS" ? "bg-blue-950 text-white" : ""
+                    }`}
+                    onClick={() => handleSizeClick("XS")}
+                  >
+                    <p className="text-sm">XS</p>
+                  </div>
+                  <div
+                    className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                      selectedSize === "S" ? "bg-blue-950 text-white" : ""
+                    }`}
+                    onClick={() => handleSizeClick("S")}
+                  >
+                    <p className="text-sm">S</p>
+                  </div>
+                  <div
+                    className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                      selectedSize === "M" ? "bg-blue-950 text-white" : ""
+                    }`}
+                    onClick={() => handleSizeClick("M")}
+                  >
+                    <p className="text-sm">M</p>
+                  </div>
+                </div>
+                <div className="flex flex-row gap-2 ">
+                  <div
+                    className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                      selectedSize === "L" ? "bg-blue-950 text-white" : ""
+                    }`}
+                    onClick={() => handleSizeClick("L")}
+                  >
+                    <p className="text-sm">L</p>
+                  </div>
+                  <div
+                    className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                      selectedSize === "XL" ? "bg-blue-950 text-white" : ""
+                    }`}
+                    onClick={() => handleSizeClick("XL")}
+                  >
+                    <p className="text-sm">XL</p>
+                  </div>
+                  <div
+                    className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                      selectedSize === "XXL" ? "bg-blue-950 text-white" : ""
+                    }`}
+                    onClick={() => handleSizeClick("XXL")}
+                  >
+                    <p className="text-sm">XXL</p>
+                  </div>
                 </div>
               </div>
+              <div className="grid grid-cols-1 grid-rows-2 w-[400px]">
+                <div className="flex justify-between">
+                  <p className="font-thin text-2xl">
+                    USD
+                    <span className="discount-price__value">
+                      ${product?.price}
+                    </span>
+                  </p>
+                  <div className="flex flex-row gap-3">
+                    {product?.featured && (
+                      <div className="flex items-start justify-center">
+                        <p className="prod_attribute featured">featured</p>
+                      </div>
+                    )}
+                    {product?.newArrivals && (
+                      <div className="flex items-start justify-center">
+                        <p className="prod_attribute newArrival">new arrival</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <form action="#" className="flex justify-between">
+                  <input
+                    type="number"
+                    min="1"
+                    className="border border-solid w-20 p-[10px] border-#e0e0e0;"
+                  />
 
-              <form action="#" className="flex">
-                <input type="number" min="0" value="0" />
-
-                <button type="button" className="">
-                  Add to cart
-                </button>
-              </form>
-            </section>
-          </article>
-        </main>
-      </body>
+                  <button
+                    type="button"
+                    className="px-5  w-[160px] py-3 transition-transform duration-200 ease-in active:scale-[0.9]  text-sm text-white font-bold bg-[#1D3557] rounded"
+                  >
+                    Add to cart
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div>
+              <div>
+                <div className="media-scroller snaps-inline">
+                  {similar?.map((item) => {
+                    return (
+                      <div
+                        key={`featured_${item.id}`}
+                        className="min-w-[250px]  relative media-element shadow-lg hover:shadow-xl cursor-pointer"
+                      >
+                        <div className="">
+                          <Link to={`/product/${item.id}`}>
+                            {" "}
+                            <img
+                              className="w-[320px] h-[180px] rounded-t-md object-cover"
+                              src={item.images[0]}
+                              alt={`Product Image ${item.id + 1}`}
+                            />
+                          </Link>
+                        </div>
+                        <div className="p-3">
+                          <h1 className="font-bold text-center">
+                            {item.name.length > 30
+                              ? `${item?.name.slice(0, 30)}...`
+                              : item.name}
+                          </h1>
+                          <h2 className="text-gray-300 text-center">
+                            ${item.price}
+                          </h2>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </section>
+        </article>
+      </main>
     </>
   );
 };
