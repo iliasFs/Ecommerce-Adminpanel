@@ -15,12 +15,15 @@ const BASE_URL = "http://localhost:8080";
 
 const AdminList: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const [loggedInUserId, setLoggedInUserId] = useState<number | null>(null);
+
+ 
 
   useEffect(() => {
+    const storedLoggedInUserId = Number(localStorage.getItem("loggedInUserId"));
+    setLoggedInUserId(storedLoggedInUserId)
     fetchUsers();
   }, [users]);
-
-  
 
   const fetchUsers = async () => {
     try {
@@ -33,9 +36,10 @@ const AdminList: React.FC = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`${BASE_URL}/users/${id}`);
-      setUsers(prevUsers => prevUsers.filter(user => user.id !== id)); 
-   
+      if (loggedInUserId !== id) {
+        await axios.delete(`${BASE_URL}/users/${id}`);
+        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+      }
     } catch (error) {
       console.error("Error deleting user:", error);
     }
@@ -48,19 +52,35 @@ const AdminList: React.FC = () => {
     {
       title: "Actions",
       key: "actions",
-      render: (text: string, user: User) => (
-        <Space size="middle">
-          <Link to={`/admin/edit-admin/${user.id}`}>
-            <BiEdit size={20}/>
-          </Link>
-          <Button
-            icon={<RiDeleteBin5Line />}
-            type="primary"
-            danger
-            onClick={() => handleDelete(user.id)}
-          />
-        </Space>
-      ),
+      render: (text: string, user: User) => {
+        const isCurrentUser = user.id === loggedInUserId;
+        return (
+          <Space size="middle">
+            {!isCurrentUser ? (
+              <Link to={`/admin/edit-admin/${user.id}`}>
+                <BiEdit size={20} />
+              </Link>
+            ) : (
+              <BiEdit size={20} style={{ opacity: 0.5, pointerEvents: "none" }} />
+            )}
+            {!isCurrentUser ? (
+              <Button
+                icon={<RiDeleteBin5Line />}
+                type="primary"
+                danger
+                onClick={() => handleDelete(user.id)}
+              />
+            ) : (
+              <Button
+                icon={<RiDeleteBin5Line />}
+                type="primary"
+                danger
+                disabled
+              />
+            )}
+          </Space>
+        );
+      },
     },
   ];
 

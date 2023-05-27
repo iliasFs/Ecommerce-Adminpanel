@@ -33,8 +33,9 @@ const Login = () => {
           }
         })
         if(authUserResponse.status===200){
-          const {email} = authUserResponse.data
+          const {id,email} = authUserResponse.data
           localStorage.setItem("userEmail", email)
+          localStorage.setItem("loggedInUserId", id)
           navigate('/admin')
         }else{
           console.log('Something went wrong')
