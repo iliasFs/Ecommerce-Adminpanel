@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer utilities {
-  @media (max-height: 800px) {
+  @media (max-height: 801px) {
     .secondary-picture {
       top: 500px;
       position: absolute;
@@ -19,6 +19,30 @@
       position: absolute;
       top: 220px;
       left: 60px;
+    }
+    .main-letters-1 {
+      position: absolute;
+      height: 294px;
+      line-height: 100px;
+      letter-spacing: -30px;
+      top: -24px;
+      left: 390px;
+      font-weight: 800;
+    }
+    .main-letters-2 {
+      position: absolute;
+      line-height: 293.5px;
+      letter-spacing: -30px;
+      top: 230px;
+      left: 477px;
+      font-weight: 800;
+    }
+    .third-letters {
+      top: 10px;
+      left: 520px;
+      width: 291px;
+      height: 120px;
+      line-height: 90px;
     }
   }
 }
@@ -41,10 +65,17 @@
       left: 407px;
       font-weight: 800;
     }
+    .third-letters {
+      top: 10px;
+      left: 450px;
+      width: 291px;
+      height: 120px;
+      line-height: 90px;
+    }
   }
 }
 @layer utilities {
-  @media (min-height: 900px) {
+  @media (min-height: 916px) {
     .secondary-picture {
       position: absolute;
       width: 80%;
@@ -59,6 +90,51 @@
       position: absolute;
       top: 420px;
       left: 60px;
+    }
+    .main-letters-2 {
+      position: absolute;
+      line-height: 293.5px;
+      letter-spacing: -30px;
+      top: 280px;
+      left: 530px;
+      font-weight: 800;
+    }
+    .main-letters-1 {
+      position: absolute;
+      height: 294px;
+      line-height: 100px;
+      letter-spacing: -30px;
+      top: 14px;
+      left: 442px;
+      font-weight: 800;
+    }
+    .third-letters {
+      top: 10px;
+      left: 550px;
+      width: 291px;
+      height: 120px;
+    }
+  }
+}
+@layer utilities {
+  @media (max-height: 569px) {
+    .secondary-picture {
+      position: absolute;
+      width: 80%;
+      height:50px;
+      height: 230px;
+      left: 42px;
+      top: 350px;
+      border-radius: 8px;
+    }
+    .secondary-letters {
+      width: 219px;
+      height: 120px;
+      position: absolute;
+      top: 190px;
+      left: 60px;
+      
+      
     }
   }
 }
@@ -108,9 +184,6 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
 }
-
-
-
 
 /* PROD LISTS HOME PAGE  */
 .media-scroller {

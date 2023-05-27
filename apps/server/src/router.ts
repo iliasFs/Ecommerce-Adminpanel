@@ -14,7 +14,6 @@ import userAuthorizationMiddleware from "./middleware/userAuthorization";
 
 
 dotenv.config();
-const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
 const secretKey = process.env.STRIPE_SECRET_KEY;
@@ -31,18 +30,18 @@ router.post("/allProductsId", ProductController.getAllProductById);
 
 //User Routes
 //login in and authorization routes
-router.get('/users/me', userAuthorizationMiddleware, UserController.getAuthenticatedUser)
-router.get('/users/login',UserController.loginUser)
+router.get(
+  "/users/me",
+  userAuthorizationMiddleware,
+  UserController.getAuthenticatedUser
+);
+router.get("/users/login", UserController.loginUser);
 
 router.post("/users", UserController.createUser);
-router.put('/users/:id', UserController.updateUser)
+router.put("/users/:id", UserController.updateUser);
 router.get("/users", UserController.findAllUsers);
 router.get("/users/:id", UserController.findById);
 router.delete("/users/:userId", UserController.deleteUser);
-
-
-
-
 
 //Category Routes
 router.post("/category", CategoryController.createCategory);
@@ -106,7 +105,7 @@ router.post("/upload", upload.array("files"), async (req, res) => {
     const uploadedResults = await Promise.all(uploadedPromises);
     const proccessedResults = uploadedResults.map((result) => {
       return {
-        data: result.data.secure_url,   
+        data: result.data.secure_url,
       };
     });
 
