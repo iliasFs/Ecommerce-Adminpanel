@@ -11,8 +11,8 @@ import cloudinary from "../cloud/cloudinary";
 import dotenv from "dotenv";
 import OrderController from "./controllers/orders.controller";
 import userAuthorizationMiddleware from "./middleware/userAuthorization";
-
 dotenv.config();
+const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
 const secretKey = process.env.STRIPE_SECRET_KEY;

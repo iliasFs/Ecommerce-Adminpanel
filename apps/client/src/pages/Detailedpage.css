@@ -62,11 +62,13 @@ img {
 }
 
 .product__description {
-  margin: 1.2em 0 2em;
   color: var(--dark-grayish-blue-clr);
   line-height: 1.5em;
   font-size: 0.95rem;
   min-height: 95px;
+
+  max-width: 300px;
+  word-wrap: break-word;
 }
 
 .product__price .discount-price {
