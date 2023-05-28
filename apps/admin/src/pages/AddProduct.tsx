@@ -38,7 +38,6 @@ const AddProduct = () => {
     target: { value: SetStateAction<string> };
   }) => {
     setProductName(e.target.value);
-    console.log(productName);
   };
   const handleProductPrice: PriceChangeHandler = (e) => {
     setPrice(parseInt(e.target.value));
@@ -50,12 +49,10 @@ const AddProduct = () => {
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
     setSelectedCategory(selectedValue);
-    console.log(selectedValue);
   };
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
     setSize(selectedValue);
-    console.log(selectedValue);
   };
   const data = {
     name: productName,
@@ -153,7 +150,9 @@ const AddProduct = () => {
           >
             Add Product
           </button>
-          {showModal && <SuccessModal onClose={handleCloseModal} />}
+          {showModal && (
+            <SuccessModal onClose={handleCloseModal} name={"added"} />
+          )}
         </form>
       </div>
     </div>

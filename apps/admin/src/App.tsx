@@ -21,7 +21,6 @@ import AddAdmin from "./pages/AddAmin";
 import AdminList from "./pages/AdminList";
 import EditAdmin from "./pages/EditAdmin";
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -40,7 +39,7 @@ function App() {
           <Route path="category" element={<AddCategory />} />
           <Route path="list-category" element={<CategoryList />} />
           <Route path="add-admin" element={<AddAdmin />} />
-          <Route path="all-admins" element={< AdminList/>} />
+          <Route path="all-admins" element={<AdminList />} />
           <Route path="edit-admin/:id" element={<EditAdmin />} />
           <Route path="product" element={<AddProduct />} />
           <Route path="product-list" element={<ProductList />} />

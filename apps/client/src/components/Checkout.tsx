@@ -48,14 +48,12 @@ const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState("");
   const [cartItems, setCartItems] = useState([]);
 
-  console.log(localStorage);
-
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     getCartItems();
-  }, []);
+  }, [cartItems]);
   //GET cART ITEMS
   async function getCartItems() {
     const itemsList = localStorage.getItem("shopping-cart");
@@ -138,7 +136,6 @@ const Checkout = () => {
       }
     }
   }
-  console.log(localStorage);
   return (
     <div className="flex-wrap w-[350px] sm:w-[600px]  checkout-container">
       <div
@@ -146,11 +143,7 @@ const Checkout = () => {
         className="flex flex-col  md:flex-row mb-4 cursor-pointer p-2 hover:shadow-md  gap-4 mt-[-6px] items-center py-4 border-b-[5px] border-[#1D3557]"
       >
         <div>
-          <img
-            className="h-[30px] w-[30px]"
-            src="../../public/figma/Icon.svg"
-            alt=""
-          />
+          <img className="h-[30px] w-[30px]" src="/figma/Icon.svg" alt="" />
         </div>
         {showSummary && <p className="animate-fadeIn">Hide summary</p>}
         {!showSummary && <p className="animate-fadeIn">Show summary</p>}

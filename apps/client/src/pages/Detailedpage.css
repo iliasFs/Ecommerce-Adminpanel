@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap");
+
+body {
+  font-family: "Kumbh Sans", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.default-container {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.user-container {
+  min-width: 38px;
+}
+.user-container img {
+  width: 30px;
+  border-radius: 50%;
+}
+
+.product {
+  padding-bottom: 3em;
+}
+
+.product__thumbs {
+  display: none;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 2em;
+  list-style: none;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+.product__thumbs .thumb-item {
+  display: inline-block;
+  width: 20%;
+}
+
+.product__content .choose-size {
+  margin-bottom: 1em;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.product__description {
+  margin: 1.2em 0 2em;
+  color: var(--dark-grayish-blue-clr);
+  line-height: 1.5em;
+  font-size: 0.95rem;
+  min-height: 95px;
+}
+
+.product__price .discount-price {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.discount-price__value {
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+.prod_attribute {
+  padding: 0.25em 0.4rem;
+  font-weight: 700;
+  border-radius: 5px;
+}
+.featured {
+  background-color: hsl(255, 80%, 92%);
+  color: hsl(254, 52%, 38%);
+}
+.newArrival {
+  background-color: hsl(44, 69%, 86%);
+  color: hsl(50, 48%, 43%);
+}
+
+#product__quantity {
+  position: relative;
+  padding: 1em 0.8em;
+  max-width: 35%;
+  text-align: center;
+  font-weight: 700;
+  border: none;
+  background-color: inherit;
+  appearance: textfield;
+}
+
+.thumb-item__btn:focus img {
+  opacity: 0.5;
+}
+
+/* */

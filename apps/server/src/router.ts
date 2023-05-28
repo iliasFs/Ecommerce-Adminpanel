@@ -12,7 +12,6 @@ import dotenv from "dotenv";
 import OrderController from "./controllers/orders.controller";
 import userAuthorizationMiddleware from "./middleware/userAuthorization";
 
-const router = express.Router();
 dotenv.config();
 const upload = multer({ dest: "uploads/" });
 const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
@@ -74,7 +73,6 @@ router.post("/payment", async (req, res) => {
     });
     res.status(200).json({ payment: payment });
   } catch (error) {
-    console.log(error);
     res.status(400).json(error);
   }
 });

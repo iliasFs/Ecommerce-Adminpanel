@@ -1,7 +1,7 @@
 import { useShoppingCart } from "../contexts/CartContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Data } from "../constants/dataInterface";
+import { IData } from "../types";
 import priceFormat from "../utilities/priceFormat";
 type CartItemProps = {
   id: number;
@@ -9,7 +9,7 @@ type CartItemProps = {
 };
 
 const CartItem = ({ id, quantity }: CartItemProps) => {
-  const [data, setData] = useState<Data[]>([]);
+  const [data, setData] = useState<IData[]>([]);
   const { increaseCartQuantity, decreaseItemQuantity } = useShoppingCart();
 
   useEffect(() => {
