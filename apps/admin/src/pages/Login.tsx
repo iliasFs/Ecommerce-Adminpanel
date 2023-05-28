@@ -22,19 +22,22 @@ const Login = () => {
       if (response.status === 200) {
         const { token } = response.data;
         localStorage.setItem("token", token);
-        //window.location.href = '/admin'
+        
         // authorization
-        const authUserResponse = await axios.get(`${BASE_URL}/users/me`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (authUserResponse.status === 200) {
-          const { email } = authUserResponse.data;
-          localStorage.setItem("userEmail", email);
-          navigate("/admin");
-        } else {
-          console.log("Something went wrong");
+
+        const authUserResponse = await axios.get(`${BASE_URL}/users/me`,{
+          headers:{
+            Authorization: `Bearer ${token}`
+          }
+        })
+        if(authUserResponse.status===200){
+          const {id,email} = authUserResponse.data
+          localStorage.setItem("userEmail", email)
+          localStorage.setItem("loggedInUserId", id)
+          navigate('/admin')
+        }else{
+          console.log('Something went wrong')
+
         }
       } else {
         setErrorMessage("Invalid Credentials");

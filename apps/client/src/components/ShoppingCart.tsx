@@ -4,6 +4,7 @@ import CartItem from "./CartItem";
 import priceFormat from "../utilities/priceFormat";
 import { Link } from "react-router-dom";
 
+
 interface ShoppingCartProps {
   setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setBurgerHidden: React.Dispatch<React.SetStateAction<string>>;

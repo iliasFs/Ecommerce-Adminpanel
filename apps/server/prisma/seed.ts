@@ -10,7 +10,7 @@ async function seedData() {
   await prisma.product.createMany({
     data: [
       {
-        name: "Git fusion Classic T-Shirt",
+        name: "Git Classic T-Shirt",
         price: 18.45,
         size: "S",
         images: [
@@ -25,7 +25,7 @@ async function seedData() {
         categoryId: 2,
       },
       {
-        name: "Hackathon developer and computer science T-shirt",
+        name: "Hackathon T-shirt",
         price: 19.45,
         size: "S",
         images: [
@@ -55,7 +55,7 @@ async function seedData() {
         categoryId: 2,
       },
       {
-        name: "Monolith vs Microservices T-Shirt",
+        name: "Monolith T-Shirt",
         price: 20.99,
         size: "M",
         images: [
@@ -101,7 +101,7 @@ async function seedData() {
         categoryId: 1,
       },
       {
-        name: "No Rest Kids T-Shirt ",
+        name: "No Rest T-Shirt ",
         price: 35,
         size: "M",
         images: [
@@ -115,7 +115,7 @@ async function seedData() {
         categoryId: 3,
       },
       {
-        name: "OK, but coding first Kids T-Shirt",
+        name: "Coding Kids T-Shirt",
         price: 40,
         size: "L",
         images: [
@@ -129,7 +129,7 @@ async function seedData() {
         categoryId: 3,
       },
       {
-        name: "Web Developer Kids  T-Shirt ",
+        name: "Web Kids T-Shirt ",
         price: 45,
         size: "S",
         images: [
@@ -143,7 +143,7 @@ async function seedData() {
         categoryId: 3,
       },
       {
-        name: "URL Structure Kids T-Shirt",
+        name: "Structure Kids T-Shirt",
         price: 50,
         size: "S",
         images: [

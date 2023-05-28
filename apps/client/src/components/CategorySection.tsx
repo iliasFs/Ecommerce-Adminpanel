@@ -12,6 +12,7 @@ const CategorySection = () => {
             <img
               className="w-[360px] h-[292px] rounded-t-xl object-cover"
               src="figma/women.png"
+
               alt=""
             />
           </div>
@@ -26,7 +27,9 @@ const CategorySection = () => {
           <div>
             <img
               className="w-[360px] h-[292px] rounded-t-xl object-cover"
+
               src="/figma/men.jpg"
+
               alt=""
             />
           </div>
@@ -41,7 +44,9 @@ const CategorySection = () => {
           <div>
             <img
               className="w-[360px] h-[292px] rounded-t-xl object-cover"
+
               src="/figma/kid.jpg"
+
               alt=""
             />
           </div>

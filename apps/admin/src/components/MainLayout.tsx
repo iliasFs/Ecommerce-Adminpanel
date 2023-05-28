@@ -28,7 +28,11 @@ const MainLayout = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/login");
+
+     
+
+      navigate('/');
+
     }
   }, [navigate]);
   const [collapsed, setCollapsed] = useState(false);
@@ -51,7 +55,7 @@ const MainLayout = () => {
           defaultSelectedKeys={[""]}
           onClick={({ key }) => {
             if (key === "signout") {
-              navigate("/login");
+              navigate("/");
             } else {
               navigate(key);
             }
@@ -63,7 +67,7 @@ const MainLayout = () => {
               label: "Dashboard",
             },
             {
-              key: "catalogue",
+              key: "accounts",
               icon: <MdAccountCircle className="fs-5" />,
               label: "Accounts",
               children: [
@@ -84,6 +88,7 @@ const MainLayout = () => {
               icon: <BsFillPersonFill className="fs-5" />,
               label: "Customers",
             },
+
             {
               key: "catalogue",
               icon: <AiOutlineShoppingCart className="fs-5" />,
