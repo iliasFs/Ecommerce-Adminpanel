@@ -4,6 +4,7 @@ import CartItem from "./CartItem";
 import priceFormat from "../utilities/priceFormat";
 import { Link } from "react-router-dom";
 
+
 interface ShoppingCartProps {
   setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setBurgerHidden: React.Dispatch<React.SetStateAction<string>>;
@@ -24,12 +25,9 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
 
   // localStorage.removeItem("shopping-cart");
   console.log(localStorage);
-  
+
   return (
-
     <div className="relative overflow-y-auto max-w-[450px] h-full flex flex-col px-4 py-2 z-50">
-
-
       <div className="absolute w-[90%]">
         <RiCloseLine size={26} onClick={handleCloseCart} />
       </div>
@@ -46,7 +44,6 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
       <div className="pt-4 flex flex-col gap-5">
         {cartItems.map((cartItem) => (
           <CartItem key={cartItem.id} {...cartItem} />
-          
         ))}
       </div>
 

@@ -3,7 +3,11 @@
   "compilerOptions": {
     "outDir": "dist",
     "isolatedModules": false,
-    "typeRoots": ["./src/types"]
+    "typeRoots": ["./src/types"],
+    "target": "es2018",
+    "lib": ["es2018", "dom"],
+    "module": "commonjs",
+    "esModuleInterop": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

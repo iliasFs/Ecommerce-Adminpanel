@@ -12,7 +12,7 @@ import dotenv from "dotenv";
 import OrderController from "./controllers/orders.controller";
 import userAuthorizationMiddleware from "./middleware/userAuthorization";
 
-
+const router = express.Router();
 dotenv.config();
 const upload = multer({ dest: "uploads/" });
 const CLOUDINARY_NAME = process.env.CLOUDINARY_NAME;
