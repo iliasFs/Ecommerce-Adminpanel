@@ -33,7 +33,7 @@ const ProductRow = (props: any) => {
     if (windowSize.width > 640) {
       scrollAmount = -1000;
     }
-    console.log(scrollAmount);
+    
     if (containerRef.current) {
       containerRef.current.scrollBy({
         left: scrollAmount,

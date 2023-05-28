@@ -32,6 +32,10 @@ const UserController = {
       }
       const hashPassword = bcrypt.hashSync(password, salt);
 
+
+      
+      
+
       const updatedUser = await User.updateUser(
         parseInt(id),
         name,
@@ -39,6 +43,7 @@ const UserController = {
         hashPassword,
         isAdmin
       );
+
       res.status(200).json(updatedUser);
     } catch (error) {
       next(error);
@@ -86,14 +91,20 @@ const UserController = {
   async loginUser(req: Request, res: Response, next: NextFunction) {
     try {
       // get the user provided email and password
-      const initialAuth = req.headers.authorization?.split(" ")[1];
+
+      const initialAuth = req.headers.authorization?.split(' ')[1]
+      
+
       // ensure that it is provided
       if (!initialAuth) throw new Error("No auth headers");
       const [email, password] = atob(initialAuth).split(":");
       // fetch user based on the provided email
-      const user = await User.finByEmail(email);
 
-      if (!user.password) throw new Error("No user password in the databsae");
+      
+      const user = await User.finByEmail(email)
+    
+      if(!user.password)  throw new Error('No user password in the databsae')
+
       // compare the user provided password with the one stored in the database
       const correctPassword = bcrypt.compareSync(password, user.password);
       if (!correctPassword) throw new Error("Incorrect Password");

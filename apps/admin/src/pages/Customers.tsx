@@ -70,6 +70,7 @@ const Customers = () => {
     });
   }
 
+
   return (
     <div className="mt-4">
       <h3 className="mb-4 font-bold text-xl pl-1">Customers</h3>

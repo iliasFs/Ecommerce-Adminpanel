@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../lib/constant";
 import User from "../models/User";
 
+
 function userAuthorizationMiddleware(
   req: Request,
   _: Response,
@@ -28,3 +29,4 @@ function userAuthorizationMiddleware(
 }
 
 export default userAuthorizationMiddleware;
+

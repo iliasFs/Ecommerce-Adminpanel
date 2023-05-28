@@ -39,7 +39,7 @@ function NavBar() {
           )}
           <motion.header {...slideAnimation("down", 0, 2)}>
             <Link to="/">
-              <img src="../../public/figma/Mark.svg" alt="logo" />
+              <img src="/figma/Mark.svg" alt="logo" />
             </Link>
           </motion.header>
           <motion.header
@@ -76,7 +76,7 @@ function NavBar() {
           <button className="absolute right-5" onClick={handleCartClick}>
             <img
               className="h-[28px] w-[28px]"
-              src="/public/figma/Icon.svg"
+              src="/figma/Icon.svg"
               alt=""
             />
 

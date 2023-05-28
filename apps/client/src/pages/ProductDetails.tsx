@@ -23,14 +23,13 @@ const ProductDetails: React.FC = () => {
   const BASE_URL = "http://localhost:8080/product";
   const fetchProducts = async () => {
     if (params.productId) {
-      const res = await axios.get(`${BASE_URL}/${params.productId}`);
+      const res = await axios.get(${BASE_URL}/${params.productId});
       setProduct(res.data);
     } else {
       return;
     }
   };
-
-  useEffect(() => {
+useEffect(() => {
     fetchProducts();
   }, []);
 
@@ -80,8 +79,7 @@ const ProductDetails: React.FC = () => {
       increaseCartQuantity(product.id, product.price);
     }
   }
-
-  return (
+return (
     <div className="">
       {product && (
         <main className=" w-full h-full ">
@@ -99,7 +97,7 @@ const ProductDetails: React.FC = () => {
                   >
                     <img
                       src={image}
-                      alt={`Product Image ${index + 1}`}
+                      alt={Product Image ${index + 1}}
                       className="w-full rounded-xl h-full transition-transform transform hover:scale-105"
                     />
                   </div>
@@ -111,7 +109,11 @@ const ProductDetails: React.FC = () => {
                 <h1 className="max-w-[300px] text-[2.3rem] md:text-[2.8rem]">
                   {product?.name}
                 </h1>
-                <p className="product__description">{product?.description}</p>
+                <div className="product__description my-1">
+                  <p className="w-[300px] text-gray-500">
+                    {product?.description}
+                  </p>
+                </div>
                 <div className="flex flex-col w-full items-center">
                   <div className="w-full items-start flex flex-col gap-2 my-4">
                     <h2 className="choose-size font-semibold">
@@ -119,25 +121,24 @@ const ProductDetails: React.FC = () => {
                     </h2>
                     <div className="flex flex-row gap-2 ">
                       <div
-                        className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                        className={w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
                           selectedSize === "XS" ? "bg-blue-950 text-white" : ""
-                        }`}
+                        }}
                         onClick={() => handleSizeClick("XS")}
                       >
                         <p className="text-sm">XS</p>
                       </div>
                       <div
-                        className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                        className={w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
                           selectedSize === "S" ? "bg-blue-950 text-white" : ""
-                        }`}
+                        }}
                         onClick={() => handleSizeClick("S")}
                       >
                         <p className="text-sm">S</p>
                       </div>
-                      <div
-                        className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                    <div className={w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
                           selectedSize === "M" ? "bg-blue-950 text-white" : ""
-                        }`}
+                        }}
                         onClick={() => handleSizeClick("M")}
                       >
                         <p className="text-sm">M</p>
@@ -145,25 +146,24 @@ const ProductDetails: React.FC = () => {
                     </div>
                     <div className="flex flex-row gap-2 ">
                       <div
-                        className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                        className={w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
                           selectedSize === "L" ? "bg-blue-950 text-white" : ""
-                        }`}
+                        }}
                         onClick={() => handleSizeClick("L")}
                       >
                         <p className="text-sm">L</p>
                       </div>
                       <div
-                        className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                        className={w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
                           selectedSize === "XL" ? "bg-blue-950 text-white" : ""
-                        }`}
+                        }}
                         onClick={() => handleSizeClick("XL")}
                       >
                         <p className="text-sm">XL</p>
                       </div>
-                      <div
-                        className={`w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
+                     <div className={w-10 h-10 border border-gray-500 rounded-full flex justify-center items-center ${
                           selectedSize === "XXL" ? "bg-blue-950 text-white" : ""
-                        }`}
+                        }}
                         onClick={() => handleSizeClick("XXL")}
                       >
                         <p className="text-sm">XXL</p>
@@ -194,8 +194,7 @@ const ProductDetails: React.FC = () => {
                       )}
                     </div>
                   </div>
-
-                  <button
+                 <button
                     onClick={() => handleAddClick(product)}
                     type="button"
                     className="px-5 my-2 w-[160px] py-3 transition-transform duration-200 ease-in active:scale-[0.9]  text-sm text-white font-bold bg-[#1D3557] rounded"
@@ -203,11 +202,6 @@ const ProductDetails: React.FC = () => {
                   >
                     Add to cart
                   </button>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <div className="media-scroller snaps-inline"></div>
                 </div>
               </div>
             </section>

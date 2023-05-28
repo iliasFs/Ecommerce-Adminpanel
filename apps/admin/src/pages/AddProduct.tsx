@@ -8,6 +8,7 @@ import PhotoUploadForm from "../components/PhotoUploadForm";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SuccessModal from "../components/SuccessModal";
+import { convertHtmltoText } from "../utilities/convertHtmlToText";
 
 const AddProduct = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -24,9 +25,6 @@ const AddProduct = () => {
   type PriceChangeHandler = (e: ChangeEvent<HTMLInputElement>) => void;
 
   const navigate = useNavigate();
-  const handleDescChange = (value: string) => {
-    setDesc(value);
-  };
 
   const onChangeNewArrival = (e: CheckboxChangeEvent) => {
     setNewArrival(e.target.checked);
@@ -38,6 +36,7 @@ const AddProduct = () => {
     target: { value: SetStateAction<string> };
   }) => {
     setProductName(e.target.value);
+
   };
   const handleProductPrice: PriceChangeHandler = (e) => {
     setPrice(parseInt(e.target.value));
@@ -59,7 +58,7 @@ const AddProduct = () => {
     price: price,
     size: size,
     images: productImages, // Replace with the actual image URLs or file names
-    description: desc,
+    description: convertHtmltoText(desc),
     stockQuantity: stock,
     featured: isFeatured,
     newArrivals: newArrival,
@@ -79,6 +78,8 @@ const AddProduct = () => {
     setShowModal(false);
     navigate("/admin");
   };
+
+  
 
   return (
     <div>
@@ -111,7 +112,7 @@ const AddProduct = () => {
           </div>
           <PhotoUploadForm setProductImages={setProductImages} />
           <div className="my-4">
-            <ReactQuill theme="snow" value={desc} onChange={handleDescChange} />
+            <ReactQuill theme="snow" value={desc} onChange={setDesc} />
           </div>
           <CustomInput
             name=""

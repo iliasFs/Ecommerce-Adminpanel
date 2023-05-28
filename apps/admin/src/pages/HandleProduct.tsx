@@ -67,6 +67,7 @@ const HandleProduct = () => {
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
     setSelectedCategory(selectedValue);
+
   };
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;

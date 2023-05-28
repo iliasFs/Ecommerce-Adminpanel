@@ -56,7 +56,7 @@ const PhotoUploadForm = ({
           setProductImages(imageArray);
         }
 
-        console.log("Files uploaded successfully:", response.data);
+        
       } catch (error) {
         console.error("Error uploading files:", error);
       }

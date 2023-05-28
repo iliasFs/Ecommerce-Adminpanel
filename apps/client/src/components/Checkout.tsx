@@ -48,6 +48,7 @@ const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState("");
   const [cartItems, setCartItems] = useState([]);
 
+
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -101,7 +102,7 @@ const Checkout = () => {
     navigate("/payment", {
       state: { ...state, itemsList: cartItems, price: totalPrice },
     });
-    console.log("Form values:", state);
+    
     dispatch({ type: "UPDATE_INPUT", id: "country", value: "" });
     dispatch({ type: "UPDATE_INPUT", id: "name", value: "" });
     dispatch({ type: "UPDATE_INPUT", id: "lastName", value: "" });
@@ -143,7 +144,13 @@ const Checkout = () => {
         className="flex flex-col  md:flex-row mb-4 cursor-pointer p-2 hover:shadow-md  gap-4 mt-[-6px] items-center py-4 border-b-[5px] border-[#1D3557]"
       >
         <div>
-          <img className="h-[30px] w-[30px]" src="/figma/Icon.svg" alt="" />
+
+          <img
+            className="h-[30px] w-[30px]"
+            src="/figma/Icon.svg"
+            alt=""
+          />
+
         </div>
         {showSummary && <p className="animate-fadeIn">Hide summary</p>}
         {!showSummary && <p className="animate-fadeIn">Show summary</p>}

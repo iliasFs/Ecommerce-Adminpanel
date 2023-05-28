@@ -4,7 +4,6 @@ import CartItem from "./CartItem";
 import priceFormat from "../utilities/priceFormat";
 import { Link } from "react-router-dom";
 
-
 interface ShoppingCartProps {
   setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setBurgerHidden: React.Dispatch<React.SetStateAction<string>>;
@@ -22,6 +21,7 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
     setBlurApplied(false);
     setCartOpen((prev) => !prev);
   };
+
 
   return (
     <div className="relative overflow-y-auto max-w-[450px] h-full flex flex-col px-4 py-2 z-50">
@@ -52,7 +52,7 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
             )}
           </h3>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mb-4">
           <h2 className="font-bold">Shipping</h2>
           <h3 className="font-bold">Free</h3>
         </div>
@@ -61,7 +61,7 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
         <Link
           to="/checkout"
           onClick={handleProceed}
-          className="mt-4 px-4 py-4 text-white font-bold rounded-md bg-[#1D3557]"
+          className="mt- px-4 py-4 text-white font-bold rounded-md bg-[#1D3557]"
         >
           PROCEED TO CHECKOUT
         </Link>

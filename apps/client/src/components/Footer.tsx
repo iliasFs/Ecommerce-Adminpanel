@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="flex flex-col flex-[1] gap-10 text-gray-400 items-start lg:w-[80%]">
           <img
             className="w-[25px] h-[25px]"
-            src="../../public/figma/Mark.svg"
+            src="/figma/Mark.svg"
             alt="logo"
           />
 

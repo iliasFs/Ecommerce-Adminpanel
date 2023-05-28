@@ -38,7 +38,9 @@ const HeroSection = () => {
       <div className="secondary-picture absolute w-[80%] h-[220px] left-[42px] top-[660px] rounded-lg sm:hidden ">
         <img
           className="w-full h-full object-cover rounded-lg"
-          src="../figma/hero.png"
+
+          src="/figma/hero.png"
+
           alt=""
         />
       </div>
