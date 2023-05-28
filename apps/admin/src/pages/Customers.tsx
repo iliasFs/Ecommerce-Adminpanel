@@ -53,7 +53,6 @@ const Customers = () => {
       .then((response) => setData(response.data));
   }, []);
 
-
   const data1: DataType[] = [];
   for (let i = 0; i < data.length; i++) {
     data1.push({
@@ -71,7 +70,7 @@ const Customers = () => {
     });
   }
 
-  
+
   return (
     <div className="mt-4">
       <h3 className="mb-4 font-bold text-xl pl-1">Customers</h3>

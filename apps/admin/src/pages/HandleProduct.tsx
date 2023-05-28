@@ -67,7 +67,7 @@ const HandleProduct = () => {
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
     setSelectedCategory(selectedValue);
-    
+
   };
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
@@ -176,7 +176,9 @@ const HandleProduct = () => {
             <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-md shadow-md transition duration-300 ease-in-out">
               Save Changes
             </button>
-            {showModal && <SuccessModal onClose={handleCloseModal} name={'updated'}/>}
+            {showModal && (
+              <SuccessModal onClose={handleCloseModal} name={"updated"} />
+            )}
           </div>
         </form>
       </div>

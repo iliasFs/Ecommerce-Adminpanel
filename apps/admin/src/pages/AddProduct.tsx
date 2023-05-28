@@ -36,7 +36,7 @@ const AddProduct = () => {
     target: { value: SetStateAction<string> };
   }) => {
     setProductName(e.target.value);
-    
+
   };
   const handleProductPrice: PriceChangeHandler = (e) => {
     setPrice(parseInt(e.target.value));

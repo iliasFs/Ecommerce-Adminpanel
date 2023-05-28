@@ -22,7 +22,6 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
     setCartOpen((prev) => !prev);
   };
 
-  // localStorage.removeItem("shopping-cart");
 
   return (
     <div className="relative overflow-y-auto max-w-[450px] h-full flex flex-col px-4 py-2 z-50">
@@ -72,32 +71,3 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
 };
 
 export default ShoppingCart;
-
-{
-  /* <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-md">
-          <img
-            src={"../../public/figma/women.png"}
-            alt="item-name"
-            className="w-16 h-16 rounded"
-          />
-          <div className="flex flex-col flex-grow">
-            <span className="font-bold">Item Name</span>
-            <span className="text-gray-500">Item Price</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <button
-              // onClick={decreaseItemQuantity}
-              className="px-2 py-1 text-sm text-gray-500 bg-gray-200 rounded"
-            >
-              -
-            </button>
-            <span className="text-sm">{0}</span>
-            <button
-              // onClick={increaseCartQuantity}
-              className="px-2 py-1 text-sm text-gray-500 bg-gray-200 rounded"
-            >
-              +
-            </button>
-          </div>
-        </div> */
-}

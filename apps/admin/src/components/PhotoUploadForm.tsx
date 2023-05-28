@@ -52,7 +52,7 @@ const PhotoUploadForm = ({
           const imageArray = response.data.map((item: { data: any }) => {
             return item.data;
           });
-          
+
           setProductImages(imageArray);
         }
 

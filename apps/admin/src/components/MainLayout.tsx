@@ -7,23 +7,32 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsFillPersonFill, BsCardList } from "react-icons/bs";
 import { TbBrandFramerMotion } from "react-icons/tb";
 import { BiCategoryAlt } from "react-icons/bi";
+import { MdAccountBox } from "react-icons/md";
 import { SiBloglovin } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import { ImBlog, ImList } from "react-icons/im";
-import { MdOutlineQuestionAnswer, MdNotifications,MdAccountCircle } from "react-icons/md";
+import {
+  MdOutlineQuestionAnswer,
+  MdNotifications,
+  MdAccountCircle,
+} from "react-icons/md";
 import { RxExit } from "react-icons/rx";
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
-  const loggedInUserEmail = localStorage.getItem('userEmail')
+  const loggedInUserEmail = localStorage.getItem("userEmail");
   const navigate = useNavigate();
   // Note team: The useEffect hook is very important here
   // the hook will be trigered when the admin page is rendered
   // and it will redirect user to login if the token is missing
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
+
+     
+
       navigate('/');
+
     }
   }, [navigate]);
   const [collapsed, setCollapsed] = useState(false);
@@ -31,8 +40,6 @@ const MainLayout = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  
-  
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -81,7 +88,7 @@ const MainLayout = () => {
               icon: <BsFillPersonFill className="fs-5" />,
               label: "Customers",
             },
-          
+
             {
               key: "catalogue",
               icon: <AiOutlineShoppingCart className="fs-5" />,

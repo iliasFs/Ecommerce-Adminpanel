@@ -79,6 +79,7 @@ function NavBar() {
               src="/figma/Icon.svg"
               alt=""
             />
+
           </button>
           <button className="lg:hidden">
             {burger ? <RiMenu3Line size={27} onClick={handleBurger} /> : null}
@@ -130,6 +131,7 @@ function NavBar() {
             </>
           )}
         </div>
+
       </div>
     </AnimatePresence>
   );

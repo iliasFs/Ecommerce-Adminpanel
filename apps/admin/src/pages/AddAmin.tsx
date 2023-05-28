@@ -31,7 +31,7 @@ const AddAdmin = () => {
         e.preventDefault()
         try{
           if(name===''&& email===''&& password===''){
-            console.log('fields cannot be empty')
+            console.log('fileds cannot be empty')
             return
           }
           // now we check if the user above already exist in the db
@@ -42,9 +42,8 @@ const AddAdmin = () => {
           let usersArray = []
           if(storedUsers){
             usersArray = JSON.parse(storedUsers)
-            
-          }
-          if(!existingUser){
+            console.log(usersArray)
+          }if(!existingUser){
             // then add to the database
             //Note: there are still much validation, for instance accepting the email
             // format we want, checking if the name already exist but for now
@@ -95,9 +94,7 @@ const AddAdmin = () => {
             type="password"
             label="Enter the password"
             onChng={handleInputChange}
-          />
-         
-          <button
+          /><button
             type="submit"
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-md shadow-md transition duration-300 ease-in-out mt-10"
           >

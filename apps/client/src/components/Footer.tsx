@@ -5,6 +5,7 @@ import { AiOutlineGithub } from "react-icons/ai";
 
 const Footer = () => {
   return (
+
     <div className="bg-[#1D3557]">
       <div className="max-w-[1350px]  m-auto mt-[4rem]  py-[6rem] px-[2rem] flex flex-col items-start lg:flex-row  w-full gap-5">
         <div className="flex flex-col flex-[1] gap-10 text-gray-400 items-start lg:w-[80%]">

@@ -1,7 +1,10 @@
 import HeroSection from "../components/HeroSection";
 import CategorySection from "../components/CategorySection";
 import ProductRow from "../components/ProductRow";
+
+
 import { AnimatePresence } from "framer-motion";
+
 
 const HomePage = () => {
   return (

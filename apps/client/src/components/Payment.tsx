@@ -80,7 +80,7 @@ const CheckoutForm = () => {
           }
         }
       }
-      
+
     } catch (error: any) {
       if (error.response.data.raw?.message) {
         setError(error.response.data.raw.message);
@@ -98,8 +98,8 @@ const CheckoutForm = () => {
     return idArr;
   }
   return (
-    <div>
-      <div className="w-[400px] md:w-[800px] checkout-container ">
+    <div className="flex flex-col items-center">
+      <div className="w-[400px] md:w-[800px] checkout-container">
         <div className="border-b-[5px] p-3 border-[#1D3557] rounded-sm">
           <div className="border-[#1D3557] gap-1 border-opacity-10 md:border-none flex flex-col md:flex-row p-2 border-b-[3px] md:justify-between">
             <p className=" text-gray-400">Contact</p>
@@ -162,7 +162,7 @@ const CheckoutForm = () => {
         </form>
       </div>
       {error && !success && (
-        <div className="bg-red-800 m-2 border border-red-800 bg-opacity-10 p-3 rounded-md animate-fadeIn">
+        <div className="w-[300px] bg-red-800 m-2 border border-red-800 bg-opacity-10 p-3 rounded-md animate-fadeIn">
           <h1 className="text-red-900">{error}</h1>
           <button
             className="mt-3 px-2 py-1 text-white text-sm font-bold rounded-md bg-[#1D3557]"

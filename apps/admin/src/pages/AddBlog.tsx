@@ -34,8 +34,6 @@ const AddBlog = () => {
     setDesc(value);
   };
 
-
-
   return (
     <div>
       <h3 className="mb-4 text-xl font-bold pl-1">Add Blog</h3>
