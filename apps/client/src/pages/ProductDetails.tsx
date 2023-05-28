@@ -111,7 +111,11 @@ const ProductDetails: React.FC = () => {
                 <h1 className="max-w-[300px] text-[2.3rem] md:text-[2.8rem]">
                   {product?.name}
                 </h1>
-                <p className="product__description">{product?.description}</p>
+                <div className="product__description my-1">
+                  <p className="w-[300px] text-gray-500">
+                    {product?.description}
+                  </p>
+                </div>
                 <div className="flex flex-col w-full items-center">
                   <div className="w-full items-start flex flex-col gap-2 my-4">
                     <h2 className="choose-size font-semibold">
@@ -203,11 +207,6 @@ const ProductDetails: React.FC = () => {
                   >
                     Add to cart
                   </button>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <div className="media-scroller snaps-inline"></div>
                 </div>
               </div>
             </section>

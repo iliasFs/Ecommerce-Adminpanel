@@ -24,7 +24,11 @@ function NavBar() {
   };
   return (
     <AnimatePresence>
-      <div className={`z-50 top-0 ${isCartOpen ? "" : "sticky"} bg-white`}>
+      <div
+        className={`z-50 top-0 ${
+          isCartOpen ? "" : "sticky"
+        } bg-white shadow-md`}
+      >
         <div className="section__padding flex items-center justify-between">
           {isCartOpen && (
             <motion.div
@@ -79,7 +83,6 @@ function NavBar() {
               src="/public/figma/Icon.svg"
               alt=""
             />
-
           </button>
           <button className="lg:hidden">
             {burger ? <RiMenu3Line size={27} onClick={handleBurger} /> : null}
@@ -131,7 +134,6 @@ function NavBar() {
             </>
           )}
         </div>
-
       </div>
     </AnimatePresence>
   );
