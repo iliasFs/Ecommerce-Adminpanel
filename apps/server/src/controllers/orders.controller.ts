@@ -15,7 +15,6 @@ const OrderController = {
       );
       res.send(order);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   },

@@ -74,7 +74,6 @@ router.post("/payment", async (req, res) => {
     });
     res.status(200).json({ payment: payment });
   } catch (error) {
-    console.log(error);
     res.status(400).json(error);
   }
 });
