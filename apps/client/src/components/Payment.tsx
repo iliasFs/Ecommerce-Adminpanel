@@ -80,7 +80,7 @@ const CheckoutForm = () => {
           }
         }
       }
-      console.log("----------------------------------", localStorage);
+      
     } catch (error: any) {
       if (error.response.data.raw?.message) {
         setError(error.response.data.raw.message);

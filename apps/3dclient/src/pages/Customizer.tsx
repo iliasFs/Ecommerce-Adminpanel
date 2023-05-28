@@ -49,7 +49,7 @@ const Customizer = () => {
   const handleSubmit = async (type: keyof typeof DecalTypes) => {
     if (!prompt) return alert("Please enter a prompt");
     try {
-      console.log(prompt);
+      
       setGeneratingImage(true);
 
       const response = await fetch("http://localhost:4000/api/v1/dalle", {
@@ -62,7 +62,7 @@ const Customizer = () => {
 
       const data = await response.json();
 
-      console.log(data);
+      
 
       handleDecals(type, `data:image/png;base64,${data.photo}`);
     } catch (error) {

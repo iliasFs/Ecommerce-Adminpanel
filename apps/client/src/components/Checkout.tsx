@@ -48,7 +48,7 @@ const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState("");
   const [cartItems, setCartItems] = useState([]);
 
-  console.log(localStorage);
+  
 
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -103,7 +103,7 @@ const Checkout = () => {
     navigate("/payment", {
       state: { ...state, itemsList: cartItems, price: totalPrice },
     });
-    console.log("Form values:", state);
+    
     dispatch({ type: "UPDATE_INPUT", id: "country", value: "" });
     dispatch({ type: "UPDATE_INPUT", id: "name", value: "" });
     dispatch({ type: "UPDATE_INPUT", id: "lastName", value: "" });
@@ -148,7 +148,7 @@ const Checkout = () => {
         <div>
           <img
             className="h-[30px] w-[30px]"
-            src="../../public/figma/Icon.svg"
+            src="/figma/Icon.svg"
             alt=""
           />
         </div>

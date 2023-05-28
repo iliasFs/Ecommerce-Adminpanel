@@ -34,7 +34,7 @@ const UserController = {
       const hashPassword = bcrypt.hashSync(password, salt);
 
       const updatedUser = await User.updateUser(parseInt(id),name, email, hashPassword, isAdmin);
-      console.log(updatedUser)
+      
       res.status(200).json(updatedUser);
     } catch (error) {
       next(error);
@@ -83,12 +83,12 @@ const UserController = {
     try{
       // get the user provided email and password
       const initialAuth = req.headers.authorization?.split(' ')[1]
-      console.log(initialAuth)
+      
       // ensure that it is provided
       if(!initialAuth) throw new Error('No auth headers')
       const [email,password] = atob(initialAuth).split(':')
       // fetch user based on the provided email
-      console.log(email,password)
+      
       const user = await User.finByEmail(email)
     
       if(!user.password)  throw new Error('No user password in the databsae')

@@ -31,7 +31,7 @@ const AddAdmin = () => {
         e.preventDefault()
         try{
           if(name===''&& email===''&& password===''){
-            console.log('fileds cannot be empty')
+            console.log('fields cannot be empty')
             return
           }
           // now we check if the user above already exist in the db
@@ -42,7 +42,7 @@ const AddAdmin = () => {
           let usersArray = []
           if(storedUsers){
             usersArray = JSON.parse(storedUsers)
-            console.log(usersArray)
+            
           }
           if(!existingUser){
             // then add to the database

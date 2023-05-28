@@ -26,7 +26,7 @@ const CategorySection = () => {
           <div>
             <img
               className="w-[360px] h-[292px] rounded-t-xl object-cover"
-              src="/public/figma/men.jpg"
+              src="/figma/men.jpg"
               alt=""
             />
           </div>
@@ -41,7 +41,7 @@ const CategorySection = () => {
           <div>
             <img
               className="w-[360px] h-[292px] rounded-t-xl object-cover"
-              src="/public/figma/kid.jpg"
+              src="/figma/kid.jpg"
               alt=""
             />
           </div>

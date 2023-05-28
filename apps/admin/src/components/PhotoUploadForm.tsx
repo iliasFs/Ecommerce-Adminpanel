@@ -52,11 +52,11 @@ const PhotoUploadForm = ({
           const imageArray = response.data.map((item: { data: any }) => {
             return item.data;
           });
-          console.log(imageArray);
+          
           setProductImages(imageArray);
         }
 
-        console.log("Files uploaded successfully:", response.data);
+        
       } catch (error) {
         console.error("Error uploading files:", error);
       }

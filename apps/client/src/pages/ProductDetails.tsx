@@ -117,7 +117,7 @@ const ProductDetails: React.FC = () => {
                 alt=""
               />
             </div>
-            FREEEE
+            {product?.description}
           </span>
         </div>
       </div>

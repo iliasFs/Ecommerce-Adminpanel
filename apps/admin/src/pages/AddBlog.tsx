@@ -1,7 +1,7 @@
 import CustomInput from "../components/CustomInput";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
@@ -34,10 +34,7 @@ const AddBlog = () => {
     setDesc(value);
   };
 
-  useEffect(() => {
-    console.log(headInput);
-    console.log(desc);
-  }, [headInput, desc]);
+
 
   return (
     <div>

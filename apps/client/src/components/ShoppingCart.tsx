@@ -4,7 +4,6 @@ import CartItem from "./CartItem";
 import priceFormat from "../utilities/priceFormat";
 import { Link } from "react-router-dom";
 
-
 interface ShoppingCartProps {
   setCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setBurgerHidden: React.Dispatch<React.SetStateAction<string>>;
@@ -24,7 +23,6 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
   };
 
   // localStorage.removeItem("shopping-cart");
-  console.log(localStorage);
 
   return (
     <div className="relative overflow-y-auto max-w-[450px] h-full flex flex-col px-4 py-2 z-50">
@@ -33,11 +31,7 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
       </div>
       <div className="flex flex-col gap-4 mt-[-6px] items-center py-4 border-b-[5px] border-[#1D3557]  ">
         <div>
-          <img
-            className="h-[30px] w-[30px]"
-            src="../../figma/Icon.svg"
-            alt=""
-          />
+          <img className="h-[30px] w-[30px]" src="/figma/Icon.svg" alt="" />
         </div>
         <p>All Products Are Shipping For Free</p>
       </div>
@@ -54,13 +48,12 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
             {priceFormat(
               cartItems.reduce((init, cartItem) => {
                 const total = init + cartItem.price * cartItem.quantity;
-                console.log(total);
                 return total;
               }, 0)
             )}
           </h3>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mb-4">
           <h2 className="font-bold">Shipping</h2>
           <h3 className="font-bold">Free</h3>
         </div>
@@ -69,7 +62,7 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
         <Link
           to="/checkout"
           onClick={handleProceed}
-          className="mt-4 px-4 py-4 text-white font-bold rounded-md bg-[#1D3557]"
+          className="mt- px-4 py-4 text-white font-bold rounded-md bg-[#1D3557]"
         >
           PROCEED TO CHECKOUT
         </Link>
