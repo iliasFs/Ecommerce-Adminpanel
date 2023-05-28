@@ -22,31 +22,20 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
     setCartOpen((prev) => !prev);
   };
 
-  // localStorage.removeItem("shopping-cart");
-  console.log(localStorage);
-  
   return (
-
     <div className="relative overflow-y-auto max-w-[450px] h-full flex flex-col px-4 py-2 z-50">
-
-
       <div className="absolute w-[90%]">
         <RiCloseLine size={26} onClick={handleCloseCart} />
       </div>
       <div className="flex flex-col gap-4 mt-[-6px] items-center py-4 border-b-[5px] border-[#1D3557]  ">
         <div>
-          <img
-            className="h-[30px] w-[30px]"
-            src="../../figma/Icon.svg"
-            alt=""
-          />
+          <img className="h-[30px] w-[30px]" src="/figma/Icon.svg" alt="" />
         </div>
         <p>All Products Are Shipping For Free</p>
       </div>
       <div className="pt-4 flex flex-col gap-5">
         {cartItems.map((cartItem) => (
           <CartItem key={cartItem.id} {...cartItem} />
-          
         ))}
       </div>
 
@@ -57,7 +46,6 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
             {priceFormat(
               cartItems.reduce((init, cartItem) => {
                 const total = init + cartItem.price * cartItem.quantity;
-                console.log(total);
                 return total;
               }, 0)
             )}
@@ -82,32 +70,3 @@ const ShoppingCart = ({ setCartOpen, setBurgerHidden }: ShoppingCartProps) => {
 };
 
 export default ShoppingCart;
-
-{
-  /* <div className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-md">
-          <img
-            src={"../../public/figma/women.png"}
-            alt="item-name"
-            className="w-16 h-16 rounded"
-          />
-          <div className="flex flex-col flex-grow">
-            <span className="font-bold">Item Name</span>
-            <span className="text-gray-500">Item Price</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <button
-              // onClick={decreaseItemQuantity}
-              className="px-2 py-1 text-sm text-gray-500 bg-gray-200 rounded"
-            >
-              -
-            </button>
-            <span className="text-sm">{0}</span>
-            <button
-              // onClick={increaseCartQuantity}
-              className="px-2 py-1 text-sm text-gray-500 bg-gray-200 rounded"
-            >
-              +
-            </button>
-          </div>
-        </div> */
-}

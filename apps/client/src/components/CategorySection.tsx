@@ -11,7 +11,7 @@ const CategorySection = () => {
           <div className="w-full h-full flex flex-col justify-center items-center gap-5">
             <img
               className="w-[360px] h-[292px] rounded-t-xl object-cover"
-              src="../../public/figma/women.png"
+              src="figma/women.png"
               alt=""
             />
           </div>
@@ -26,7 +26,7 @@ const CategorySection = () => {
           <div>
             <img
               className="w-[360px] h-[292px] rounded-t-xl object-cover"
-              src="../../public/figma/men.jpg"
+              src="/figma/men.jpg"
               alt=""
             />
           </div>
@@ -41,7 +41,7 @@ const CategorySection = () => {
           <div>
             <img
               className="w-[360px] h-[292px] rounded-t-xl object-cover"
-              src="../../public/figma/kid.jpg"
+              src="/figma/kid.jpg"
               alt=""
             />
           </div>

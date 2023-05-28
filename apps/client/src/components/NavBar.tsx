@@ -32,7 +32,7 @@ function NavBar() {
           </div>
         )}
         <Link to="/">
-          <img src="../../public/figma/Mark.svg" alt="logo" />
+          <img src="/figma/Mark.svg" alt="logo" />
         </Link>
         <div className="hidden lg:flex pl-14 gap-10 text-base text-[#6B7280]">
           <Link className="cursor-pointer" to={"/category/women"}>
@@ -53,11 +53,7 @@ function NavBar() {
           </button>
         </div>
         <button className="absolute right-5" onClick={handleCartClick}>
-          <img
-            className="h-[28px] w-[28px]"
-            src="../../public/figma/Icon.svg"
-            alt=""
-          />
+          <img className="h-[28px] w-[28px]" src="/figma/Icon.svg" alt="" />
         </button>
         <button className="lg:hidden">
           {burger ? <RiMenu3Line size={27} onClick={handleBurger} /> : null}

@@ -34,10 +34,7 @@ const AddBlog = () => {
     setDesc(value);
   };
 
-  useEffect(() => {
-    console.log(headInput);
-    console.log(desc);
-  }, [headInput, desc]);
+  useEffect(() => {}, [headInput, desc]);
 
   return (
     <div>

@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { FaFacebook, FaYoutube } from "react-icons/fa";
 import { GrInstagram } from "react-icons/gr";
@@ -8,11 +7,7 @@ const Footer = () => {
   return (
     <div className="max-w-[1350px] m-auto my-[4rem] section__padding flex flex-col items-start lg:flex-row  w-full gap-5">
       <div className="flex flex-col flex-[1] gap-10 text-gray-500 items-start lg:w-[80%]">
-        <img
-          className="w-[25px] h-[25px]"
-          src="../../public/figma/Mark.svg"
-          alt="logo"
-        />
+        <img className="w-[25px] h-[25px]" src="/figma/Mark.svg" alt="logo" />
 
         <p className="text-base text-left">
           Making the world a better place through <br /> constructing elegant

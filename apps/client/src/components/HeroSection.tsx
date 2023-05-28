@@ -19,14 +19,14 @@ const HeroSection = () => {
       <div className="hidden sm:flex absolute h-[70%] bg-gray-600 left-[80px] rounded-lg">
         <img
           className="w-full h-full object-cover rounded-lg"
-          src="figma/hero.png"
+          src="/figma/hero.png"
           alt=""
         />
       </div>
       <div className="secondary-picture absolute w-[80%] h-[220px] left-[42px] top-[660px] rounded-lg sm:hidden ">
         <img
           className="w-full h-full object-cover rounded-lg"
-          src="figma/hero.png"
+          src="../figma/hero.png"
           alt=""
         />
       </div>

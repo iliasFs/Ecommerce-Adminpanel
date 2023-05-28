@@ -142,11 +142,11 @@ body {
 .media-element:hover {
   transform: scale(1.1);
 }
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
-} */
+}
 .snaps-inline {
   scroll-snap-type: inline mandatory;
   scroll-padding-inline: 25px;
