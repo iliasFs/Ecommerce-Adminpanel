@@ -34,7 +34,7 @@
       line-height: 293.5px;
       letter-spacing: -30px;
       top: 230px;
-      left: 477px;
+      left: 467px;
       font-weight: 800;
     }
     .third-letters {
@@ -117,11 +117,11 @@
   }
 }
 @layer utilities {
-  @media (max-height: 569px) {
+  @media (max-height: 600px) {
     .secondary-picture {
       position: absolute;
       width: 80%;
-      height:50px;
+      height: 50px;
       height: 230px;
       left: 42px;
       top: 350px;
@@ -133,8 +133,23 @@
       position: absolute;
       top: 190px;
       left: 60px;
-      
-      
+    }
+    .main-letters-2 {
+      position: absolute;
+      line-height: 293.5px;
+      letter-spacing: -26px;
+      top: 200px;
+      left: 375px;
+      font-weight: 800;
+    }
+    .main-letters-1 {
+      position: absolute;
+      height: 294px;
+      line-height: 100px;
+      letter-spacing: -26px;
+      top: -50px;
+      left: 300px;
+      font-weight: 800;
     }
   }
 }
