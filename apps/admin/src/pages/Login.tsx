@@ -23,22 +23,21 @@ const Login = () => {
         const { token } = response.data;
 
         localStorage.setItem("token", token);
-        
+
         // authorization
 
-        const authUserResponse = await axios.get(`${BASE_URL}/users/me`,{
-          headers:{
-            Authorization: `Bearer ${token}`
-          }
-        })
-        if(authUserResponse.status===200){
-          const {id,email} = authUserResponse.data
-          localStorage.setItem("userEmail", email)
-          localStorage.setItem("loggedInUserId", id)
-          navigate('/admin')
-        }else{
-          console.log('Something went wrong')
-
+        const authUserResponse = await axios.get(`${BASE_URL}/users/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (authUserResponse.status === 200) {
+          const { id, email } = authUserResponse.data;
+          localStorage.setItem("userEmail", email);
+          localStorage.setItem("loggedInUserId", id);
+          navigate("/admin");
+        } else {
+          console.log("Something went wrong");
         }
       } else {
         setErrorMessage("Invalid Credentials");
@@ -50,7 +49,7 @@ const Login = () => {
 
   return (
     <div className="bg-gray-800 flex justify-center items-center h-screen">
-      <div className="bg-black p-20 m-2 shadow-md rounded-md">
+      <div className="bg-black w-[30%] p-20 m-2 shadow-md rounded-md">
         <h2 className="text-2xl text-white font-bold mb-4">Login</h2>
         {errorMessage && <p className="mb-4 text-red-500">{errorMessage}</p>}
         <form onSubmit={handleLoginForm}>

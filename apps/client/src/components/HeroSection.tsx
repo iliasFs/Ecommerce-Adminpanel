@@ -5,14 +5,14 @@ const HeroSection = () => {
   return (
     <div className="flex section__margin items-center w-full h-[calc(100vh-168px)] ">
       <div className="relative w-full bg-[#1D3557] h-[73%] overflow-hidden ">
-        <div className="hidden lg:flex main-letters-1 absolute h-[294px] leading-[293.5px] tracking-[-30px] top-[-64px] left-[490px] font-extrabold">
+        <div className="hidden lg:flex main-letters-1 absolute h-[294px] leading-[293.5px] tracking-[-26px] top-[-64px] left-[490px] font-extrabold">
           <motion.div {...slideAnimation("right", 0, 2)}>
             <h1 className="whitespace-nowrap text-[450px] border-text ">
               Tees to
             </h1>
           </motion.div>
         </div>
-        <div className="hidden lg:flex main-letters-2 absolute leading-[293.5px] tracking-[-30px] top-[275px] left-[578px] font-extrabold">
+        <div className="hidden lg:flex main-letters-2 absolute leading-[293.5px] tracking-[-26px] top-[285px] left-[568px] font-extrabold">
           <motion.div {...slideAnimation("right", 0, 2)}>
             <h1 className="text-[450px] border-text ">bliss</h1>
           </motion.div>

@@ -2,9 +2,10 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSnapshot } from "valtio";
 
+
 import state from "../store";
 
-import { reader } from "../config/helpers";
+import { downloadCanvasToImage, reader } from "../config/helpers";
 import { EditorTabs, FilterTabs, DecalTypes } from "../config/constants";
 import { fadeAnimation, slideAnimation } from "../config/motion";
 import {
@@ -14,6 +15,7 @@ import {
   FilePicker,
   Tab,
 } from "../components";
+import { download } from "../assets";
 
 const Customizer = () => {
   const snap = useSnapshot(state);
@@ -49,7 +51,6 @@ const Customizer = () => {
   const handleSubmit = async (type: keyof typeof DecalTypes) => {
     if (!prompt) return alert("Please enter a prompt");
     try {
-      
       setGeneratingImage(true);
 
       const response = await fetch("http://localhost:4000/api/v1/dalle", {
@@ -61,8 +62,6 @@ const Customizer = () => {
       });
 
       const data = await response.json();
-
-      
 
       handleDecals(type, `data:image/png;base64,${data.photo}`);
     } catch (error) {
@@ -98,6 +97,7 @@ const Customizer = () => {
       default:
         state.isFullTexture = true;
         state.isFullTexture = false;
+        break;
     }
     //after setting the state, activeFilterTab to update the UI
     setActiveFilterTab((prevState) => {
@@ -116,6 +116,23 @@ const Customizer = () => {
       });
     }
   };
+
+  const handleDownloadModel = () => {
+
+    const canvas = document.getElementById('canvas')as HTMLCanvasElement
+    if(canvas) {// Replace 'canvas' with the ID of your canvas element
+    const dataURL = canvas.toDataURL('image/png'); // Convert the canvas content to a data URL
+  
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'model.png'; // Set the desired file name and extension
+  
+    // Trigger the click event to download the model
+    link.click();
+    }
+  };
+  
+  
 
   return (
     <AnimatePresence>
@@ -166,6 +183,13 @@ const Customizer = () => {
                 handleClick={() => handleActiveFilterTab(tab.name)}
               />
             ))}
+             <button className='download-btn' onClick={downloadCanvasToImage}>
+              <img
+                src={download}
+                alt='download_image'
+                className='w-3/5 h-3/5 object-contain'
+              />
+            </button>
           </motion.div>
         </>
       )}
