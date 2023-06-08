@@ -2,24 +2,19 @@
 
 This is an official starter Turborepo.
 
-## Using this example
-
-Run the following command:
-
-```sh
-npx create-turbo@latest
-```
-
 ## What's inside?
 
-This Turborepo includes the following packages/apps:
+This turborepo uses Yarn as a package manager. It includes the following packages/apps:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `server`: Express.js app
+- `client`: Vite.js app
+- `admin`: Vite.js app
+- `3D`: Three.js app
+- `admin-ui`: a stub React component library shared by `admin` application. and cascading style sheets and
+- `client-ui`: a stub React component library shared by `client` application.
+- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-vite` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
@@ -37,8 +32,7 @@ This Turborepo has some additional tools already setup for you:
 To build all apps and packages, run the following command:
 
 ```
-cd my-turborepo
-pnpm build
+yarn
 ```
 
 ### Develop
@@ -46,8 +40,7 @@ pnpm build
 To develop all apps and packages, run the following command:
 
 ```
-cd my-turborepo
-pnpm dev
+yarn dev
 ```
 
 ### Remote Caching
